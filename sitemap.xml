@@ -2,15 +2,19 @@
 <urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
     <url>
         <loc>http://gonjay.github.io/blog/2013/08/21/hello/</loc>
-        <lastmod>2013-08-21T23:01:50+08:00</lastmod>
+        <lastmod>2013-08-21T23:30:29+08:00</lastmod>
     </url>
     <url>
         <loc>http://gonjay.github.io/blog/archives/</loc>
-        <lastmod>2013-08-21T23:01:50+08:00</lastmod>
+        <lastmod>2013-08-21T23:30:29+08:00</lastmod>
+    </url>
+    <url>
+        <loc>http://gonjay.github.io/blog/categories/</loc>
+        <lastmod>2013-08-21T23:30:29+08:00</lastmod>
     </url>
     <url>
         <loc>http://gonjay.github.io/</loc>
-        <lastmod>2013-08-21T23:01:50+08:00</lastmod>
+        <lastmod>2013-08-21T23:30:29+08:00</lastmod>
     </url>
     <url>
         <loc>http://gonjay.github.io/robots.txt</loc>
