@@ -7,7 +7,7 @@ categories:
 ---
 打开Rakefile，添加
 
-```
+``` ruby
 namespace :db do
  task :backup do
    system "mysqldump --opt --user=root raiderboard > backup.sql"

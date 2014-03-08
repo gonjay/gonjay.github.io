@@ -15,6 +15,7 @@ categories:
 
 从相册中选取一张照片：
 
+``` java
     private void readPictureFromAlbum() {
 
         Intent i = new Intent(Intent.ACTION_PICK,
@@ -57,13 +58,14 @@ categories:
             findMyFace();
         }
     }
-    
+```  
+
 在这个地方为了方便后面找到人脸，同时防止内存溢出，节约资源，需要对图像做一些压缩，用到了`options.inSampleSize`参数。但为了能比较好的显示图片，我们需要根据图片的实际大小来设置`options.inSampleSize`参数，这里用到了`options.inJustDecodeBounds = true`来获取一张空的Bitmap，因为用到的是Factory类，在decodeFile之后，optioins对象里面便会包含了这张照片的长和宽，我们拿着这个长和宽来设置`options.inSampleSize`
 
 #### 第二步
 
 进行人脸检测
-
+``` java
     private void findMyFace(){
 
         Bitmap bm = myBitMap.copy(Bitmap.Config.RGB_565, true);
@@ -100,11 +102,11 @@ categories:
             }
         }
     }
-    
+```  
 #### 显示到图片上
 
 这里我们自己继承了一个View来把矩形画到图片里面
-
+``` java
 	class FaceView extends View {
         private RectF rectF;
         private Bitmap bitmap;
@@ -128,3 +130,4 @@ categories:
 
         }
     }
+```
