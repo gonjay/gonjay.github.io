@@ -4,6 +4,7 @@ title: "Rosace API"
 date: 2014-03-07 00:04:23 +0800
 comments: true
 categories: 
+---
 # syntax
 ===
 
@@ -44,7 +45,7 @@ categories:
     4. <elem class="rosace" [rosace:]data-src="src.json">
 
 
-===
+
 # api
 ===
 
@@ -92,7 +93,7 @@ categories:
   		使用 YAML 需引用：[js-yaml](http://nodeca.github.io/js-yaml/)
 
 
-===
+
 # samples
 ===
 
@@ -100,7 +101,7 @@ categories:
 2-7: require
 
 inc-menu.html
--------------
+
 	<ul macro="ul(items)(tree.items)">
 	    <li repeat="item in items">
 	        {{ item.name }}
@@ -109,9 +110,9 @@ inc-menu.html
 	</ul>
 
 page.html
----------
+
 	<div class="rosace" data-src="tree.json" require.menu="inc-menu.html">
-	    !{{ menu({ tree: tree }) }}
+	    !{{ menu (tree : tree) }}
 	    !{{ menu.ul(tree.items) }}
 	</div>
 
