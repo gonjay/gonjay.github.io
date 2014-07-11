@@ -3,7 +3,7 @@ layout: post
 title: "Rails中app/assets的来历"
 date: 2014-02-22 00:46:31 +0800
 comments: true
-categories: 
+categories: ['Rails', 'Assets pipline', '前端']
 ---
 ## 引用更多
 

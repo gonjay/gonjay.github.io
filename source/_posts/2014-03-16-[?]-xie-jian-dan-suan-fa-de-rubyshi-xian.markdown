@@ -3,7 +3,7 @@ layout: post
 title: "一些简单算法的Ruby实现"
 date: 2014-03-16 10:32:51 +0800
 comments: true
-categories: 
+categories: ['Algorithm', 'Ruby']
 ---
 ## 插入排序
 直接插入排序

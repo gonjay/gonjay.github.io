@@ -3,7 +3,7 @@ layout: post
 title: "Mac下用Terminal玩mysql"
 date: 2014-02-23 19:28:08 +0800
 comments: true
-categories: 
+categories: ['Mac', 'MySQL']
 ---
 ### 安装
 
@@ -76,6 +76,10 @@ categories:
 * 更新表中数据
 
 	mysql>`update MYTABLE set sex=”f” where name=’hyq’;`
+
+* 新建一个名为houston的用户，拥有houston数据库下的权限
+
+	mysql>`grant create,select,insert,update,delete on houston.* to houston@localhost Identified by "";`
 
 ### 如何支持中文
 我不明白MySQL为何不默认utf-8，也许是等着被一众NoSql干掉吧

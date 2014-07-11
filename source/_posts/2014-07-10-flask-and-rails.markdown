@@ -1,9 +1,9 @@
 ---
 layout: post
 title: "Flask and Rails part 1"
-date: 2014-07-11 17:41:11 +0800
+date: 2014-07-10 17:41:11 +0800
 comments: true
-categories: 
+categories: ['Ruby', 'Rails', 'Python', 'Flask', 'SQLAchemy']
 ---
 
 I have written flask recently,with a little project that I can study python.

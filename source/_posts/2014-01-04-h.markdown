@@ -3,24 +3,30 @@ layout: post
 title: "Ruby-china 的 Android 客户端"
 date: 2014-01-04 23:23:09 +0800
 comments: true
-categories: 
+categories: ['Android', 'Ruby-China', 'Projects']
 ---
 ## 开源地址
   https://github.com/gonjay/rubychina4android
 
+## 下载
+
   [Google Play下载](https://play.google.com/store/apps/details?id=org.rubychina.app)
 
-  [预览版下载 1.0.4](https://github.com/gonjay/rubychina4android/blob/master/app/build/apk/app-debug-unaligned.apk?raw=true)
+  [开发版下载 1.0.5](https://github.com/gonjay/rubychina4android/blob/master/app/build/apk/app-debug-unaligned.apk?raw=true)
+  ![](https://raw.github.com/gonjay/rubychina4android/master/shots/unsigned-apk.png)
 
-  ![](http://rubychina.qiniudn.com/app.apk?qrcode)
+  [发布版下载 1.0.5](https://github.com/gonjay/rubychina4android/blob/master/app/build/apk/app-debug-unaligned.apk?raw=true)
+  ![](https://raw.github.com/gonjay/rubychina4android/master/shots/signed-apk.png)
 
 ## 特性：
 
+ * 整合Ruby-China的faye实现消息实时推送功能【新！！！】
  * 安卓原生的侧滑抽屉
  * 下拉刷新
  * 主页帖子列表下滑到头后自动获取新的内容
  * 浏览帖子详情并支持Markdown，左右侧滑分别展示帖子内容、回复列表、回复编辑（预览）
  * 登录、退出功能
+ * 注册
 
 ## 为什么要开发安卓版本
 
@@ -29,12 +35,15 @@ categories:
  * 探索HTML5与native的结合
  * 一套更快更好的与Rails结合的移动端开发技术
 
-### 预览
-![](http://rubychina.qiniudn.com/Screenshot_2014-02-12-12-33-06.png?imageView2/1/w/300/h/550)
-![](http://rubychina.qiniudn.com/media-20140204%20%281%29.png?imageView2/1/w/300/h/550)![](http://rubychina.qiniudn.com/device-2014-02-10-232412.png?imageView2/1/w/300/h/550)
-![](http://rubychina.qiniudn.com/media-20140204.png?imageView2/1/w/300/h/550) ![](http://rubychina.qiniudn.com/device-2014-02-07-135606.png?imageView2/1/w/300/h/550)
-![](http://rubychina.qiniudn.com/media-20140204%20%282%29.png?imageView2/1/w/300/h/550)![](http://rubychina.qiniudn.com/media-20140204%20%283%29.png?imageView2/1/w/300/h/550)
+## 预览
 
+![](http://rubychina.qiniudn.com/Screenshot_2014-02-12-12-33-06.png?imageView2/1/w/300/h/550)
+
+![](http://rubychina.qiniudn.com/media-20140204%20(1).png?imageView2/1/w/300/h/550) ![](http://rubychina.qiniudn.com/device-2014-02-10-232412.png?imageView2/1/w/300/h/550)
+
+![](http://rubychina.qiniudn.com/media-20140204.png?imageView2/1/w/300/h/550) ![](http://rubychina.qiniudn.com/device-2014-02-07-135606.png?imageView2/1/w/300/h/550)
+
+![](http://rubychina.qiniudn.com/media-20140204%20(2).png?imageView2/1/w/300/h/550) ![](http://rubychina.qiniudn.com/media-20140204%20(3).png?imageView2/1/w/300/h/550)
 
 ## Tips
 

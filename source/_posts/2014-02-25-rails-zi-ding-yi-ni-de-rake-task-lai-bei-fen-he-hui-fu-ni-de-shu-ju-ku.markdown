@@ -3,7 +3,7 @@ layout: post
 title: "Rails 自定义Rake task 来备份和恢复数据库"
 date: 2014-02-25 13:00:35 +0800
 comments: true
-categories: 
+categories: ['Rails', 'MySQL']
 ---
 打开Rakefile，添加
 

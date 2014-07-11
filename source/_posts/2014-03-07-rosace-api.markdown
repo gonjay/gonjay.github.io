@@ -3,7 +3,7 @@ layout: post
 title: "Rosace API"
 date: 2014-03-07 00:04:23 +0800
 comments: true
-categories: 
+categories: ['前端']
 ---
 # syntax
 ===

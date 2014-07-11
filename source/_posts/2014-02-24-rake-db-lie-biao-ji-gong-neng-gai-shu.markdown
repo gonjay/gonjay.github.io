@@ -3,7 +3,7 @@ layout: post
 title: "rake db 列表及功能概述"
 date: 2014-02-24 15:02:01 +0800
 comments: true
-categories: 
+categories: ['Rails', 'Rake']
 ---
 
 * db:create creates the database for the current env

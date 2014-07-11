@@ -3,7 +3,7 @@ layout: post
 title: "Start cocos2d with Lua"
 date: 2014-03-25 15:02:55 +0800
 comments: true
-categories: 
+categories: ['Cocos2d-x']
 ---
 ## quick-cocos2d-x
 

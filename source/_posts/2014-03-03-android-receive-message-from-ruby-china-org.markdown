@@ -3,7 +3,7 @@ layout: post
 title: "Android客户端接收来自Faye的消息推送"
 date: 2014-03-03 21:53:50 +0800
 comments: true
-categories: 
+categories: ['Android', 'Faye', 'WebSocket', 'Push Notification']
 ---
 ### 基本原理
 先看了railscasts的[260 Messaging with Faye](http://railscasts.com/episodes/260-messaging-with-faye)部分，了解Faye的基本原理。

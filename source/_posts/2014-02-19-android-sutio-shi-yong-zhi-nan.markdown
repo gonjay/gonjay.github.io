@@ -3,7 +3,7 @@ layout: post
 title: "Android Sutio 使用指南--像Gemfile一样使用gradle"
 date: 2014-02-19 00:04:26 +0800
 comments: true
-categories: 
+categories: ['Android', 'Studio', 'Useful Tips']
 ---
 
 
