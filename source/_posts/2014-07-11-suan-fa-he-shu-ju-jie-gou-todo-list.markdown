@@ -3,7 +3,7 @@ layout: post
 title: "算法和数据结构ToDo-List"
 date: 2014-07-11 11:47:24 +0800
 comments: true
-categories: 
+categories: Algorithm
 ---
 
 
