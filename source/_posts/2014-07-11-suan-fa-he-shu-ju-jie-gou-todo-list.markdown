@@ -6,6 +6,9 @@ comments: true
 categories: Algorithm
 ---
 
+一份学习的路径表，包含了各种数据结构和算法，还有许多可视化的内容，仅供参考。
+
+<!--more-->
 
 ## 基础
 
