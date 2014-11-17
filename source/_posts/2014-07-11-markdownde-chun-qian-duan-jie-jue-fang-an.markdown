@@ -35,7 +35,7 @@ http://jbt.github.io/markdown-editor/
 
 这里有一个 [传送门](http://gonjay.github.io/editor/)，是我测试用的在线Markdown在线编辑器，可以查看一下源代码，非常简单就能完成设置。
 
-[gist url="https://gist.github.com/gonjay/9a2d7b4e97f6e483c475”]
+{% gist 9a2d7b4e97f6e483c475 index.js %}
 
 步骤是：
 

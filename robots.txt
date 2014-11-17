@@ -1,4 +1,0 @@
-User-agent: *
-Disallow: 
-
-Sitemap: http://gonjay.github.io/sitemap.xml 

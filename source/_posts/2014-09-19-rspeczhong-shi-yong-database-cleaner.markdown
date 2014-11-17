@@ -3,7 +3,7 @@ layout: post
 title: "Rspec中使用database_cleaner"
 date: 2014-09-19 16:56:50 +0800
 comments: true
-categories: 
+categories: ['Rails', 'Ruby']
 ---
 这两天重新写Rspec测试，参考了 ruby-china 的测试用例和配置方法。
 

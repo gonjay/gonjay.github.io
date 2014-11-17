@@ -3,7 +3,7 @@ layout: post
 title: "Ruby 中的'小语法'"
 date: 2014-09-17 00:00:50 +0800
 comments: true
-categories: 
+categories: ['Ruby']
 ---
 生成1到10的数组
 ```ruby

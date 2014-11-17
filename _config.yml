@@ -3,10 +3,10 @@
 # ----------------------- #
 
 url: http://gonjay.github.io
-title: GonJay
-subtitle: 寻找人生的下一个兴奋点
-author: gonjay
-simple_search: http://google.com/search
+title: 博客
+subtitle: 群星，我的归宿
+author: GonJay
+simple_search: https://www.google.com/search
 description:
 
 # Default date format is "ordinal" (resulting in "July 22nd 2007")
@@ -19,7 +19,7 @@ date_format: "ordinal"
 subscribe_rss: /atom.xml
 subscribe_email:
 # RSS feeds can list your email address if you like
-email: assyer@gmail.com
+email:
 
 # ----------------------- #
 #    Jekyll & Plugins     #
@@ -39,12 +39,13 @@ rdiscount:
     - autolink
     - footnotes
     - smart
-pygments: false # default python pygments have been replaced by pygments.rb
+highlighter: pygments # default python pygments have been replaced by pygments.rb
 
 paginate: 10          # Posts per page on the blog index
-pagination_dir: blog  # Directory base for pagination URLs eg. /blog/page/2/
+paginate_path: "posts/:num"  # Directory base for pagination URLs eg. /posts/2/
 recent_posts: 5       # Posts in the sidebar Recent Posts section
 excerpt_link: "Read on &rarr;"  # "Continue reading" link text at the bottom of excerpted articles
+excerpt_separator: "<!--more-->"
 
 titlecase: true       # Converts page and post titles to titlecase
 
@@ -70,7 +71,7 @@ github_skip_forks: true
 
 # Twitter
 twitter_user:
-twitter_tweet_button: true
+twitter_tweet_button: false
 
 # Google +1
 google_plus_one: false
@@ -94,7 +95,7 @@ disqus_short_name:
 disqus_show_comment_count: false
 
 # Google Analytics
-google_analytics_tracking_id:
+google_analytics_tracking_id: "UA-40130853-2"
 
 # Facebook Like
 facebook_like: false

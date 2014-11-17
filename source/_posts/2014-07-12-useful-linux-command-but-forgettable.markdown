@@ -7,6 +7,6 @@ categories: ['Linux', 'Command']
 ---
 
 ### 列出占有端口的进程
-```shell
+```sh
 	lsof -wni tcp:3000
 ```
