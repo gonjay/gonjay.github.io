@@ -5,6 +5,10 @@ date: 2014-09-20 20:39:30 +0800
 comments: true
 categories: ['BinaryTree', '数据结构']
 ---
+
+![](/images/middle_order.jpg)
+<!--more-->
+
 ### 先序遍历
 根-左-右
 

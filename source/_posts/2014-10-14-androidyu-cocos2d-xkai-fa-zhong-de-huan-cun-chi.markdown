@@ -3,10 +3,12 @@ layout: post
 title: "Android与Cocos2d-x开发中的缓存池"
 date: 2014-10-14 22:27:53 +0800
 comments: true
-categories: 
+categories: ['Android', 'Cache']
 ---
 
 缓存就像写作业前，把相关的资料和工具摆到桌面上一样，这样会比真正要用到的时候再去取要方便。生活中这样的例子挺多的，在软件领域，实现缓存机制的地方笔者接触到了两个非常类似的，一个是Android开发中，使用ListView的Adapter，渲染每个item时用到的ViewHoder，另外一个是Cocos2d-x开发游戏时，缓存的怪物对象。
+
+<!--more-->
 
 ## Android
 
