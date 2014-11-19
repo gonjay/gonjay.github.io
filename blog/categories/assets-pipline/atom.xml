@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Assets Pipline | 博客]]></title>
+  <link href="http://gonjay.github.io/blog/categories/assets-pipline/atom.xml" rel="self"/>
+  <link href="http://gonjay.github.io/"/>
+  <updated>2014-11-18T23:04:08+08:00</updated>
+  <id>http://gonjay.github.io/</id>
+  <author>
+    <name><![CDATA[GonJay]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Rails中app/assets的来历]]></title>
+    <link href="http://gonjay.github.io/blog/2014/02/22/rails-zhong-app-slash-assets-de-lai-li/"/>
+    <updated>2014-02-22T00:46:31+08:00</updated>
+    <id>http://gonjay.github.io/blog/2014/02/22/rails-zhong-app-slash-assets-de-lai-li</id>
+    <content type="html"><![CDATA[<h2>引用更多</h2>
+
+<p>在过去的rails和传统应用中，所有的css和js文件全部都是静态的，写好了放在public，需要的时候就引用。</p>
+
+<p>但是，随着项目不断发展，这些文件会变得越来越多，在一个网站的首页你经常看见这样的壮观场景：</p>
+
+<pre><code>
+    &lt;link rel="stylesheet" type="text/css" href="libs/jquery-ui-1.10.3/themes/base/jquery-ui.css" /&gt;
+    &lt;link rel="stylesheet" type="text/css" href="libs/bootstrap-2.3.2/css/bootstrap.min.css" /&gt;
+    &lt;link rel="stylesheet" type="text/css" href="libs/fotorama-4.4.8/fotorama.css" /&gt;
+    &lt;link rel="stylesheet" type="text/css" href="libs/wp-pagenavi-2.50/pagenavi-css" /&gt;
+    &lt;link rel="stylesheet" type="text/css" href="libs/prettyPhoto/prettyPhoto.css" /&gt;
+    &lt;link rel="stylesheet" type="text/css" href="libs/anthology/styles/superfish.css" /&gt;
+    &lt;link rel="stylesheet" type="text/css" href="libs/anthology/plugins/fonts/fonts.css" /&gt;
+    &lt;link rel="stylesheet" type="text/css" href="styles/style.css" /&gt;
+    &lt;link rel="stylesheet" type="text/css" href="styles/model-jewellery.css" /&gt;
+    &lt;link rel="stylesheet" type="text/css" href="styles/model-diamond.css" /&gt;
+    &lt;script type="text/javascript" src="libs/jquery-1.9.1/jquery-1.9.1.min.js"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript" src="libs/jquery-ui-1.10.3/ui/jquery-ui.min.js"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript" src="libs/jquery-ui-touch-punch-0.2.2/jquery.ui.touch-punch.min.js"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript" src="libs/jQuery.jPlayer.2.5.0/jquery.jplayer.min.js"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript" src="libs/angular-1.2.6/angular.js"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript" src="libs/angular-1.2.6/angular-resource.min.js"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript" src="libs/angular-1.2.6/angular-route.min.js"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript" src="libs/angular-1.2.6/angular-cookies.min.js"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript" src="libs/angular-1.2.6/angular-sanitize.min.js"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript" src="libs/angular-1.2.6/angular-touch.min.js"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript" src="libs/angular-1.2.6/angular-animate.min.js"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript" src="libs/angular-ui-bootstrap-0.7.0/ui-bootstrap-tpls-0.7.0.min.js"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript" src="libs/fotorama-4.4.8/fotorama.js"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript" src="libsx/jquery-ui-slider-namearray.js"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript" src="libsx/touch-tricks.js"&gt;&lt;/script&gt;
+
+    &lt;link rel="stylesheet" type="text/css" href="styles/fix-anthlogy-style.css" /&gt;
+    &lt;link rel="stylesheet" type="text/css" href="styles/fix-4c-screen.css" /&gt;
+    &lt;link rel="stylesheet" type="text/css" href="styles/model-common.css" /&gt;
+
+    &lt;script src="scripts/mvc/model-common.js"&gt;&lt;/script&gt;
+    &lt;script src="scripts/mvc/model-filter.js"&gt;&lt;/script&gt;
+    &lt;script src="scripts/mvc/model-diamond.js"&gt;&lt;/script&gt;
+    &lt;script src="scripts/mvc/model-jewellery.js"&gt;&lt;/script&gt;
+    &lt;script src="scripts/mvc/model-4c.js"&gt;&lt;/script&gt;
+    &lt;script src="scripts/mvc/model-misc.js"&gt;&lt;/script&gt;
+    &lt;script src="scripts/mvc/model-wishcar.js"&gt;&lt;/script&gt;
+    &lt;script src="scripts/mvc/app-main.js"&gt;&lt;/script&gt;
+
+    &lt;script src="scripts/env.js"&gt;&lt;/script&gt;
+    &lt;script src="scripts/config.js"&gt;&lt;/script&gt;
+    &lt;script src="scripts/main.js"&gt;&lt;/script&gt;
+</code></pre>
+
+<h3>害怕了？😨</h3>
+
+<p>我也怕了，不仅是我们怕了，浏览器也怕了。浏览器为了照顾设备的感受，一般情况下是会限制同一时间的发送网络请求的次数的，所以这必然造成了网站的访问速度下降。So，玩Ruby的那群人做了些gem <code>Sprockets</code> <code>Jammit</code>来当做连接css和js并压缩它们的框架，后来发现确实好用，Rails3.2也就自带了。于是便有了统一管理这些css和js的资源目录，框架会自己去相应的目录里面寻找这些文件然后生产一份大文件，随后就有了Rails应用的标志HTML</p>
+
+<pre><code>&lt;link href="http://gonjay.github.io/assets/application-1e0b7b6177f955c71f083db518841bbf.css" media="all" rel="stylesheet" type="text/css" /&gt;
+&lt;script src="http://gonjay.github.io/assets/application-ef900b6062fe4b543f09c78ba9062141.js" type="text/javascript"&gt;&lt;/script&gt;
+</code></pre>
+
+<p>这样子，世界一下清净了很多呢，这便是<code>assets pipline</code>概念的由来。当然，我所在的那个项目因为是基于本地html做的，所以加载这么多次资源文件压力会很小，如果是在线的应用按照assets pipline的思路来是最好的选择。</p>
+]]></content>
+  </entry>
+  
+</feed>

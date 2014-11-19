@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Algorithm | 博客]]></title>
+  <link href="http://gonjay.github.io/blog/categories/algorithm/atom.xml" rel="self"/>
+  <link href="http://gonjay.github.io/"/>
+  <updated>2014-11-18T23:04:08+08:00</updated>
+  <id>http://gonjay.github.io/</id>
+  <author>
+    <name><![CDATA[GonJay]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[算法和数据结构ToDo-List]]></title>
+    <link href="http://gonjay.github.io/blog/2014/07/11/suan-fa-he-shu-ju-jie-gou-todo-list/"/>
+    <updated>2014-07-11T11:47:24+08:00</updated>
+    <id>http://gonjay.github.io/blog/2014/07/11/suan-fa-he-shu-ju-jie-gou-todo-list</id>
+    <content type="html"><![CDATA[<p>一份学习的路径表，包含了各种数据结构和算法，还有许多可视化的内容，仅供参考。</p>
+
+<!--more-->
+
+
+<h2>基础</h2>
+
+<ul>
+<li> <a href="http://www.cs.usfca.edu/~galles/visualization/StackArray.html">Stack栈: 数组实现</a></li>
+<li> <a href="http://www.cs.usfca.edu/~galles/visualization/StackLL.html">Stack栈: 链表实现</a></li>
+<li> <a href="http://www.cs.usfca.edu/~galles/visualization/QueueArray.html">Queues队列: 数组实现</a></li>
+<li> <a href="http://www.cs.usfca.edu/~galles/visualization/QueueLL.html">Queues队列: 链表实现</a></li>
+<li> Lists列表: 数组实现 ( <a href="http://www.cs.usfca.edu/~galles/visualization/java/visualization.html">java 版演示</a>)</li>
+<li> Lists列表: 链表实现 ( <a href="http://www.cs.usfca.edu/~galles/visualization/java/visualization.html">java 版演示</a>)</li>
+</ul>
+
+
+<h2>索引</h2>
+
+<ul>
+<li> Binary Search Trees 二叉检索树</li>
+<li> AVL Trees (平衡二叉检索树)</li>
+<li> Red-Black Trees 红黑树 ( flash 版本演示)</li>
+<li> Open Hash Tables 开放哈希表(Closed Addressing 链地址法)</li>
+<li> Closed Hash Tables  闭合哈希表 (Open Addressing 开放定址法)</li>
+<li> Closed Hash Tables, using buckets 使用桶</li>
+<li> B Trees B树</li>
+<li> B+ Trees B+树</li>
+</ul>
+
+
+<h2>排序</h2>
+
+<ul>
+<li> Comparison Sorting 比较式排序
+
+<ul>
+<li>Bubble Sort 冒泡排序</li>
+<li>Selection Sort 选择排序</li>
+<li>Insertion Sort 插入排序</li>
+<li>Shell Sort 希尔排序</li>
+<li>Merge Sort 归并排序</li>
+<li>Quck Sort 快速排序</li>
+</ul>
+</li>
+<li> Bucket Sort 桶排序</li>
+<li> Counting Sort 计数排序</li>
+<li> Radix Sort 基数排序</li>
+</ul>
+
+
+<h2>堆数据结构</h2>
+
+<ul>
+<li> Heaps 堆</li>
+<li> Binomial Queues 二项队列</li>
+</ul>
+
+
+<h2>图 算法</h2>
+
+<ul>
+<li> Breadth-First Search 广度优先搜索</li>
+<li> Depth-First Search 深度优先搜索</li>
+<li> Connected Components 连通性</li>
+<li> Dijkstra’s Shortest Path Dijkstra最短路径</li>
+<li> Prim’s Minimum Cost Spanning Tree 最小生成树</li>
+<li> Topological Sort  拓扑排序 ( flash 版本演示  java 版本演示)</li>
+<li> Floyd-Warshall 算法(解决任意两点间的最短路径的一种算法) (flash 版本演示 java 版本演示)</li>
+<li> 基于Kruskal算法的最小生成树的构建 ( flash 版本演示 java 版本演示)</li>
+</ul>
+
+
+<h2>动态编程</h2>
+
+<ul>
+<li> 计算 Fibonacci 数 ( java 版本演示)</li>
+</ul>
+
+
+<h2>其它…</h2>
+
+<ul>
+<li> Disjoint Sets （MIT算法公开课中有一课讨论的是这个，见网易公开课）</li>
+<li> Huffman Coding 哈夫曼编码 ( java 版本演示)</li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[一些简单算法的Ruby实现]]></title>
+    <link href="http://gonjay.github.io/blog/2014/03/16/%5B%3F%5D-xie-jian-dan-suan-fa-de-rubyshi-xian/"/>
+    <updated>2014-03-16T10:32:51+08:00</updated>
+    <id>http://gonjay.github.io/blog/2014/03/16/[?]-xie-jian-dan-suan-fa-de-rubyshi-xian</id>
+    <content type="html"><![CDATA[<h2>堆排序</h2>
+
+<p>原理：利用大根堆或小根堆思想，首先建立堆，然后将堆首与堆尾交换，堆尾之后为有序区。</p>
+
+<p>这里有一张原理图</p>
+
+<p><img src="http://upload.wikimedia.org/wikipedia/commons/4/4d/Heapsort-example.gif" alt="" /></p>
+
+<p>有这样一道笔试题</p>
+
+<pre><code>初始顺序为：1 8 6 2 5 4 7 3 一组数采用堆排序，当建堆（小根堆）完毕
+时，堆所对应的二叉树中序遍历顺序是什么。
+</code></pre>
+
+<p>上图给出的例子是建大根堆的情况，这个题目要求的是建小堆，但是原理类似：按照构建<code>满二叉树</code>的方法，将一个数组依次填入树中的相应位置，但是要保证根节点小于子节点，如果不小于子节点则将根节点与这个节点交换。</p>
+
+<h2>插入排序</h2>
+
+<p>直接插入排序</p>
+
+<p>原理：将数组分为无序和有序两个区，然后不断将无序区的第一个元素按大小顺序插入到有序区中，最终将所有无序区元素都移动到无序区完成排序。</p>
+
+<pre><code class="c">    void InsertSort(Node L[],int length)
+    {
+        int i,j;
+        for(i = 1; i &lt; length; i ++)
+        {
+            j = i + 1;
+            if(L[j] &lt; L[i])
+            {
+                L[0] = L[j];
+                //当L[0]小于有序区的最后一个元素的时候，最后一个元素扩大，再和有序区倒数第二个比较
+                while(L[0] &lt; L[i])
+                {
+                    L[i+1] = L[i];
+                    i --;
+                }
+                L[i+1] = L[0];
+            }
+            i = j - 1;
+        }       
+    }
+</code></pre>
+
+<pre><code class="ruby">def insert_sort(node)
+  i,j=0
+  for i in 0...(node.length - 1)
+    # puts i
+    j = i + 1
+    if node[j] &lt; node[i]
+      break if node[j].nil?
+      n = node[j]
+      while n &lt; node[i]
+        node[i+1] = node[i]
+        i -= 1
+      end
+      node[i+1] = n
+    end
+    i = j - 1
+  end
+  node
+end
+
+node = [7,2,13,4,5,1,1]
+
+puts insert_sort node
+</code></pre>
+
+<p>希尔算法</p>
+
+<p>原理：又称增量缩小排序。先将序列按增量划分为元素个数相同的若干组，使用直接插入排序法进行排序，然后不断缩小增量直至1，最后使用直接插入排序完成排序。</p>
+
+<pre><code class="c">void ShellSort(Node L[], int d)
+{
+  while(d &gt;= 1)
+  {
+    Shell(L,d);
+    d = d/2;
+  }
+}
+
+void Shell(Node L[], int d)
+{
+  int i,j;
+  for(i = d + 1 ; i &lt; length; i ++)
+  {
+    if(L[i] &lt; L[i-d])
+    {
+      L[0] = L[i];
+      j = i - d;
+      while(j &gt; 0 &amp;&amp; L[j] &gt; L[0])
+      {
+        L[j+d] = L[j];
+        j = j - d;
+      }
+      L[j+d] = L[0];
+    }
+  }
+}
+</code></pre>
+
+<pre><code class="ruby">def shell_sort(node, d)
+  while(d &gt; 0)
+    shell node, d
+    d = d / 2
+  end
+end
+
+def shell(node, d)
+  j = 0
+  i = i + d
+  for i in 1...(node.length - 1) do
+    if(node[i] &lt; node[i-d])
+      j = i - d
+      node[0] = node[i]
+      while(j &gt; 0 &amp;&amp; node[j] &gt; node[i])
+        node[j+d] = node[j]
+        j = j - d
+      end
+      node[j] = node[0]
+    end
+  end
+end
+</code></pre>
+
+<h3>交换排序</h3>
+
+<p>冒泡排序</p>
+
+<p>原理：将序列划分为无序和有序区，不断通过交换较大元素至无序区尾完成排序</p>
+
+<pre><code class="c">void bubble_sort(Node L[])
+{
+  int i, j;
+  Bool isChanged;
+  for(j = L.length; j &gt; 0; j --)
+  {
+    isChanged = false;
+    for(i=0; i &lt; j; i ++)
+    {
+      if(L[i] &gt; L[i+1])
+      {
+        int temp = L[i];
+        L[i] = L[i+1];
+        L[i+1] = temp;
+        isChanged = true;
+      }
+    }
+    if(!isChanged)break;
+  }
+}
+</code></pre>
+
+<h3>选择排序</h3>
+
+<p>直接选择排序</p>
+
+<p>原理：将序列分为无序和有序区，寻找无序区中最小值和无序区的首元素交换，有序区扩大一个，循环最终完成排序</p>
+
+<pre><code class="c">void SelectSort(Node L[])
+{
+  int i,j,k;
+  for(i=0;i&lt;L.length;i++)
+  {
+    k = i;
+    for(j=i+1;j&lt;L.length;j++)
+    {
+      if(L[j] &lt; L[k]) k = j;
+    }
+    if(k != i)
+    {
+      int temp = L[i];
+      L[i] = L[k];
+      L[k] = temp;
+    }
+  }
+}
+</code></pre>
+]]></content>
+  </entry>
+  
+</feed>

@@ -1,0 +1,2407 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[博客]]></title>
+  <link href="http://gonjay.github.io/atom.xml" rel="self"/>
+  <link href="http://gonjay.github.io/"/>
+  <updated>2014-11-18T23:04:08+08:00</updated>
+  <id>http://gonjay.github.io/</id>
+  <author>
+    <name><![CDATA[GonJay]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Android与Cocos2d-x开发中的缓存池]]></title>
+    <link href="http://gonjay.github.io/blog/2014/10/14/androidyu-cocos2d-xkai-fa-zhong-de-huan-cun-chi/"/>
+    <updated>2014-10-14T22:27:53+08:00</updated>
+    <id>http://gonjay.github.io/blog/2014/10/14/androidyu-cocos2d-xkai-fa-zhong-de-huan-cun-chi</id>
+    <content type="html"><![CDATA[<p>缓存就像写作业前，把相关的资料和工具摆到桌面上一样，这样会比真正要用到的时候再去取要方便。生活中这样的例子挺多的，在软件领域，实现缓存机制的地方笔者接触到了两个非常类似的，一个是Android开发中，使用ListView的Adapter，渲染每个item时用到的ViewHoder，另外一个是Cocos2d-x开发游戏时，缓存的怪物对象。</p>
+
+<!--more-->
+
+
+<h2>Android</h2>
+
+<p>Android中ListView渲染item时，需要在每个item里面创建view。当屏幕向上滚动的时候，新的item会从底部出现，此时需要创建新的view来显示新的数据，与此同时，屏幕顶部消失的item中的view会被回收掉，这样当然没有任何问题，可是如果涉及到大量item需要显示，<strong>在快速滚动屏幕的时候</strong>，就需要非常频繁的创建view对象并销毁不用的view对象，对内存的消耗非常大，而且何必呢？其实每个item的view都是类似的，不同的只是数据，我们并不需要对view做频繁的创建与销毁操作，只用将新的数据绑定到不再使用的view上面就可以，然后把穿上新衣服的view出现在用户的屏幕上。</p>
+
+<p>有点像电影的里面一人饰演多个角色，从屏幕上消失了一会儿，换了个造型又出来演。缓存池也是这么个意思。</p>
+
+<h2>Cocos2d-x</h2>
+
+<p>游戏开发中，有时候会有大量的怪物从屏幕上消失（死亡）或者出现（复活、刷新），当然不可能每个怪都是new出来的，很多时候只是设置了一下参数，就让怪物从屏幕上不可见（死亡）或者出现（刷新）。内存中真正存储的怪物对象可能就只有10个左右，但是给用户的感受就是会有源源不断的怪物在被杀死后再出现了。</p>
+
+<p>现在突然想想，杀死游戏中怪物的时候只是干掉了一些数值（生命值），刷新出来的怪物在内存里面都是同样一段地址呢。。。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Vimtutor 简体中文]]></title>
+    <link href="http://gonjay.github.io/blog/2014/10/12/vimtutor/"/>
+    <updated>2014-10-12T16:41:44+08:00</updated>
+    <id>http://gonjay.github.io/blog/2014/10/12/vimtutor</id>
+    <content type="html"><![CDATA[<h2>欢 迎 阅 读《VIM教程》── 版本 1.5</h2>
+
+<p>vim 是一个具有很多命令的功能非常强大的编辑器。限于篇幅，在本教程当中不就详细介绍了。本教程的设计目标是讲述一些必要的基本命令，而掌握好这些命令，您就能够很容易将vim当作一个通用的万能编辑器来使用了。</p>
+
+<p>完成本教程的内容大约需要25-30分鐘，取决于您训练的时间。</p>
+
+<p>（一张快捷键的图）
+<img src="http://gonjay.github.io/images/vim.png" alt="" /></p>
+
+<!--more-->
+
+
+<p>每一节的命令操作将会更改本文。推荐您复制本文的一个副本，然后在副本上进行训练(如果您是通过&#8221;vimtutor&#8221;来啟动教程的，那麼本文就已经是副本了)。</p>
+
+<p>切记一点︰本教程的设计思路是在使用中进行学习的。也就是说，您需要通过执行命令来学习它们本身的正确用法。如果您只是阅读而不操作，那麼您可能会很快遗忘这些命令的！</p>
+
+<p>好了，现在请确定您的Shift-Lock(大小写锁定键)还没有按下，然后按键盘上的字母键 j 足够多的次数来移动光标，直到第一节的内容能够完全充满屏幕。</p>
+
+<h3>第一讲第一节︰移动光标</h3>
+
+<p>   <strong> 要移动光标，请依照说明分别按下 h、j、k、l 键。 </strong></p>
+
+<pre><code>        ^
+        k        提示︰ h 的键位于左边，每次按下就会向左移动。
+   &lt; h     l &gt;         l 的键位于右边，每次按下就会向右移动。
+        j              j 键看起来很象一支尖端方向朝下的箭头。
+        v
+</code></pre>
+
+<ol>
+<li><p> 请随意在屏幕内移动光标，直至您觉得舒服為止。</p></li>
+<li><p> 按下下行键(j)，直到出现光标重复下行。</p>
+
+<pre><code>现在您应该已经学会如何移动到下一讲吧。
+</code></pre></li>
+<li><p> 现在请使用下行键，将光标移动到第二讲。</p></li>
+</ol>
+
+
+<p>提示︰如果您不敢确定您所按下的字母，请按下<ESC>键回到正常(Normal)模式。
+      然后再次从键盘输入您想要的命令。</p>
+
+<p>提示︰光标键应当也能正常工作的。但是使用hjkl键，在习惯之后您就能够快速
+      地在屏幕内四处移动光标了。</p>
+
+<h3>第一讲第二节︰VIM的进入和退出</h3>
+
+<p>  <strong>特别提示︰敬请阅读完整本一节的内容，然后才能执行以下所讲解的命令。</strong></p>
+
+<ol>
+<li><p> 请按<ESC>键(这是為了确保您处在正常模式)。</p></li>
+<li><p> 然后输入︰      :q! &lt;回车></p>
+
+<pre><code>这种方式的退出编辑器绝不会保存您进入编辑器以来所做的改动。
+如果您想保存更改再退出，请输入︰
+    :wq  &lt;回车&gt;
+</code></pre></li>
+<li><p> 如果您看到了命令行提示符，请输入能够带您回到本教程的命令，那就是︰</p>
+
+<p>vimtutor &lt;回车></p>
+
+<p> 通常情况下您也可以用这种方式︰</p>
+
+<p>vim tutor &lt;回车></p>
+
+<pre><code>这裡的 'vim' 表示进入vim编辑器，而 'tutor'则是您准备要编辑的文件。
+</code></pre></li>
+<li><p> 如果您自信已经牢牢记住了这些步骤的话，请从步骤1执行到步骤3退出，然
+ 后再次进入编辑器。接着将光标移动到第一讲第三节来继续我们的教程讲解。</p></li>
+</ol>
+
+
+<h3>第一讲第三节︰文本编辑之删除</h3>
+
+<p>   <strong> 在正常(Normal)模式下，可以按下 x 键来删除光标所在位置的字符。</strong></p>
+
+<ol>
+<li><p> 请将光标移动到本节中下面标记有 &mdash;> 的那一行。</p></li>
+<li><p> 為了修正输入错误，请将光标移至準备删除的字符的位置处。</p></li>
+<li><p> 然后按下 x 键将错误字符删除掉。</p></li>
+<li><p> 重复步骤2到步骤4，直到句子修正為止。</p>
+
+<pre><code>The ccow jumpedd ovverr thhe mooon.
+</code></pre></li>
+<li><p> 好了，该行已经修正了，下一节内容是第一讲第四节。</p></li>
+</ol>
+
+
+<p><strong>特别提示︰在您瀏览本教程时，不要强行记忆。记住一点︰在使用中学习。</strong></p>
+
+<h3>第一讲第四节︰文本编辑之插入</h3>
+
+<p>   <strong> 在正常模式下，可以按下 i 键来插入文本。</strong></p>
+
+<ol>
+<li><p> 请将光标移动到本节中下面标记有 &mdash;> 的第一行。</p></li>
+<li><p> 為了使得第一行内容雷同于第二行，请将光标移至文本第一个字符準备插入
+ 的位置。</p></li>
+<li><p> 然后按下 i 键，接着输入必要的文本字符。</p></li>
+<li><p> 所有文本都修正完毕，请按下 <ESC> 键返回正常模式。
+ 重复步骤2至步骤4以便修正句子。</p>
+
+<pre><code>There is text misng this .
+There is some text missing from this line.
+</code></pre></li>
+<li><p> 如果您对文本插入操作已经很满意，请接着阅读下面的小结。</p></li>
+</ol>
+
+
+<h3>第一讲小结</h3>
+
+<ol>
+<li><p> 光标在屏幕文本中的移动既可以用箭头键，也可以使用 hjkl 字母键。
+h (左移) j (下行)       k (上行)     l (右移)</p></li>
+<li><p> 欲进入vim编辑器(从命令行提示符)，请输入︰vim 文件名 &lt;回车></p></li>
+<li><p> 欲退出vim编辑器，请输入以下命令放弃所有修改︰</p>
+
+<pre><code>&lt;ESC&gt;   :q!  &lt;回车&gt;
+</code></pre>
+
+<p>或者输入以下命令保存所有修改︰</p>
+
+<pre><code>&lt;ESC&gt;   :wq  &lt;回车&gt;
+</code></pre></li>
+<li><p> 在正常模式下删除光标所在位置的字符，请按︰ x</p></li>
+<li><p> 在正常模式下要在光标所在位置开始插入文本，请按︰</p>
+
+<pre><code>i     输入必要文本 &lt;ESC&gt;
+</code></pre></li>
+</ol>
+
+
+<p>特别提示︰按下 <ESC> 键会带您回到正常模式或者取消一个不期望或者部分完成
+的命令。</p>
+
+<p>好了，第一讲到此结束。下面接下来继续第二讲的内容。</p>
+
+<h3>第二讲第一节︰删除类命令</h3>
+
+<pre><code>  ** 输入 dw 可以从光标处删除至一个单字/单词的末尾。**
+</code></pre>
+
+<ol>
+<li><p> 请按下 <ESC> 键确保您处于正常模式。</p></li>
+<li><p> 请将光标移动到本节中下面标记有 &mdash;> 的那一行。</p></li>
+<li><p> 请将光标移至準备要删除的单词的开始。</p></li>
+<li><p> 接着输入 dw 删除掉该单词。</p>
+
+<p>特别提示︰您所输入的 dw 会在您输入的同时出现在屏幕的最后一行。如果您输
+入有误，请按下 <ESC> 键取消，然后重新再来。</p>
+
+<pre><code>There are a some words fun that don't belong paper in this sentence.
+</code></pre></li>
+<li><p> 重复步骤3至步骤4，直至句子修正完毕。接着继续第二讲第二节内容。</p></li>
+</ol>
+
+
+<h3>第二讲第二节︰其他删除类命令</h3>
+
+<pre><code>   ** 输入 d$ 从当前光标删除到行末。**
+</code></pre>
+
+<ol>
+<li><p> 请按下 <ESC> 键确保您处于正常模式。</p></li>
+<li><p> 请将光标移动到本节中下面标记有 &mdash;> 的那一行。</p></li>
+<li><p> 请将光标移动到该行的尾部(也就是在第一个点号‘.’后面)。</p></li>
+<li><p> 然后输入 d$ 从光标处删至当前行尾部。</p>
+
+<pre><code>Somebody typed the end of this line twice. end of this line twice.
+</code></pre></li>
+<li><p> 请继续学习第二讲第三节就知道是怎麼回事了。</p></li>
+</ol>
+
+
+<h3>第二讲第三节︰关于命令和对象</h3>
+
+<p>  删除命令 d 的格式如下︰</p>
+
+<pre><code>    [number]   d object      或者     d   [number]   object
+</code></pre>
+
+<p>  其意如下︰</p>
+
+<pre><code>number - 代表执行命令的次数(可选项，缺省设置為 1 )。
+d - 代表删除。
+object - 代表命令所要操作的对象(下面有相关介绍)。
+</code></pre>
+
+<p>  一个简短的对象列表︰</p>
+
+<pre><code>w - 从当前光标当前位置直到单字/单词末尾，包括空格。
+e - 从当前光标当前位置直到单字/单词末尾，但是 *不* 包括空格。
+$ - 从当前光标当前位置直到当前行末。
+</code></pre>
+
+<p>特别提示︰</p>
+
+<pre><code>对于勇于探索者，请在正常模式下面仅按代表相应对象的键而不使用命令，则
+将看到光标的移动正如上面的对象列表所代表的一样。
+</code></pre>
+
+<h3>第二讲第四节︰对象命令的特殊情况</h3>
+
+<pre><code>     ** 输入 dd 可以删除整一个当前行。 **
+</code></pre>
+
+<p>  鉴于整行删除的高频度，VIM 的设计者决定要简化整行删除，仅需要在同一行上
+  击打两次 d 就可以删除掉光标所在的整行了。</p>
+
+<ol>
+<li> 请将光标移动到本节中下面的短句段落中的第二行。</li>
+<li> 输入 dd 删除该行。</li>
+<li> 然后移动到第四行。</li>
+<li><p> 接着输入 2dd (还记得前面讲过的 number-command-object 吗？) 删除两行。</p>
+
+<ol>
+<li>  Roses are red,</li>
+<li>  Mud is fun,</li>
+<li>  Violets are blue,</li>
+<li>  I have a car,</li>
+<li>  Clocks tell time,</li>
+<li>  Sugar is sweet</li>
+<li>  And so are you.</li>
+</ol>
+</li>
+</ol>
+
+
+<h3>第二讲第五节︰撤消类命令</h3>
+
+<p>   <strong> 输入 u 来撤消最后执行的命令，输入 U 来修正整行。</strong></p>
+
+<ol>
+<li> 请将光标移动到本节中下面标记有 &mdash;> 的那一行，并将其置于第一个错误
+ 处。</li>
+<li> 输入 x 删除第一个不想保留的字母。</li>
+<li> 然后输入 u 撤消最后执行的(一次)命令。</li>
+<li> 这次要使用 x 修正本行的所有错误。</li>
+<li> 现在输入一个大写的 U ，恢复到该行的原始状态。</li>
+<li> 接着多次输入 u 以撤消 U 以及更前的命令。</li>
+<li><p> 然后多次输入 CTRL-R (先按下 CTRL 键不放开，接着输入 R 键) ，这样就
+ 可以执行恢复命令，也就是撤消掉撤消命令。</p>
+
+<pre><code>Fiix the errors oon thhis line and reeplace them witth undo.
+</code></pre></li>
+<li><p> 这些都是非常有用的命令。下面是第二讲的小结了。</p></li>
+</ol>
+
+
+<h3>第二讲小结</h3>
+
+<ol>
+<li><p> 欲从当前光标删除至单字/单词末尾，请输入︰dw</p></li>
+<li><p> 欲从当前光标删除至当前行末尾，请输入︰d$</p></li>
+<li><p> 欲删除整行，请输入︰dd</p></li>
+<li><p> 在正常模式下一个命令的格式是︰</p>
+
+<pre><code>[number]   command   object     或者     command [number]   object
+</code></pre>
+
+<p> 其意是︰</p>
+
+<pre><code>number - 代表的是命令执行的次数
+command - 代表要做的事情，比如 d 代表删除
+object - 代表要操作的对象，比如 w 代表单字/单词，$ 代表到行末等等。       
+</code></pre>
+
+<p>$ (to the end of line), etc.</p></li>
+<li><p> 欲撤消以前的操作，请输入︰u (小写的u)</p>
+
+<p> 欲撤消在一行中所做的改动，请输入︰U (大写的U)</p>
+
+<p> 欲撤消以前的撤消命令，恢复以前的操作结果，请输入︰CTRL-R</p></li>
+</ol>
+
+
+<h3>第三讲第一节︰置入类命令</h3>
+
+<pre><code>     ** 输入 p 将最后一次删除的内容置入光标之后 **
+</code></pre>
+
+<ol>
+<li><p> 请将光标移动到本节中下面示范段落的首行。</p></li>
+<li><p> 输入 dd 将该行删除，这样会将该行保存到vim的缓冲区中。</p></li>
+<li><p> 接着将光标移动到準备置入的位置的上方。记住︰是上方哦。</p></li>
+<li><p> 然后在正常模式下(<ESC>键进入)，输入 p 将该行粘贴置入。</p></li>
+<li><p> 重复步骤2至步骤4，将所有的行依序放置到正确的位置上。</p>
+
+<pre><code>d) Can you learn too?
+b) Violets are blue,
+c) Intelligence is learned,
+a) Roses are red,
+</code></pre></li>
+</ol>
+
+
+<h3>第三讲第二节︰替换类命令</h3>
+
+<pre><code>** 输入 r 和一个字符替换光标所在位置的字符。**
+</code></pre>
+
+<ol>
+<li><p> 请将光标移动到本节中下面标记有 &mdash;> 的第一行。</p></li>
+<li><p> 请移动光标到第一个错误的适当位置。</p></li>
+<li><p> 接着输入 r ，这样就能将错误替换掉了。</p></li>
+<li><p> 重复步骤2和步骤3，直到第一行已经修改完毕。</p>
+
+<pre><code>Whan this lime was tuoed in, someone presswd some wrojg keys!
+When this line was typed in, someone pressed some wrong keys!
+</code></pre></li>
+<li><p> 然后我们继续学校第三讲第三节。</p></li>
+</ol>
+
+
+<p>特别提示︰切记您要在使用中学习，而不是在记忆中学习。</p>
+
+<h3>第三讲第三节︰更改类命令</h3>
+
+<pre><code> ** 要改变一个单字/单词的部分或者全部，请输入 cw **
+</code></pre>
+
+<ol>
+<li><p> 请将光标移动到本节中下面标记有 &mdash;> 的第一行。</p></li>
+<li><p> 接着把光标放在单词 lubw 的字母 u 的位置那裡。</p></li>
+<li><p> 然后输入 cw 就可以修正该单词了(在本例这裡是输入 ine 。)</p></li>
+<li><p> 最后按 <ESC> 键，然后光标定位到下一个错误第一个準备更改的字母处。</p></li>
+<li><p> 重复步骤3和步骤4，直到第一个句子完全雷同第二个句子。</p>
+
+<pre><code>This lubw has a few wptfd that mrrf changing usf the change command.
+This line has a few words that need changing using the change command.
+</code></pre></li>
+</ol>
+
+
+<p>提示︰请注意 cw 命令不仅仅是替换了一个单词，也让您进入文本插入状态了。</p>
+
+<h3>第三讲第四节︰使用c指令的其他更改类命令</h3>
+
+<pre><code>   ** 更改类指令可以使用同删除类命令所使用的对象参数。**
+</code></pre>
+
+<ol>
+<li><p> 更改类指令的工作方式跟删除类命令是一致的。操作格式是︰</p>
+
+<p>   [number]   c   object     或者     c [number]   object</p></li>
+<li><p> 对象参数也是一样的，比如 w 代表单字/单词，$代表行末等等。</p></li>
+<li><p> 请将光标移动到本节中下面标记有 &mdash;> 的第一行。</p></li>
+<li><p> 接着将光标移动到第一个错误处。</p></li>
+<li><p> 然后输入 c$ 使得该行剩下的部分更正得同第二行一样。最后按 <ESC> 键。</p>
+
+<pre><code>The end of this line needs some help to make it like the second.
+The end of this line needs to be corrected using the  c$  command.
+</code></pre></li>
+</ol>
+
+
+<h3>第三讲小结</h3>
+
+<ol>
+<li><p> 要重新置入已经删除的文本内容，请输入小写字母 p。该操作可以将已删除
+ 的文本内容置于光标之后。如果最后一次删除的是一个整行，那麼该行将置
+ 于当前光标所在行的下一行。</p></li>
+<li><p> 要替换光标所在位置的字符，请输入小写的 r 和要替换掉原位置字符的新字
+ 符即可。</p></li>
+<li><p> 更改类命令允许您改变指定的对象，从当前光标所在位置直到对象的末尾。
+ 比如输入 cw 可以替换当前光标到单词的末尾的内容；输入 c$ 可以替换当
+ 前光标到行末的内容。</p></li>
+<li><p> 更改类命令的格式是︰</p></li>
+</ol>
+
+
+<p>   [number]   c object        或者  c   [number]   object</p>
+
+<p>下面我们继续学习下一讲。</p>
+
+<h3>第四讲第一节︰定位及文件状态</h3>
+
+<p>  <strong> 输入 CTRL-g 显示当前编辑文件中当前光标所在行位置以及文件状态信息。
+     输入 SHIFT-G 则直接跳转到文件中的某一指定行。</strong></p>
+
+<p>  提示︰切记要先通读本节内容，之后才可以执行以下步骤!!!</p>
+
+<ol>
+<li><p> 按下 CTRL 键不放开然后按 g 键。然后就会看到页面最底部出现一个状态信
+ 息行，显示的内容是当前编辑的文件名和文件的总行数。请记住步骤3的行号。</p></li>
+<li><p> 按下 SHIFT-G 键可以使得当前光标直接跳转到文件最后一行。</p></li>
+<li><p> 输入您曾停留的行号，然后按下 SHIFT-G。这样就可以返回到您第一次按下
+ CTRL-g 时所在的行好了。注意︰输入行号时，行号是不会在屏幕上显示出来
+ 的。</p></li>
+<li><p> 如果愿意，您可以继续执行步骤1至步骤三。</p></li>
+</ol>
+
+
+<h3>第四讲第二节︰搜索类命令</h3>
+
+<pre><code> ** 输入 / 以及尾随的字符串可以用以在当前文件中查找该字符串。**
+</code></pre>
+
+<ol>
+<li><p> 在正常模式下输入 / 字符。您此时会注意到该字符和光标都会出现在屏幕底
+ 部，这跟 : 命令是一样的。</p></li>
+<li><p> 接着输入 errroor &lt;回车>。那个errroor就是您要查找的字符串。</p></li>
+<li><p> 要查找同上一次的字符串，只需要按 n 键。要向相反方向查找同上一次的字
+ 符串，请输入 Shift-N 即可。</p></li>
+<li><p> 如果您想逆向查找字符串，请使用 ? 代替 / 进行。</p>
+
+<pre><code>When the search reaches the end of the file it will continue at the start.
+"errroor" is not the way to spell error;  errroor is an error.
+</code></pre></li>
+</ol>
+
+
+<p>  提示︰如果查找已经到达文件末尾，查找会自动从文件头部继续查找。</p>
+
+<h3>第四讲第三节︰配对括号的查找</h3>
+
+<p><strong> 按 % 可以查找配对的括号 )、]、}。</strong></p>
+
+<ol>
+<li><p> 把光标放在本节下面标记有 &ndash;> 那一行中的任何一个 (、[ 或 { 处。</p></li>
+<li><p> 接着按 % 字符。</p></li>
+<li><p> 此时光标的位置应当是在配对的括号处。</p></li>
+<li><p> 再次按 % 就可以跳回配对的第一个括号处。</p>
+
+<pre><code>This ( is a test line with ('s, ['s ] and {'s } in it. ))
+</code></pre></li>
+</ol>
+
+
+<p>提示︰在程序调试时，这个功能用来查找不配对的括号是很有用的。</p>
+
+<h3>第四讲第四节︰修正错误的方法之一</h3>
+
+<pre><code>** 输入 :s/old/new/g 可以替换 old 為 new。**
+</code></pre>
+
+<ol>
+<li><p> 请将光标移动到本节中下面标记有 &mdash;> 的那一行。</p></li>
+<li><p> 输入 :s/thee/the &lt;回车> 。请注意该命令只改变光标所在行的第一个匹配
+ 串。</p></li>
+<li><p> 输入 :s/thee/the/g 则是替换全行的匹配串。</p></li>
+</ol>
+
+
+<p>&mdash;> the best time to see thee flowers is in thee spring.</p>
+
+<ol>
+<li> 要替换两行之间出现的每个匹配串，请输入 :#,#s/old/new/g (#,#代表的是
+ 两行的行号)。输入 :%s/old/new/g 则是替换整个文件中的每个匹配串。</li>
+</ol>
+
+
+<h3>第四讲小结</h3>
+
+<ol>
+<li><p> Ctrl-g 用于显示当前光标所在位置和文件状态信息。Shift-G 用于将光标跳
+ 转至文件最后一行。先敲入一个行号然后按 Shift-G 则是将光标移动至该行
+ 号代表的行。</p></li>
+<li><p> 输入 / 然后紧随一个字符串是则是在当前所编辑的文档中向后查找该字符串。
+ 输入问号 ? 然后紧随一个字符串是则是在当前所编辑的文档中向前查找该字
+ 符串。完成一次查找之后按 n 键则是重复上一次的命令，可在同一方向上查
+ 找下一个字符串所在；或者按 Shift-N 向相反方向查找下该字符串所在。</p></li>
+<li><p> 如果光标当前位置是括号(、)、[、]、{、}，按 % 可以将光标移动到配对的
+ 括号上。</p></li>
+<li><p> 在一行内替换头一个字符串 old 為新的字符串 new，请输入  :s/old/new
+ 在一行内替换所有的字符串 old 為新的字符串 new，请输入  :s/old/new/g
+ 在两行内替换所有的字符串 old 為新的字符串 new，请输入  :#,#s/old/new/g
+ 在文件内替换所有的字符串 old 為新的字符串 new，请输入  :%s/old/new/g
+ 进行全文替换时询问用户确认每个替换需添加 c 选项，请输入 :%s/old/new/gc</p></li>
+</ol>
+
+
+<h3>第五讲第一节︰在 VIM 内执行外部命令的方法</h3>
+
+<pre><code> ** 输入 :! 然后紧随着输入一个外部命令可以执行该外部命令。**
+</code></pre>
+
+<ol>
+<li><p> 按下我们所熟悉的 : 命令设置光标到屏幕底部。这样就可以让您输入命令了。</p></li>
+<li><p> 接着输入感嘆号 ! 这个字符，这样就允许您执行外部的 shell 命令了。</p></li>
+<li><p> 我们以 ls 命令為例。输入 !ls &lt;回车> 。该命令就会列举出您当前目录的
+ 内容，就如同您在命令行提示符下输入 ls 命令的结果一样。如果 !ls 没起
+ 作用，您可以试试 :!dir 看看。</p>
+
+<pre><code>提示︰ 所有的外部命令都可以以这种方式执行。
+
+提示︰ 所有的 : 命令都必须以 &lt;回车&gt; 告终。
+</code></pre></li>
+</ol>
+
+
+<h3>第五讲第二节︰关于保存文件的更多信息</h3>
+
+<pre><code>   ** 要将对文件的改动保存到文件中，请输入 :w FILENAME **
+</code></pre>
+
+<ol>
+<li><p> 输入 :!dir 或者 :!ls 获知当前目录的内容。您应当已知道最后还得敲
+ &lt;回车> 吧。</p></li>
+<li><p> 选择一个尚未存在文件名，比如 TEST 。</p></li>
+<li><p> 接着输入 :w TEST  (此处 TEST 是您所选择的文件名。)</p></li>
+<li><p> 该命令会以 TEST 為文件名保存整个文件 (VIM 教程)。為了确保正确保存，
+ 请再次输入 :!dir 查看您的目录列表内容。</p>
+
+<pre><code>请注意︰如果您退出 VIM 然后在以文件名 TEST 為参数进入，那麼该文件内
+容应该同您保存时的文件内容是完全一样的。
+</code></pre></li>
+<li><p> 现在您可以通过输入 :!rm TEST 来删除 TEST 文件了。</p></li>
+</ol>
+
+
+<h3>第五讲第三节︰一个具有选择性的保存命令</h3>
+
+<pre><code>** 要保存文件的部分内容，请输入 :#,# w FILENAME **
+</code></pre>
+
+<ol>
+<li><p> 再来执行一次 :!dir 或者 :!ls 获知当前目录的内容，然后选择一个合适的
+ 不重名的文件名，比如 TEST 。</p></li>
+<li><p> 接着将光标移动至本页的最顶端，然后按 CTRL-g 找到该行的行号。别忘了
+ 行号哦。</p></li>
+<li><p> 接着把光标移动至本页的最底端，再按一次 CTRL-g 。也别忘了这个行好哦。</p></li>
+<li><p> 為了只保存文章的某个部分，请输入 :#,# w TEST 。这裡的 #,# 就是上面
+ 要求您记住的行号(顶端行号,底端行号)，而 TEST 就是选定的文件名。</p></li>
+<li><p> 最后，用 :!dir 确认文件是否正确保存。但是这次先别删除掉。</p></li>
+</ol>
+
+
+<h3>第五讲第四节︰提取和合并文件</h3>
+
+<pre><code>   ** 要向当前文件中插入另外的文件的内容，请输入 :r FILENAME **
+</code></pre>
+
+<ol>
+<li><p> 请键入 :!dir 确认您前面创建的 TEST 文件还在。</p></li>
+<li><p> 然后将光标移动至当前页面的顶端。</p></li>
+</ol>
+
+
+<p>特别提示︰ 执行步骤3之后您将看到第五讲第三节，请届时再往下移动回到这裡来。</p>
+
+<ol>
+<li> 接着通过 :r TEST 将前面创建的名為 TEST 的文件提取进来。</li>
+</ol>
+
+
+<p>特别提示︰您所提取进来的文件将从光标所在位置处开始置入。</p>
+
+<ol>
+<li> 為了确认文件已经提取成功，移动光标回到原来的位置就可以注意有两份第
+ 五讲第三节，一份是原本，另外一份是来自文件的副本。</li>
+</ol>
+
+
+<h3>第五讲小结</h3>
+
+<ol>
+<li><p> :!command 用于执行一个外部命令 command。</p>
+
+<p> 请看一些实际例子︰
+:!dir    -  用于显示当前目录的内容。
+:!rm FILENAME  -  用于删除名為 FILENAME 的文件。</p></li>
+<li><p> :w FILENAME  可将当前 VIM 中正在编辑的文件保存到名為 FILENAME
+ 的文件中。</p></li>
+<li><p> :#,#w FILENAME 可将当前编辑文件第 # 行至第 # 行的内容保存到文件
+ FILENAME 中。</p></li>
+<li><p> :r FILENAME 可提取磁盘文件 FILENAME 并将其插入到当前文件的光标位置
+ 后面。</p></li>
+</ol>
+
+
+<h3>第六讲第一节︰打开类命令</h3>
+
+<p><strong> 输入 o 将在光标的下方打开新的一行并进入插入模式。</strong></p>
+
+<ol>
+<li><p> 请将光标移动到本节中下面标记有 &mdash;> 的那一行。</p></li>
+<li><p> 接着输入小写的 o 在光标 <em>下方</em> 打开新的一行并进入插入模式。</p></li>
+<li><p> 然后复制标记有 &mdash;> 的行并按 <ESC> 键退出插入模式而进入正常模式。</p>
+
+<pre><code>After typing  o  the cursor is placed on the open line in Insert mode.
+</code></pre></li>
+<li><p> 為了在光标 <em>上方</em> 打开新的一行，只需要输入大写的 O 而不是小写的 o
+ 就可以了。请在下行测试一下吧。当光标处在在该行上时，按 Shift-O可以
+ 在该行上方新开一行。</p>
+
+<pre><code>Open up a line above this by typing Shift-O while the cursor is on this line.
+</code></pre></li>
+</ol>
+
+
+<h3>第六讲第二节︰光标后插入类命令</h3>
+
+<p><strong> 输入 a 将可在光标之后插入文本。 </strong></p>
+
+<ol>
+<li><p> 请在正常模式下通过输入 $ 将光标移动到本节中下面标记有 &mdash;> 的第一行
+ 的末尾。</p></li>
+<li><p> 接着输入小写的 a 则可在光标之后插入文本了。大写的 A 则可以直接在行
+ 末插入文本。</p></li>
+</ol>
+
+
+<p>提示︰输入大写 A 的操作方法可以在行末插入文本，避免了输入 i，光标定位到
+      最后一个字符，输入的文本，<ESC> 回复正常模式，箭头右键移动光标以及
+      x 删除当前光标所在位置字符等等诸多繁杂的操作。</p>
+
+<ol>
+<li><p> 操作之后第一行就可以补充完整了。请注意光标后插入文本与插入模式是基
+ 本完全一致的，只是文本插入的位置定位稍有不同罢了。</p>
+
+<pre><code>This line will allow you to practice
+This line will allow you to practice appending text to the end of a line.
+</code></pre></li>
+</ol>
+
+
+<h3>第六讲第三节︰另外一个置换类命令的版本</h3>
+
+<p><strong> 输入大写的 R 可连续替换多个字符。</strong></p>
+
+<ol>
+<li><p> 请将光标移动到本节中下面标记有 &mdash;> 的第一行。</p></li>
+<li><p> 移动光标到第一行中不同于标有 &mdash;> 的第二行的第一个单词的开始，即单
+ 词 last 处。</p></li>
+<li><p> 然后输入大写的 R 开始把第一行中的不同于第二行的剩余字符逐一输入，就
+ 可以全部替换掉原有的字符而使得第一行完全雷同第二行了。</p>
+
+<pre><code>To make the first line the same as the last on this page use the keys.
+To make the first line the same as the second, type R and the new text.
+</code></pre></li>
+<li><p> 请注意︰如果您按 <ESC> 退出置换模式回复正常模式，尚未替换的文本将仍
+ 然保持原状。</p></li>
+</ol>
+
+
+<h3>第六讲第四节︰设置类命令的选项</h3>
+
+<p><strong> 设置可使查找或者替换可忽略大小写的选项 </strong></p>
+
+<ol>
+<li><p> 要查找单词 ignore 可在正常模式下输入 /ignore 。要重复查找该词，可以
+ 重复按 n 键。</p></li>
+<li><p> 然后设置 ic 选项(ic就是英文忽略大小写Ignore Case的首字母缩写词)，即
+ 输入︰
+:set ic</p></li>
+<li><p> 现在可以通过键入 n 键再次查找单词 ignore。重复查找可以重复键入 n 键。</p></li>
+<li><p> 然后设置 hlsearch 和 incsearch 这两个选项，输入以下内容︰
+ :set hls is</p></li>
+<li><p> 现在可以再次输入查找命令，看看会有什麼效果︰
+ /ignore</p></li>
+</ol>
+
+
+<h3>第六讲小结</h3>
+
+<ol>
+<li><p> 输入小写的 o 可以在光标下方打开新的一行并将光标置于新开的行首，进入
+ 插入模式。
+ 输入大写的 O 可以在光标上方打开新的一行并将光标置于新开的行首，进入
+ 插入模式。</p></li>
+<li><p> 输入小写的 a 可以在光标所在位置之后插入文本。
+ 输入大写的 A 可以在光标所在行的行末之后插入文本。</p></li>
+<li><p> 输入大写的 R 将进入替换模式，直至按 <ESC> 键退出替换模式而进入正常
+ 模式。</p></li>
+<li><p> 输入 :set xxx 可以设置 xxx 选项。</p></li>
+</ol>
+
+
+<h3>第七讲︰在线帮助命令</h3>
+
+<p><strong> 使用在线帮助系统 </strong></p>
+
+<p>  Vim 拥有一个细致全面的在线帮助系统。要啟动该帮助系统，请选择如下三种方
+  法之一︰</p>
+
+<ul>
+<li>按下 <HELP> 键 (如果键盘上有的话)</li>
+<li>按下 <F1> 键 (如果键盘上有的话)</li>
+<li>输入  :help &lt;回车></li>
+</ul>
+
+
+<p>  输入 :q &lt;回车> 可以关闭帮助窗口。</p>
+
+<p>  提供一个正确的参数给&#8221;:help&#8221;命令，您可以找到关于该主题的帮助。请试验以
+  下参数(可别忘了按回车键哦。:)︰</p>
+
+<pre><code>:help w &lt;回车&gt;
+:help c_&lt;T &lt;回车&gt;
+:help insert-index &lt;回车&gt;
+:help user-manual &lt;回车&gt;
+</code></pre>
+
+<h3>第八讲︰创建一个啟动脚本</h3>
+
+<p><strong> 啟用vim的功能 </strong></p>
+
+<p>  Vim的功能特性要比vi多得多，但大部分功能都没有缺省激活。為了啟动更多的
+  功能，您得创建一个vimrc文件。</p>
+
+<ol>
+<li><p> 开始编辑vimrc文件，这取决于您所使用的操作系统︰</p>
+
+<p> :edit ~/.vimrc   这是Unix系统所使用的命令
+ :edit $VIM/_vimrc    这是Windows系统所使用的命令</p></li>
+<li><p> 接着导入vimrc范例文件︰</p>
+
+<p> :read $VIMRUNTIME/vimrc_example.vim</p></li>
+<li><p> 保存文件，命令為︰</p>
+
+<p> :write</p></li>
+</ol>
+
+
+<p>  在下次您啟动vim的时候，编辑器就会有了语法高亮的功能。您可以继续把您喜
+  欢的其它功能设置添加到这个vimrc文件中。</p>
+
+<h1>完结</h1>
+
+<p>  vim 教程到此结束。本教程只是為了简明地介绍一下vim编辑器，但已足以让您
+  很容易学会使用本编辑器了。毋庸质疑，vim还有很多很多的命令，本教程所介
+  绍的还差得远着呢。所以您要精通的话，还望继续努力哦。下一步您可以阅读
+  vim手册，使用的命令是︰
+  :help user-manual</p>
+
+<p>  為了更进一步的参考和学习，以下这本书值得推荐︰</p>
+
+<p>  Vim - Vi Improved - 作者︰Steve Oualline
+  出版社︰New Riders</p>
+
+<p>  这是第一本完全讲解vim的书籍。对于初学者特别有用。其中还包含有大量实例
+  和图示。欲知详情，请访问 <a href="http://iccf-holland.org/click5.html">http://iccf-holland.org/click5.html</a></p>
+
+<p>  以下这本书比较老了而且内容主要是vi而不是vim，但是也值得推荐︰</p>
+
+<p>  Learning the Vi Editor - 作者︰Linda Lamb
+  出版社︰O&#8217;Reilly &amp; Associates Inc.</p>
+
+<p>  这是一本不错的书，通过它您几乎能够了解到全部vi能够做到的事情。此书的第
+  六个版本也包含了一些关于vim的信息。</p>
+
+<p>  本教程是由来自Calorado School of Minese的Michael C. Pierce、Robert K.
+  Ware 所编写的，其中来自Colorado State University的Charles Smith提供了
+  很多创意。编者通信地址是︰</p>
+
+<pre><code>bware@mines.colorado.edu
+</code></pre>
+
+<p>  本教程已由Bram Moolenaar专為vim进行修订。</p>
+
+<p>  译制者附言︰</p>
+
+<pre><code>  简体中文教程翻译版之译制者為梁昌泰 &lt;beos@turbolinux.com.cn&gt;，还有
+  另外一个联系地址︰linuxrat@gnuchina.org。
+
+  繁体中文教程是从简体中文教程翻译版使用 Debian GNU/Linux 中文项目小
+  组的于广辉先生编写的中文汉字转码器  autoconvert 转换而成的，并对转
+  换的结果做了一些细节的改动。
+</code></pre>
+
+<p>  变更记录︰</p>
+
+<pre><code>  2002年08月30日 梁昌泰 &lt;beos@turbolinux.com.cn&gt;
+  感谢 RMS@SMTH 的指正，将多处错误修正。
+
+  2002年04月22日 梁昌泰 &lt;linuxrat@gnuchina.org&gt;
+  感谢 xuandong@sh163.net 的指正，将两处错别字修正。
+
+  2002年03月18日 梁昌泰 &lt;linuxrat@gnuchina.org&gt;
+  根据Bram Molenaar先生在2002年03月16日的来信要求，将vimtutor1.4中译
+  版升级到vimtutor1.5。
+
+  2001年11月15日 梁昌泰 &lt;linuxrat@gnuchina.org&gt;
+  将vimtutor1.4中译版提交给Bram Molenaar和Sven Guckes。
+</code></pre>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[二叉树的遍历]]></title>
+    <link href="http://gonjay.github.io/blog/2014/09/20/er-cha-shu-de-bian-li/"/>
+    <updated>2014-09-20T20:39:30+08:00</updated>
+    <id>http://gonjay.github.io/blog/2014/09/20/er-cha-shu-de-bian-li</id>
+    <content type="html"><![CDATA[<p><img src="http://gonjay.github.io/images/middle_order.jpg" alt="" /></p>
+
+<!--more-->
+
+
+<h3>先序遍历</h3>
+
+<p>根-左-右</p>
+
+<h3>中序遍历</h3>
+
+<p>左-根-右</p>
+
+<h3>后序遍历</h3>
+
+<p>左-右-根</p>
+
+<p>关于二叉树的遍历，核心的知识点主要是一个二叉树的数据机构以及三个名词各自的含义，还有就是递归的概念。</p>
+
+<p>腾讯有一道笔试题目是这样的：</p>
+
+<pre><code>已知一棵二叉树，如果先序遍历的顺序是：ADCEFGHB，中序遍历是：CDFEGHAB
+
+问后序遍历是什么。
+</code></pre>
+
+<p>在三种遍历遍历方法中，中序遍历有一个相对独特的特性，在计算的过程中可以使用投影法</p>
+
+<p><img src="http://gonjay.github.io/images/middle_order.jpg" alt="" /></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Rspec中使用database_cleaner]]></title>
+    <link href="http://gonjay.github.io/blog/2014/09/19/rspeczhong-shi-yong-database-cleaner/"/>
+    <updated>2014-09-19T16:56:50+08:00</updated>
+    <id>http://gonjay.github.io/blog/2014/09/19/rspeczhong-shi-yong-database-cleaner</id>
+    <content type="html"><![CDATA[<p>这两天重新写Rspec测试，参考了 ruby-china 的测试用例和配置方法。</p>
+
+<p>在使用Rspec的过程中因为有使用 FactoryGirl ，发现在一些用例中使用user的时候会发生</p>
+
+<pre><code>Validation failed: Email has already been taken (ActiveRecord::RecordInvalid)
+</code></pre>
+
+<p>因为在生成user的时候没有使用单例模式，所有每次向 FactoryGirl 要 user 的时候都会重新生成新的数据，所以就和之前发生冲突了。</p>
+
+<p>参考 ruby-china 的测试代码，发现是使用了 database_cleaner 使得每个测试用例之后清扫了测试数据库，就不会引发冲突了。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'>  <span class="n">config</span><span class="o">.</span><span class="n">before</span><span class="p">(</span><span class="ss">:each</span><span class="p">)</span> <span class="k">do</span>
+</span><span class='line'>    <span class="no">DatabaseCleaner</span><span class="o">.</span><span class="n">orm</span> <span class="o">=</span> <span class="ss">:mongoid</span>
+</span><span class='line'>    <span class="no">DatabaseCleaner</span><span class="o">.</span><span class="n">strategy</span> <span class="o">=</span> <span class="ss">:truncation</span>
+</span><span class='line'>    <span class="no">DatabaseCleaner</span><span class="o">.</span><span class="n">clean</span>
+</span><span class='line'>    <span class="no">Rails</span><span class="o">.</span><span class="n">cache</span><span class="o">.</span><span class="n">clear</span>
+</span><span class='line'>  <span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>但是当我把 database_cleaner 配置好并加到我项目 rspec 中的时候，却遇到了</p>
+
+<pre><code>/gems/database_cleaner-0.8.0/lib/database_cleaner/active_record/truncation.rb:62:in `&lt;module:ConnectionAdapters&gt;': superclass mismatch for class SQLite3Adapter (TypeError)
+</code></pre>
+
+<p>网上搜索一堆无效之后，转而使用另外一个解决方案</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'>  <span class="n">config</span><span class="o">.</span><span class="n">after</span><span class="p">(</span><span class="ss">:each</span><span class="p">)</span> <span class="k">do</span>
+</span><span class='line'>    <span class="ss">ActiveRecord</span><span class="p">:</span><span class="ss">:Base</span><span class="o">.</span><span class="n">subclasses</span><span class="o">.</span><span class="n">each</span><span class="p">(</span><span class="o">&amp;</span><span class="ss">:delete_all</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>也就是在跑完每个测试用例之后，删除掉数据库中所有的 Model 数据</p>
+
+<p>由于这样一段代码，接下来我遇到了一个更加头疼的问题。因为我使用 Devise 的 <code>sign_in user</code> 在每个测试用例中来模拟登陆后的用户，结果发现，前后两个测试用例，总是出现第一个用例能通过，第二个用例死活通过不了。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">TeamsController</span> <span class="o">&lt;</span> <span class="no">ApplicationController</span>
+</span><span class='line'>  <span class="n">before_action</span> <span class="ss">:authenticate_user!</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1"># 第一个 examples 能通过，第二个 examples 无法通过</span>
+</span><span class='line'><span class="n">describe</span> <span class="no">TeamsController</span><span class="p">,</span> <span class="ss">:type</span> <span class="o">=&gt;</span> <span class="ss">:controller</span> <span class="k">do</span>
+</span><span class='line'>  <span class="n">user</span> <span class="o">=</span> <span class="no">FactoryGirl</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="ss">:user</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">describe</span> <span class="s2">&quot;:index&quot;</span> <span class="k">do</span>
+</span><span class='line'>    <span class="n">it</span> <span class="s2">&quot;should show list of teams&quot;</span> <span class="k">do</span>
+</span><span class='line'>      <span class="n">sign_in</span> <span class="n">user</span>
+</span><span class='line'>      <span class="n">get</span> <span class="ss">:index</span>
+</span><span class='line'>      <span class="n">expect</span><span class="p">(</span><span class="n">response</span><span class="p">)</span><span class="o">.</span><span class="n">to</span> <span class="n">be_success</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">describe</span> <span class="s2">&quot;:new&quot;</span> <span class="k">do</span>
+</span><span class='line'>    <span class="n">it</span> <span class="s2">&quot;should allow access from authenticated user&quot;</span> <span class="k">do</span>
+</span><span class='line'>      <span class="n">sign_in</span> <span class="n">user</span>
+</span><span class='line'>      <span class="n">get</span> <span class="ss">:new</span>
+</span><span class='line'>      <span class="n">expect</span><span class="p">(</span><span class="n">response</span><span class="p">)</span><span class="o">.</span><span class="n">to</span> <span class="n">be_success</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>将第二个 examples 的 response.body 打印出来，发现</p>
+
+<pre><code>&lt;html&gt;&lt;body&gt;You are being &lt;a href="http://test.host/users/sign_in"&gt;redirected&lt;/a&gt;.&lt;/body&gt;&lt;/html&gt;
+</code></pre>
+
+<p>无解，然后分别打印两个用例的 controller.current_user，发现后一个是 nil</p>
+
+<p>最终我将 database_cleaner 升级到了 1.3.0 重新bundle了一下，解决了 <code>superclass mismatch for class SQLite3Adapter</code> 的问题，移除了那段删除所有 Model 数据的 trick 代码所有的问题全部解决了。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Ruby 中的'小语法']]></title>
+    <link href="http://gonjay.github.io/blog/2014/09/17/ruby-zhong-de-xiao-yu-fa/"/>
+    <updated>2014-09-17T00:00:50+08:00</updated>
+    <id>http://gonjay.github.io/blog/2014/09/17/ruby-zhong-de-xiao-yu-fa</id>
+    <content type="html"><![CDATA[<p>生成1到10的数组</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">array</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="o">.</span><span class="n">.</span><span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">to_a</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>通过数组的each，直接调用对象的方法</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="ss">ActiveRecord</span><span class="p">:</span><span class="ss">:Base</span><span class="o">.</span><span class="n">subclasses</span><span class="o">.</span><span class="n">each</span><span class="p">(</span><span class="o">&amp;</span><span class="ss">:delete_all</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[记事]]></title>
+    <link href="http://gonjay.github.io/blog/2014/09/08/ji-shi/"/>
+    <updated>2014-09-08T12:39:10+08:00</updated>
+    <id>http://gonjay.github.io/blog/2014/09/08/ji-shi</id>
+    <content type="html"><![CDATA[<h3>开学了</h3>
+
+<p>终于结束了4个月的 <code>网易游戏平台开发工程师</code> 的实习，本来一直要写总结的，一直等到了今天。期间要说收获，就是让自己又多了一大堆杂七杂八的项目经验，好在这些项目都是实实在在上线的而且每天都会有人使用的项目，每每想起，心中略微有些得意，比其他实习生要更有成就感一些。</p>
+
+<!--more-->
+
+
+<p>在有了一些项目经验后，回头发现很多基础课程变得特别有意义，在上《计算机网络》课程的时候，开始和其他同学关注起不一样的东西起来，他们比较关心题目和考试，而我却更多的从实用和工程的角度来看待这些问题。</p>
+
+<p>比如，在《计算机网络》上老师问加载一个有着三张图片的网页，在 HTTP/1.0 和 HTTP/1.1 协议下，分别需要建立多少次TCP连接，同学们答 1.0 下是 4 次（html文档一次，三张图片各三次），1.1 下是 1 次（1.1支持持续连接），老师非常满意，但是我却指出问题中并没有给出这三张图片存放的位置，有可能被缓存到本地了，也有可能存在 CDN 服务器上，那么 TCP 的连接次数就不一定了。老师只好修改了题目。</p>
+
+<p>之前一直玩Android、Rails、Node.js还有各种开源社区的最新技术，更多因为不想去啃数据结构、算法、UNIX环境编程还有TCP/IP这些非常枯燥的基础，但是有了真实的项目经验之后，这些东西又变得生动了许多，尤其是又接触了 CS50 这门课程。</p>
+
+<p>不愧是世界上最牛逼的学校，David Malan 非常得风趣，通过撕电话本来讲解二分查找，通过分析冒泡和插入排序的效率来让学生对更高效率的算法产生渴望，由此引出的归并算法，让我一下就理解了分治法的基本要领，并在随后的 LeetCode 刷题中发挥了作用。</p>
+
+<h3>我的计划</h3>
+
+<p>考驾照，刷 LeetCode，补各种计算机基础，制作 Lua 游戏，学习 Sketch 尝试自己做一些设计，把天梯打到 3000 分 :)</p>
+
+<p>嗯，顺便混下毕业证。</p>
+
+<h3>技术之外的感想</h3>
+
+<p>回学校后越发感受到周围同学的迷茫，考研的因为今年政策的变化风险高了很多，找工作的也大多是一些不要求很高技能水平的，这些幸苦从农村读书到大城市的同学，四年将近的今天依然对外面世界和未来道路知之甚少。</p>
+
+<p>大学最后一个暑假结束后的暑期社会实践答辩中，很难看见什么亮眼的，大部分不知道去做什么的用考研搪塞过去，其他社会实践的也很一般般，当然，做了什么并不重要，遗憾的是同学们依然鲜有知道自己未来做什么的。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Useful Linux Command but Forgettable]]></title>
+    <link href="http://gonjay.github.io/blog/2014/07/12/useful-linux-command-but-forgettable/"/>
+    <updated>2014-07-12T13:56:27+08:00</updated>
+    <id>http://gonjay.github.io/blog/2014/07/12/useful-linux-command-but-forgettable</id>
+    <content type="html"><![CDATA[<p>一些比较冷门但是很有用的命令，不定期更新。</p>
+
+<!--more-->
+
+
+<h3>列出占有端口的进程</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>lsof -wni tcp:3000
+</span></code></pre></td></tr></table></div></figure>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[算法和数据结构ToDo-List]]></title>
+    <link href="http://gonjay.github.io/blog/2014/07/11/suan-fa-he-shu-ju-jie-gou-todo-list/"/>
+    <updated>2014-07-11T11:47:24+08:00</updated>
+    <id>http://gonjay.github.io/blog/2014/07/11/suan-fa-he-shu-ju-jie-gou-todo-list</id>
+    <content type="html"><![CDATA[<p>一份学习的路径表，包含了各种数据结构和算法，还有许多可视化的内容，仅供参考。</p>
+
+<!--more-->
+
+
+<h2>基础</h2>
+
+<ul>
+<li> <a href="http://www.cs.usfca.edu/~galles/visualization/StackArray.html">Stack栈: 数组实现</a></li>
+<li> <a href="http://www.cs.usfca.edu/~galles/visualization/StackLL.html">Stack栈: 链表实现</a></li>
+<li> <a href="http://www.cs.usfca.edu/~galles/visualization/QueueArray.html">Queues队列: 数组实现</a></li>
+<li> <a href="http://www.cs.usfca.edu/~galles/visualization/QueueLL.html">Queues队列: 链表实现</a></li>
+<li> Lists列表: 数组实现 ( <a href="http://www.cs.usfca.edu/~galles/visualization/java/visualization.html">java 版演示</a>)</li>
+<li> Lists列表: 链表实现 ( <a href="http://www.cs.usfca.edu/~galles/visualization/java/visualization.html">java 版演示</a>)</li>
+</ul>
+
+
+<h2>索引</h2>
+
+<ul>
+<li> Binary Search Trees 二叉检索树</li>
+<li> AVL Trees (平衡二叉检索树)</li>
+<li> Red-Black Trees 红黑树 ( flash 版本演示)</li>
+<li> Open Hash Tables 开放哈希表(Closed Addressing 链地址法)</li>
+<li> Closed Hash Tables  闭合哈希表 (Open Addressing 开放定址法)</li>
+<li> Closed Hash Tables, using buckets 使用桶</li>
+<li> B Trees B树</li>
+<li> B+ Trees B+树</li>
+</ul>
+
+
+<h2>排序</h2>
+
+<ul>
+<li> Comparison Sorting 比较式排序
+
+<ul>
+<li>Bubble Sort 冒泡排序</li>
+<li>Selection Sort 选择排序</li>
+<li>Insertion Sort 插入排序</li>
+<li>Shell Sort 希尔排序</li>
+<li>Merge Sort 归并排序</li>
+<li>Quck Sort 快速排序</li>
+</ul>
+</li>
+<li> Bucket Sort 桶排序</li>
+<li> Counting Sort 计数排序</li>
+<li> Radix Sort 基数排序</li>
+</ul>
+
+
+<h2>堆数据结构</h2>
+
+<ul>
+<li> Heaps 堆</li>
+<li> Binomial Queues 二项队列</li>
+</ul>
+
+
+<h2>图 算法</h2>
+
+<ul>
+<li> Breadth-First Search 广度优先搜索</li>
+<li> Depth-First Search 深度优先搜索</li>
+<li> Connected Components 连通性</li>
+<li> Dijkstra’s Shortest Path Dijkstra最短路径</li>
+<li> Prim’s Minimum Cost Spanning Tree 最小生成树</li>
+<li> Topological Sort  拓扑排序 ( flash 版本演示  java 版本演示)</li>
+<li> Floyd-Warshall 算法(解决任意两点间的最短路径的一种算法) (flash 版本演示 java 版本演示)</li>
+<li> 基于Kruskal算法的最小生成树的构建 ( flash 版本演示 java 版本演示)</li>
+</ul>
+
+
+<h2>动态编程</h2>
+
+<ul>
+<li> 计算 Fibonacci 数 ( java 版本演示)</li>
+</ul>
+
+
+<h2>其它…</h2>
+
+<ul>
+<li> Disjoint Sets （MIT算法公开课中有一课讨论的是这个，见网易公开课）</li>
+<li> Huffman Coding 哈夫曼编码 ( java 版本演示)</li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Android Studio 开发中的Tips]]></title>
+    <link href="http://gonjay.github.io/blog/2014/07/11/android-studio-kai-fa-zhong-de-tips/"/>
+    <updated>2014-07-11T11:42:59+08:00</updated>
+    <id>http://gonjay.github.io/blog/2014/07/11/android-studio-kai-fa-zhong-de-tips</id>
+    <content type="html"><![CDATA[<p>入门Android时使用的一直是Eclipse，后来就转用Android Studio了，最近因为需要返回使用Eclipse，突然发现在编译打包一个apk的时候，Eclipse居然比Android Studio要快上不少！！</p>
+
+<p>Android Studio build 速度太慢，这个太不科学了，google一下发现了以下解决方案：</p>
+
+<h4>使用最新的Android gradle plugin</h4>
+
+<pre><code>build.gradle
+
+    buildscript {
+           dependencies {
+                      classpath 'com.android.tools.build:gradle:0.9.+'       
+                  }    
+              }
+</code></pre>
+
+<h4>使用最新的Gradle</h4>
+
+<p>gradle-wrapper.properties
+distributionUrl=http://services.gradle.org/distributions/gradle-1.8-all.zip</p>
+
+<h4>使用gradle deamon 后台任务，使用gradle parallel并行任务</h4>
+
+<pre><code>gradle.properties
+
+org.gradle.daemon=true    
+org.gradle.parallel=true
+</code></pre>
+
+<p>开启deamon后，CPU起来了，这样就对了嘛，用机器时间减少人等待的时间，提高生产效率</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Markdown的纯前端解决方案]]></title>
+    <link href="http://gonjay.github.io/blog/2014/07/11/markdownde-chun-qian-duan-jie-jue-fang-an/"/>
+    <updated>2014-07-11T11:28:33+08:00</updated>
+    <id>http://gonjay.github.io/blog/2014/07/11/markdownde-chun-qian-duan-jie-jue-fang-an</id>
+    <content type="html"><![CDATA[<h2>更新</h2>
+
+<p>这个解决方案应该是我目前遇到的最完美的方案了：</p>
+
+<p><a href="http://jbt.github.io/markdown-editor/">http://jbt.github.io/markdown-editor/</a></p>
+
+<h3>Stuff used to make this:</h3>
+
+<ul>
+<li><a href="https://github.com/chjj">marked</a> for Markdown parsing</li>
+<li><a href="http://codemirror.net/">CodeMirror</a> for the awesome syntax-highlighted editor</li>
+<li><a href="http://softwaremaniacs.org/soft/highlight/en/">highlight.js</a> for syntax highlighting in output code blocks</li>
+<li><a href="https://github.com/dankogai/js-deflate">js-deflate</a> for gzipping of data to make it fit in URLs</li>
+</ul>
+
+
+<!--more-->
+
+
+<h2>Old</h2>
+
+<p>前阵子在维护一个Node.js的项目，是用来做git仓库管理的，类似 <code>github</code> <code>gitlab</code> 之类的内部项目。</p>
+
+<p>整个项目的Markdown以及包括代码高亮等的操作，全部放在后端来渲染，因为人家Node.js本来就是<code>Javascript</code>嘛，所以各种js的库也是用得顺手。不像许多Node项目是由前端出身的人转做后端，这个项目给人的感觉就是一个纯后端做出来的东西，整个前端部分在我看来很多都可以剥离出来的。</p>
+
+<p>其实不仅仅像这种项目，许多web应用都是，它作为一个web app来使用的时候，不是什么事情都交给后端就好了，后端很强大能实现很多东西，但是后端毕竟不是万能的，该用前端优化的时候就应该应前端来做，典型的例子就是Markdown文本的渲染了。</p>
+
+<p>其实像我知道的github、ruby-china等，Markdown的渲染都是交由后端来实现的，不是特别理解这个事情，因为在github上面经常会因为网络不通常导致，一个markdown的文本预览不到，很是恼火，ruby-china因为是在国内，所以感觉不出来。</p>
+
+<p>而且放到后端渲染还有一个比较痛苦的问题就是升级和维护这个模块，用起来不觉得，一旦要升级下markdwon渲染引擎的版本可着实一件苦逼的事情。</p>
+
+<p>所有在有了showdown.js这样的神器之后，果断将整个项目的Markdwon放到到了前端，配合着highlight.js非常的容易就能实现Markdown文本的渲染，最关键的是，因为jQuery的便利性，这货和后端结合的时候完全是无缝的啊有木有。</p>
+
+<p>这里有一个 <a href="http://gonjay.github.io/editor/">传送门</a>，是我测试用的在线Markdown在线编辑器，可以查看一下源代码，非常简单就能完成设置。</p>
+
+<div><script src='https://gist.github.com/9a2d7b4e97f6e483c475.js?file=index.js'></script>
+<noscript><pre><code>var converter = new Showdown.converter({
+    &#39;github_flavouring&#39;: true,
+    &#39;tables&#39;: true
+});
+
+    // var md = isFromAndroid.getContentBody();
+
+    $(&#39;.btn&#39;).click(function(){
+        var html = converter.makeHtml($(&#39;#origin&#39;).val());
+        $(&#39;#display&#39;).html(html);
+        $(&#39;code&#39;).each(function(i, e) {hljs.highlightBlock(e)});
+    });</code></pre></noscript></div>
+
+
+<p>步骤是：</p>
+
+<ul>
+<li>showdown.js渲染出对应的html</li>
+<li>highlight.js渲染对应的语言的语法高亮</li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[几种GC的方式小结]]></title>
+    <link href="http://gonjay.github.io/blog/2014/07/11/ji-chong-gcde-fang-shi-xiao-jie/"/>
+    <updated>2014-07-11T11:26:54+08:00</updated>
+    <id>http://gonjay.github.io/blog/2014/07/11/ji-chong-gcde-fang-shi-xiao-jie</id>
+    <content type="html"><![CDATA[<h3>标记清除方式</h3>
+
+<p>从根开始将可能被引用的对象用递归的方式进行标记，没有被标记的就当垃圾回收掉。</p>
+
+<p><img src="http://ww2.sinaimg.cn/mw600/a22a83f5gw1ehhxoubcppj20an0jk75f.jpg" alt="" /></p>
+
+<h3>复制收集方式</h3>
+
+<p>因为标记清楚方式中有一个弊病就是在一次清除中，如果只有一小部分存活，消耗的时间会很多，所以复制收集方式应运而生。</p>
+
+<p><img src="http://ww2.sinaimg.cn/mw600/a22a83f5gw1ehhxorye36j20aj0jodgt.jpg" alt="" /></p>
+
+<h3>引用计数方式</h3>
+
+<p>熟悉Objective-C开发iOS或者一些C++的开发者可能非常熟悉。</p>
+
+<p>基本原理是，在每个对象中保存该对象的引用计数，当引用增加或者减少的时候对计数更新。</p>
+
+<p><img src="http://ww2.sinaimg.cn/mw600/a22a83f5gw1ehhxopz9awj20bz0czjs2.jpg" alt="" /></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Flask and Rails Part 1]]></title>
+    <link href="http://gonjay.github.io/blog/2014/07/10/flask-and-rails/"/>
+    <updated>2014-07-10T17:41:11+08:00</updated>
+    <id>http://gonjay.github.io/blog/2014/07/10/flask-and-rails</id>
+    <content type="html"><![CDATA[<p>I have written flask recently,with a little project that I can study python.</p>
+
+<p>I used to write Ruby on Rails, which is a very famous web framework and the most popular web framework all over the world.Rails is really really fast to develop most web products,MVC with RESTful design makes very thing easy. Based on meta-programming, the ActiveRecord makes data handles fly in the air.</p>
+
+<p>But flask is also an awesome web framework after a few days since I write my project.It’s more like sinatra,which is a light ruby web framework.</p>
+
+<h3>Request handle</h3>
+
+<p>With rails,you need to handle a request URL at <code>routes.rb</code></p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">get</span> <span class="err">‘</span><span class="n">blogs</span><span class="err">’</span> <span class="o">=&gt;</span> <span class="err">‘</span><span class="n">blogs</span><span class="c1">#index’</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This code will handle <code>/blogs</code> GET method  to a controller named <code>blogs_controller.rb</code> in <code>app/controller/</code>,and pass the params to function named <code>index</code>. After process the request,rails will render a view named <code>index.html.erb</code> in <code>app/views/blogs/</code>.</p>
+
+<p>With flask,you need to handle a request URL at <code>app.py</code></p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="nd">@app.route</span><span class="p">(</span><span class="err">‘</span><span class="o">/</span><span class="n">blogs</span><span class="err">’</span><span class="p">)</span>
+</span><span class='line'><span class="k">def</span> <span class="nf">index</span><span class="p">():</span>
+</span><span class='line'>    <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="err">‘</span><span class="n">index</span><span class="s">&#39;)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>ORM</h3>
+
+<p>In my own words,ActiveRecord is much better than SQLAlchemy.</p>
+
+<p>The Types of Associations in Rails:</p>
+
+<ul>
+<li>belongs_to</li>
+<li>has_one</li>
+<li>has_many</li>
+<li>has_many :through</li>
+<li>has_one :through</li>
+<li>has_and_belongs_to_many</li>
+</ul>
+
+
+<p>Here are some data relationship implements of two ORM:</p>
+
+<h4>One to Many</h4>
+
+<p>With Rails:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">Customer</span> <span class="o">&lt;</span> <span class="ss">ActiveRecord</span><span class="p">:</span><span class="ss">:Base</span>
+</span><span class='line'>  <span class="n">has_many</span> <span class="ss">:orders</span><span class="p">,</span> <span class="ss">dependent</span><span class="p">:</span> <span class="ss">:destroy</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">Order</span> <span class="o">&lt;</span> <span class="ss">ActiveRecord</span><span class="p">:</span><span class="ss">:Base</span>
+</span><span class='line'>  <span class="n">belongs_to</span> <span class="ss">:customer</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p> Now you can get a customer’s orders by:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'>      <span class="vi">@order</span> <span class="o">=</span> <span class="vi">@customer</span><span class="o">.</span><span class="n">order</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Get an order’s customer by:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'>      <span class="vi">@customer</span> <span class="o">=</span> <span class="vi">@order</span><span class="o">.</span><span class="n">customer</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>With SQLAchemy:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="k">class</span> <span class="nc">App</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+</span><span class='line'>     <span class="n">__tablename__</span>  <span class="o">=</span> <span class="s">&#39;apps&#39;</span>
+</span><span class='line'>     <span class="n">owner_id</span>       <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">Integer</span><span class="p">,</span> <span class="n">db</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="err">‘</span><span class="n">users</span><span class="o">.</span><span class="n">id</span><span class="s">&#39;))</span>
+</span><span class='line'>     <span class="n">owner</span>          <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">relationship</span><span class="p">(</span><span class="s">&#39;User&#39;</span><span class="p">,</span> <span class="n">backref</span><span class="o">=</span><span class="n">db</span><span class="o">.</span><span class="n">backref</span><span class="p">(</span><span class="s">&#39;apps’))</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">User</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+</span><span class='line'>      <span class="n">__tablename__</span>  <span class="o">=</span>  <span class="s">&#39;users&#39;</span>
+</span><span class='line'>       <span class="nb">id</span>            <span class="o">=</span>  <span class="n">db</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="s">&#39;id&#39;</span><span class="p">,</span> <span class="n">db</span><span class="o">.</span><span class="n">Integer</span><span class="p">,</span> <span class="n">primary_key</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Now you can get a user’s apps by:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'>      <span class="n">app</span> <span class="o">=</span> <span class="n">user</span><span class="o">.</span><span class="n">apps</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Get an app’s owner by:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'>      <span class="n">user</span> <span class="o">=</span> <span class="n">app</span><span class="o">.</span><span class="n">owner</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>Many to Many</h4>
+
+<p>Although you need migration files in rails,since Flask and SQLAlchemy just configure data structure within model.The benefit of migration files comes out when you want to change your data structure of model.And now I finally known why my teacher ask me to design data structure at first,because other web framework have no ideas about what if our data structure changed.</p>
+
+<p>With migration files in rails, you can change you data structure so easy that you can develop really really align.All details about the program becomes more and more clear after you start coding.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Start Cocos2d With Lua]]></title>
+    <link href="http://gonjay.github.io/blog/2014/03/25/start-cocos2d-with-lua/"/>
+    <updated>2014-03-25T15:02:55+08:00</updated>
+    <id>http://gonjay.github.io/blog/2014/03/25/start-cocos2d-with-lua</id>
+    <content type="html"><![CDATA[<h2>quick-cocos2d-x</h2>
+
+<h2>tip</h2>
+
+<p>cocos游戏开发的流程是先采用Lua或者JS，把整个游戏实现出来，然后利用相应的工具去打包成不同平台下的项目，比如打包Android平台或者iOS平台的项目，然后利用相应平台的工具编译成apk或者ipa文件。</p>
+
+<p>这也就意味着，对于一个利用cocos开发的游戏要接入我们的SDK，我们应该不会去开发针对Lua或者JS的单独SDK，而是给出一个指导，即当游戏开发商生成了一个Android项目或者iOS项目之后，应该怎样接入我们的平台。这就涉及到Lua调用Java，Java调用Lua，又或者Objective-C调用Lua或者Lua调用Objective-C了，剩下的事情，就是纯粹SDK的一些操作。</p>
+
+<p>接下来尝试，将一个html5的cocos打包生成一个Android项目，尝试用js去调用java以及java调用js</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[关于跳跃式思维]]></title>
+    <link href="http://gonjay.github.io/blog/2014/03/20/guan-yu-tiao-yue-shi-si-wei/"/>
+    <updated>2014-03-20T21:50:39+08:00</updated>
+    <id>http://gonjay.github.io/blog/2014/03/20/guan-yu-tiao-yue-shi-si-wei</id>
+    <content type="html"><![CDATA[<p>我给堂姐大概提了下我被一家游戏公司录取实习后的待遇，显得非常吃惊，这个水平的报酬是她和姐夫在深圳打拼多少年后才有的，对我一番褒奖后又是感叹时代变化的剧烈。但是我也知道，如今再想达到他们在深圳现在的水平，真的是难上加难。</p>
+
+<p>他们本身也是供职一家上市公司，在这座城市里面过得还蛮体面的，不过却依然报名了一个英语补习班，利用晚饭后闲暇的时间给自己充电。晚上闲来无事，我便跟他们一起去上课了。</p>
+
+<p>讲台上的英文老师操着一口温文尔雅的英文口语，听着贼舒服。大多数情况下，我这个农村的孩子只能在电影里面才能听见这种口语，那种由胸腔发出的地道美式口语一直是我非常向往的能力。</p>
+
+<p>课不难，对我而言很是轻松，老师讲得仔细，恍惚之中我又回到了高中课堂，非常兴奋的听着老师的课，嘴巴跟着老师一句一句说着，试图模仿老师的发音，思维十分活跃。</p>
+
+<p>老师突然提了一个问题<code>Do you think cheap goods is bad in quality?Why?</code>。</p>
+
+<p>我立马说<code>Brand price!</code>,品牌溢价是立马想到的一个词，然后脑海里奔腾而过的是Apple、乔布斯、iPhone。。。。好吧，IT男的属性光环立马就出来了。</p>
+
+<p>老师听见安静的学员里面就我发出了声音，对我非常有兴趣，示意我大声说一遍，此时我的优越感立马暴涨，又大声重复了一遍，心里还为自己如此高端的答案自豪不已，然后。。然后老师失望的摇摇头，说<code>Because the origin price is wrong</code></p>
+
+<p>我了个擦擦擦。。。要不要问这种蛋疼的事情！！</p>
+
+<p>心里各种奔腾，但表面只好悻悻的笑了笑，坐了下来。我突然意识到这其实已经不是第一次了，早在小学、初中、高中，我就经常作出如此‘乌龙’的事情，班上思维最活跃的那个，最积极的那个，就是给不出老师一个满意的回答或者提问，那个时候因为这样的事情，每每对一门课堂感兴趣起来，用不了多久就会被老师失望的眼神变得对这门课程沉默、被动。就我个人而言，每当遇到一个问题，或者说无人解决的难题，我首先就会用各种非常规的思维方式去思考<code>或者说有点像在找bug，然后让这个问题出现栈溢出，再注入自己的思维方式去解决这个问题</code>。当然，实际效果而言，大多数中国老师都是不认同的，或者从另一个角度而言，他们意识不到原来解决一个问题还可以用这种方式？这种扩大问题的方式，最后难以把答案收缩到他们所理解的或者准备的那个狭小的区域，也就没有了标准答案，这个才是他们最害怕的。</p>
+
+<p>其实，这个也是正常人遇见一个陌生问题后非常平常的思维习惯，那种发散式的，漫无目的的思维本质上也是人类创造性思维的一部分，而很多学生时常因为发散性的思维而被老师冷眼对待而努力去压抑自己，慢慢的，面对陌生的问题，有的就只剩下沉默了。</p>
+
+<p>优秀的教育里面，应该是鼓励学生的这种思维方式的，但是从老师而言，这种思维方式会增加他们的授课成本，不利于整个教学进度。</p>
+
+<p>对于经济发达地区，因为家长愿意付出更多成本给老师，老师只用教授人数不多的学生，没有教学进度的压力，便能更好的应对学生的跳跃式思维，帮助学生去完善和引导学生的思维，并从这种跳跃式的、发散式的思维里面迸发出精彩的idea。最终，这些学生会非常富有创造力，长大后也更容易去从事高附加值和创造性的工作，不仅充满激情也能为社会创造巨大的价值。</p>
+
+<p>然后，问题又来了，那些穷人的孩子呢？为了实现更低成本的教学方式，他们不得不像工厂里的零件一样被批量的加工，从一个流水线送到另一个流水线上。。。</p>
+
+<p>随着富有创造力的那批人不断改进计算机、软件、算法、机器人进而取代那些重复性劳动，很多领域都会被计算机所替代，举些例子：<a href="http://www.fdrobot.com/news_show_28.aspx">富士康机器人上岗 生产线由30人减至5人</a>；高速路上的ETC通道几乎没什么车而人工收费的通道队排得老长；电召打车和移动终端上的打车软件；</p>
+
+<p>社会差距会不会因此变得越来越大？这是一个严肃的社会问题。。。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[一些简单算法的Ruby实现]]></title>
+    <link href="http://gonjay.github.io/blog/2014/03/16/%5B%3F%5D-xie-jian-dan-suan-fa-de-rubyshi-xian/"/>
+    <updated>2014-03-16T10:32:51+08:00</updated>
+    <id>http://gonjay.github.io/blog/2014/03/16/[?]-xie-jian-dan-suan-fa-de-rubyshi-xian</id>
+    <content type="html"><![CDATA[<h2>堆排序</h2>
+
+<p>原理：利用大根堆或小根堆思想，首先建立堆，然后将堆首与堆尾交换，堆尾之后为有序区。</p>
+
+<p>这里有一张原理图</p>
+
+<p><img src="http://upload.wikimedia.org/wikipedia/commons/4/4d/Heapsort-example.gif" alt="" /></p>
+
+<p>有这样一道笔试题</p>
+
+<pre><code>初始顺序为：1 8 6 2 5 4 7 3 一组数采用堆排序，当建堆（小根堆）完毕
+时，堆所对应的二叉树中序遍历顺序是什么。
+</code></pre>
+
+<p>上图给出的例子是建大根堆的情况，这个题目要求的是建小堆，但是原理类似：按照构建<code>满二叉树</code>的方法，将一个数组依次填入树中的相应位置，但是要保证根节点小于子节点，如果不小于子节点则将根节点与这个节点交换。</p>
+
+<h2>插入排序</h2>
+
+<p>直接插入排序</p>
+
+<p>原理：将数组分为无序和有序两个区，然后不断将无序区的第一个元素按大小顺序插入到有序区中，最终将所有无序区元素都移动到无序区完成排序。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="kt">void</span> <span class="nf">InsertSort</span><span class="p">(</span><span class="n">Node</span> <span class="n">L</span><span class="p">[],</span><span class="kt">int</span> <span class="n">length</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="kt">int</span> <span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">;</span>
+</span><span class='line'>  <span class="k">for</span><span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">length</span><span class="p">;</span> <span class="n">i</span> <span class="o">++</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">{</span>
+</span><span class='line'>      <span class="n">j</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+</span><span class='line'>      <span class="k">if</span><span class="p">(</span><span class="n">L</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">L</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+</span><span class='line'>      <span class="p">{</span>
+</span><span class='line'>          <span class="n">L</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">L</span><span class="p">[</span><span class="n">j</span><span class="p">];</span>
+</span><span class='line'>          <span class="c1">//当L[0]小于有序区的最后一个元素的时候，最后一个元素扩大，再和有序区倒数第二个比较</span>
+</span><span class='line'>          <span class="k">while</span><span class="p">(</span><span class="n">L</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">L</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+</span><span class='line'>          <span class="p">{</span>
+</span><span class='line'>              <span class="n">L</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">L</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+</span><span class='line'>              <span class="n">i</span> <span class="o">--</span><span class="p">;</span>
+</span><span class='line'>          <span class="p">}</span>
+</span><span class='line'>          <span class="n">L</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">L</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+</span><span class='line'>      <span class="p">}</span>
+</span><span class='line'>      <span class="n">i</span> <span class="o">=</span> <span class="n">j</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">}</span>        
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">def</span> <span class="nf">insert_sort</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+</span><span class='line'>  <span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="o">=</span><span class="mi">0</span>
+</span><span class='line'>  <span class="k">for</span> <span class="n">i</span> <span class="k">in</span> <span class="mi">0</span><span class="o">.</span><span class="n">.</span><span class="o">.</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">length</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+</span><span class='line'>    <span class="c1"># puts i</span>
+</span><span class='line'>    <span class="n">j</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span>
+</span><span class='line'>    <span class="k">if</span> <span class="n">node</span><span class="o">[</span><span class="n">j</span><span class="o">]</span> <span class="o">&lt;</span> <span class="n">node</span><span class="o">[</span><span class="n">i</span><span class="o">]</span>
+</span><span class='line'>      <span class="k">break</span> <span class="k">if</span> <span class="n">node</span><span class="o">[</span><span class="n">j</span><span class="o">].</span><span class="n">nil?</span>
+</span><span class='line'>      <span class="n">n</span> <span class="o">=</span> <span class="n">node</span><span class="o">[</span><span class="n">j</span><span class="o">]</span>
+</span><span class='line'>      <span class="k">while</span> <span class="n">n</span> <span class="o">&lt;</span> <span class="n">node</span><span class="o">[</span><span class="n">i</span><span class="o">]</span>
+</span><span class='line'>        <span class="n">node</span><span class="o">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="o">]</span> <span class="o">=</span> <span class="n">node</span><span class="o">[</span><span class="n">i</span><span class="o">]</span>
+</span><span class='line'>        <span class="n">i</span> <span class="o">-=</span> <span class="mi">1</span>
+</span><span class='line'>      <span class="k">end</span>
+</span><span class='line'>      <span class="n">node</span><span class="o">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="o">]</span> <span class="o">=</span> <span class="n">n</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>    <span class="n">i</span> <span class="o">=</span> <span class="n">j</span> <span class="o">-</span> <span class="mi">1</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>  <span class="n">node</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">node</span> <span class="o">=</span> <span class="o">[</span><span class="mi">7</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">13</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="o">]</span>
+</span><span class='line'>
+</span><span class='line'><span class="nb">puts</span> <span class="n">insert_sort</span> <span class="n">node</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>希尔算法</p>
+
+<p>原理：又称增量缩小排序。先将序列按增量划分为元素个数相同的若干组，使用直接插入排序法进行排序，然后不断缩小增量直至1，最后使用直接插入排序完成排序。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="kt">void</span> <span class="nf">ShellSort</span><span class="p">(</span><span class="n">Node</span> <span class="n">L</span><span class="p">[],</span> <span class="kt">int</span> <span class="n">d</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="k">while</span><span class="p">(</span><span class="n">d</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">{</span>
+</span><span class='line'>      <span class="n">Shell</span><span class="p">(</span><span class="n">L</span><span class="p">,</span><span class="n">d</span><span class="p">);</span>
+</span><span class='line'>      <span class="n">d</span> <span class="o">=</span> <span class="n">d</span><span class="o">/</span><span class="mi">2</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kt">void</span> <span class="nf">Shell</span><span class="p">(</span><span class="n">Node</span> <span class="n">L</span><span class="p">[],</span> <span class="kt">int</span> <span class="n">d</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="kt">int</span> <span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">;</span>
+</span><span class='line'>  <span class="k">for</span><span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="n">d</span> <span class="o">+</span> <span class="mi">1</span> <span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">length</span><span class="p">;</span> <span class="n">i</span> <span class="o">++</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">{</span>
+</span><span class='line'>      <span class="k">if</span><span class="p">(</span><span class="n">L</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">L</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="n">d</span><span class="p">])</span>
+</span><span class='line'>      <span class="p">{</span>
+</span><span class='line'>      <span class="n">L</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">L</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+</span><span class='line'>      <span class="n">j</span> <span class="o">=</span> <span class="n">i</span> <span class="o">-</span> <span class="n">d</span><span class="p">;</span>
+</span><span class='line'>      <span class="k">while</span><span class="p">(</span><span class="n">j</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">L</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">L</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</span><span class='line'>      <span class="p">{</span>
+</span><span class='line'>          <span class="n">L</span><span class="p">[</span><span class="n">j</span><span class="o">+</span><span class="n">d</span><span class="p">]</span> <span class="o">=</span> <span class="n">L</span><span class="p">[</span><span class="n">j</span><span class="p">];</span>
+</span><span class='line'>          <span class="n">j</span> <span class="o">=</span> <span class="n">j</span> <span class="o">-</span> <span class="n">d</span><span class="p">;</span>
+</span><span class='line'>      <span class="p">}</span>
+</span><span class='line'>      <span class="n">L</span><span class="p">[</span><span class="n">j</span><span class="o">+</span><span class="n">d</span><span class="p">]</span> <span class="o">=</span> <span class="n">L</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+</span><span class='line'>      <span class="p">}</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">def</span> <span class="nf">shell_sort</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">while</span><span class="p">(</span><span class="n">d</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
+</span><span class='line'>  <span class="n">shell</span> <span class="n">node</span><span class="p">,</span> <span class="n">d</span>
+</span><span class='line'>  <span class="n">d</span> <span class="o">=</span> <span class="n">d</span> <span class="o">/</span> <span class="mi">2</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="nf">shell</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span>
+</span><span class='line'>  <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span>
+</span><span class='line'>  <span class="n">i</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="n">d</span>
+</span><span class='line'>  <span class="k">for</span> <span class="n">i</span> <span class="k">in</span> <span class="mi">1</span><span class="o">.</span><span class="n">.</span><span class="o">.</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">length</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="k">do</span>
+</span><span class='line'>    <span class="k">if</span><span class="p">(</span><span class="n">node</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">&lt;</span> <span class="n">node</span><span class="o">[</span><span class="n">i</span><span class="o">-</span><span class="n">d</span><span class="o">]</span><span class="p">)</span>
+</span><span class='line'>      <span class="n">j</span> <span class="o">=</span> <span class="n">i</span> <span class="o">-</span> <span class="n">d</span>
+</span><span class='line'>      <span class="n">node</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span> <span class="o">=</span> <span class="n">node</span><span class="o">[</span><span class="n">i</span><span class="o">]</span>
+</span><span class='line'>      <span class="k">while</span><span class="p">(</span><span class="n">j</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">node</span><span class="o">[</span><span class="n">j</span><span class="o">]</span> <span class="o">&gt;</span> <span class="n">node</span><span class="o">[</span><span class="n">i</span><span class="o">]</span><span class="p">)</span>
+</span><span class='line'>          <span class="n">node</span><span class="o">[</span><span class="n">j</span><span class="o">+</span><span class="n">d</span><span class="o">]</span> <span class="o">=</span> <span class="n">node</span><span class="o">[</span><span class="n">j</span><span class="o">]</span>
+</span><span class='line'>          <span class="n">j</span> <span class="o">=</span> <span class="n">j</span> <span class="o">-</span> <span class="n">d</span>
+</span><span class='line'>      <span class="k">end</span>
+</span><span class='line'>      <span class="n">node</span><span class="o">[</span><span class="n">j</span><span class="o">]</span> <span class="o">=</span> <span class="n">node</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>交换排序</h3>
+
+<p>冒泡排序</p>
+
+<p>原理：将序列划分为无序和有序区，不断通过交换较大元素至无序区尾完成排序</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="kt">void</span> <span class="nf">bubble_sort</span><span class="p">(</span><span class="n">Node</span> <span class="n">L</span><span class="p">[])</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="kt">int</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">;</span>
+</span><span class='line'>  <span class="n">Bool</span> <span class="n">isChanged</span><span class="p">;</span>
+</span><span class='line'>  <span class="k">for</span><span class="p">(</span><span class="n">j</span> <span class="o">=</span> <span class="n">L</span><span class="p">.</span><span class="n">length</span><span class="p">;</span> <span class="n">j</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">--</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">{</span>
+</span><span class='line'>      <span class="n">isChanged</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
+</span><span class='line'>      <span class="k">for</span><span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">j</span><span class="p">;</span> <span class="n">i</span> <span class="o">++</span><span class="p">)</span>
+</span><span class='line'>      <span class="p">{</span>
+</span><span class='line'>        <span class="k">if</span><span class="p">(</span><span class="n">L</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">L</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">])</span>
+</span><span class='line'>        <span class="p">{</span>
+</span><span class='line'>          <span class="kt">int</span> <span class="n">temp</span> <span class="o">=</span> <span class="n">L</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+</span><span class='line'>          <span class="n">L</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">L</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">];</span>
+</span><span class='line'>          <span class="n">L</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">temp</span><span class="p">;</span>
+</span><span class='line'>          <span class="n">isChanged</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>      <span class="p">}</span>
+</span><span class='line'>      <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">isChanged</span><span class="p">)</span><span class="k">break</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>选择排序</h3>
+
+<p>直接选择排序</p>
+
+<p>原理：将序列分为无序和有序区，寻找无序区中最小值和无序区的首元素交换，有序区扩大一个，循环最终完成排序</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="kt">void</span> <span class="nf">SelectSort</span><span class="p">(</span><span class="n">Node</span> <span class="n">L</span><span class="p">[])</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="kt">int</span> <span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">,</span><span class="n">k</span><span class="p">;</span>
+</span><span class='line'>  <span class="k">for</span><span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">L</span><span class="p">.</span><span class="n">length</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">{</span>
+</span><span class='line'>      <span class="n">k</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span>
+</span><span class='line'>      <span class="k">for</span><span class="p">(</span><span class="n">j</span><span class="o">=</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span><span class="n">j</span><span class="o">&lt;</span><span class="n">L</span><span class="p">.</span><span class="n">length</span><span class="p">;</span><span class="n">j</span><span class="o">++</span><span class="p">)</span>
+</span><span class='line'>      <span class="p">{</span>
+</span><span class='line'>        <span class="k">if</span><span class="p">(</span><span class="n">L</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">L</span><span class="p">[</span><span class="n">k</span><span class="p">])</span> <span class="n">k</span> <span class="o">=</span> <span class="n">j</span><span class="p">;</span>
+</span><span class='line'>      <span class="p">}</span>
+</span><span class='line'>      <span class="k">if</span><span class="p">(</span><span class="n">k</span> <span class="o">!=</span> <span class="n">i</span><span class="p">)</span>
+</span><span class='line'>      <span class="p">{</span>
+</span><span class='line'>        <span class="kt">int</span> <span class="n">temp</span> <span class="o">=</span> <span class="n">L</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+</span><span class='line'>        <span class="n">L</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">L</span><span class="p">[</span><span class="n">k</span><span class="p">];</span>
+</span><span class='line'>        <span class="n">L</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">temp</span><span class="p">;</span>
+</span><span class='line'>      <span class="p">}</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Rosace API]]></title>
+    <link href="http://gonjay.github.io/blog/2014/03/07/rosace-api/"/>
+    <updated>2014-03-07T00:04:23+08:00</updated>
+    <id>http://gonjay.github.io/blog/2014/03/07/rosace-api</id>
+    <content type="html"><![CDATA[<h1>syntax</h1>
+
+<hr />
+
+<h4>文本：</h4>
+
+<pre><code>1.   
+2. !
+3. ##
+4. \(任意字符）
+</code></pre>
+
+<p>属性：（可加 namespace 如 <elem rosace:if="expr">）</p>
+
+<pre><code>1. &lt;elem var.varname="expr"&gt;
+2. &lt;elem repeat.varname="expr"&gt;
+3. &lt;elem if="expr"&gt;
+4. &lt;elem if.attrname="expr"&gt;
+5. &lt;elem templ="text "&gt;
+6. &lt;elem macro="macroname(param,..)[optional (arg,...)]"&gt;
+7. &lt;elem require.renderername="src.html"&gt;
+</code></pre>
+
+<p>自动编译模板：（使用 rosace-page.js 时有效）</p>
+
+<pre><code>&lt;elem class="rosace"&gt;...&lt;/elem&gt;
+</code></pre>
+
+<p>自动渲染数据：（使用 rosace-page.js 时有效，优先级从高到低）</p>
+
+<pre><code>1. &lt;elem class="rosace"&gt;
+      &lt;script type="text/json" class="rosace-data"&gt;
+         { "items" : [1, 2, 3] }
+      &lt;/script&gt;
+      ...
+   &lt;/elem&gt;
+2. &lt;elem class="rosace"&gt;
+      &lt;script type="text/json" src="data.json" class="rosace-data"&gt;&lt;/script&gt;
+      ...
+   &lt;/elem&gt;
+3. &lt;elem class="rosace" [rosace:]data-obj="expr"&gt;
+4. &lt;elem class="rosace" [rosace:]data-src="src.json"&gt;
+</code></pre>
+
+<h1>api</h1>
+
+<hr />
+
+<ol>
+<li><p>创建（或取回已缓存的）模板</p>
+
+<pre><code> var renderer = $rosace('&lt;elem&gt;...&lt;/elem&gt;', [optional] opts, [optional]      callback(err, renderer));
+                     (element,
+                     ([element, ..],
+                     (element.childNodes,
+                     ($(selector),
+                     (url,
+
+ 当参数为 url 时，返回的 renderer 尚未初始化
+
+ 必须等到 callback(err, renderer) 被调用时才处在可用的状态
+</code></pre></li>
+<li><p>渲染模板与宏</p>
+
+<pre><code> 在模板外：
+ var html = renderer(data_object);
+        renderer.macroname(arg, arg2, ...);
+
+ 在模板内：
+
+ !
+ !
+ !
+ !
+</code></pre></li>
+<li><p>用 jQuery 一次性编译+渲染</p>
+
+<pre><code> var renderer = $(selector).rosace([optional] data_object, [optional] opts);
+</code></pre></li>
+<li><p>opts</p>
+
+<pre><code> (string)  id：指定模板根元素的 id。如果不指定，会自动生成。
+ (bool) cache：是否缓存已编译的模板
+
+ 默认值：{ id: undefined, cache: true })
+ 仅当用 html, url 或单个 elem 编译模板时有效。
+</code></pre></li>
+<li><p>第三方依赖</p>
+
+<pre><code> 使用 YAML 需引用：[js-yaml](http://nodeca.github.io/js-yaml/)
+</code></pre></li>
+</ol>
+
+
+<h1>samples</h1>
+
+<hr />
+
+<p>2-7: require</p>
+
+<p>inc-menu.html</p>
+
+<pre><code>&lt;ul macro="ul(items)(tree.items)"&gt;
+    &lt;li repeat="item in items"&gt;
+
+        !
+    &lt;/ li&gt;
+&lt;/ul&gt;
+</code></pre>
+
+<p>page.html</p>
+
+<pre><code>&lt;div class="rosace" data-src="tree.json" require.menu="inc-menu.html"&gt;
+    !
+    !
+&lt;/div&gt;
+</code></pre>
+
+<p>创建好的模板本身是一个形如 <code>function (data) { return str; }</code> 的函数
+例如：</p>
+
+<pre><code>var html = '&lt;span macro="hello(name)('World')"&gt;Hello, !&lt;/span&gt;' +
+           '';
+var f = $rosace(html);
+
+f({ user: 'World' })
+
+--&gt; 输出
+&lt;span&gt;Hello, World!&lt;/span&gt;
+&lt;span&gt;Hello, rosace!&lt;/span&gt;
+</code></pre>
+
+<p>创建好的模板里包含有所有子模板的引用。
+例如还是刚才的模板为例：</p>
+
+<pre><code>var html = '&lt;span macro="hello(name)('World')"&gt;Hello, !&lt;/span&gt;' +
+           '';
+var f = $rosace(html);
+
+f.hello('World')
+--&gt; 输出
+&lt;span&gt;Hello, World!&lt;/span&gt;
+
+&lt;elem id="temp"&gt;
+
+&lt;elem&gt;
+</code></pre>
+
+<p>调用 <code>$('#temp').rosace({ name: 'Kabbesy' });</code>
+则页面直接被修改为</p>
+
+<pre><code>&lt;elem id="temp&gt;
+   Kabbesy
+&lt;/elem&gt;
+</code></pre>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Face Detection Based on AndroidSDK]]></title>
+    <link href="http://gonjay.github.io/blog/2014/03/06/face-detection-based-on-androidsdk/"/>
+    <updated>2014-03-06T23:43:35+08:00</updated>
+    <id>http://gonjay.github.io/blog/2014/03/06/face-detection-based-on-androidsdk</id>
+    <content type="html"><![CDATA[<h1>流程</h1>
+
+<ul>
+<li>读取一张图片生成Bitmap对象</li>
+<li>用FaceDetector分析Bitmap，获取图片中的人脸数组</li>
+<li>显示到图片上</li>
+</ul>
+
+
+<h4>第一步</h4>
+
+<p>从相册中选取一张照片：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">private</span> <span class="kt">void</span> <span class="nf">readPictureFromAlbum</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">Intent</span> <span class="n">i</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Intent</span><span class="o">(</span><span class="n">Intent</span><span class="o">.</span><span class="na">ACTION_PICK</span><span class="o">,</span>
+</span><span class='line'>    <span class="n">android</span><span class="o">.</span><span class="na">provider</span><span class="o">.</span><span class="na">MediaStore</span><span class="o">.</span><span class="na">Images</span><span class="o">.</span><span class="na">Media</span><span class="o">.</span><span class="na">EXTERNAL_CONTENT_URI</span><span class="o">);</span>
+</span><span class='line'>    <span class="n">startActivityForResult</span><span class="o">(</span><span class="n">i</span><span class="o">,</span> <span class="n">ALBUM_REQUEST_CODE</span><span class="o">);</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="nd">@Override</span>
+</span><span class='line'><span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onActivityResult</span><span class="o">(</span><span class="kt">int</span> <span class="n">requestCode</span><span class="o">,</span><span class="kt">int</span> <span class="n">resultCode</span><span class="o">,</span><span class="n">Intent</span> <span class="n">data</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>    <span class="kd">super</span><span class="o">.</span><span class="na">onActivityResult</span><span class="o">(</span><span class="n">requestCode</span><span class="o">,</span> <span class="n">resultCode</span><span class="o">,</span> <span class="n">data</span><span class="o">);</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">if</span> <span class="o">(</span><span class="n">requestCode</span> <span class="o">==</span> <span class="n">ALBUM_REQUEST_CODE</span> <span class="o">&amp;&amp;</span> <span class="n">resultCode</span> <span class="o">==</span> <span class="n">RESULT_OK</span> <span class="o">&amp;&amp;</span> <span class="kc">null</span> <span class="o">!=</span> <span class="n">data</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">Uri</span> <span class="n">selectedImage</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="na">getData</span><span class="o">();</span>
+</span><span class='line'>        <span class="n">String</span><span class="o">[]</span> <span class="n">filePathColumn</span> <span class="o">=</span> <span class="o">{</span> <span class="n">MediaStore</span><span class="o">.</span><span class="na">Images</span><span class="o">.</span><span class="na">Media</span><span class="o">.</span><span class="na">DATA</span> <span class="o">};</span>
+</span><span class='line'>        <span class="n">Cursor</span> <span class="n">cursor</span> <span class="o">=</span> <span class="n">getContentResolver</span><span class="o">().</span><span class="na">query</span><span class="o">(</span><span class="n">selectedImage</span><span class="o">,</span>
+</span><span class='line'>        <span class="n">filePathColumn</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="kc">null</span><span class="o">);</span>
+</span><span class='line'>        <span class="n">cursor</span><span class="o">.</span><span class="na">moveToFirst</span><span class="o">();</span>
+</span><span class='line'>        <span class="kt">int</span> <span class="n">columnIndex</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="na">getColumnIndex</span><span class="o">(</span><span class="n">filePathColumn</span><span class="o">[</span><span class="mi">0</span><span class="o">]);</span>
+</span><span class='line'>        <span class="n">String</span> <span class="n">picturePath</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="na">getString</span><span class="o">(</span><span class="n">columnIndex</span><span class="o">);</span>
+</span><span class='line'>        <span class="n">cursor</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">Log</span><span class="o">.</span><span class="na">v</span><span class="o">(</span><span class="s">&quot;picturePath: &quot;</span><span class="o">,</span> <span class="n">picturePath</span> <span class="o">+</span> <span class="s">&quot;&quot;</span><span class="o">);</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">BitmapFactory</span><span class="o">.</span><span class="na">Options</span> <span class="n">options</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BitmapFactory</span><span class="o">.</span><span class="na">Options</span><span class="o">();</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">options</span><span class="o">.</span><span class="na">inJustDecodeBounds</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">Bitmap</span> <span class="n">bm</span> <span class="o">=</span> <span class="n">BitmapFactory</span><span class="o">.</span><span class="na">decodeFile</span><span class="o">(</span><span class="n">picturePath</span><span class="o">,</span> <span class="n">options</span><span class="o">);</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">options</span><span class="o">.</span><span class="na">inSampleSize</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="na">outWidth</span> <span class="o">/</span> <span class="mi">400</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">options</span><span class="o">.</span><span class="na">inJustDecodeBounds</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">myBitMap</span> <span class="o">=</span> <span class="n">BitmapFactory</span><span class="o">.</span><span class="na">decodeFile</span><span class="o">(</span><span class="n">picturePath</span><span class="o">,</span> <span class="n">options</span><span class="o">);</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">Log</span><span class="o">.</span><span class="na">v</span><span class="o">(</span><span class="s">&quot;Size: &quot;</span><span class="o">,</span> <span class="n">options</span><span class="o">.</span><span class="na">inSampleSize</span> <span class="o">+</span> <span class="s">&quot; &quot;</span> <span class="o">+</span> <span class="n">options</span><span class="o">.</span><span class="na">outHeight</span> <span class="o">+</span> <span class="s">&quot; &quot;</span> <span class="o">+</span> <span class="n">options</span><span class="o">.</span><span class="na">outWidth</span><span class="o">);</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">imageView</span><span class="o">.</span><span class="na">setImageBitmap</span><span class="o">(</span><span class="n">myBitMap</span><span class="o">);</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">findMyFace</span><span class="o">();</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p></p>
+
+<p>在这个地方为了方便后面找到人脸，同时防止内存溢出，节约资源，需要对图像做一些压缩，用到了<code>options.inSampleSize</code>参数。但为了能比较好的显示图片，我们需要根据图片的实际大小来设置<code>options.inSampleSize</code>参数，这里用到了<code>options.inJustDecodeBounds = true</code>来获取一张空的Bitmap，因为用到的是Factory类，在decodeFile之后，optioins对象里面便会包含了这张照片的长和宽，我们拿着这个长和宽来设置<code>options.inSampleSize</code></p>
+
+<h4>第二步</h4>
+
+<p>进行人脸检测</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">private</span> <span class="kt">void</span> <span class="nf">findMyFace</span><span class="o">(){</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">Bitmap</span> <span class="n">bm</span> <span class="o">=</span> <span class="n">myBitMap</span><span class="o">.</span><span class="na">copy</span><span class="o">(</span><span class="n">Bitmap</span><span class="o">.</span><span class="na">Config</span><span class="o">.</span><span class="na">RGB_565</span><span class="o">,</span> <span class="kc">true</span><span class="o">);</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">FaceDetector</span> <span class="n">faceDet</span> <span class="o">=</span> <span class="k">new</span> <span class="n">FaceDetector</span><span class="o">(</span><span class="n">bm</span><span class="o">.</span><span class="na">getWidth</span><span class="o">(),</span> <span class="n">bm</span><span class="o">.</span><span class="na">getHeight</span><span class="o">(),</span> <span class="n">MAX_FACES</span><span class="o">);</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">FaceDetector</span><span class="o">.</span><span class="na">Face</span><span class="o">[]</span> <span class="n">faceList</span> <span class="o">=</span> <span class="k">new</span> <span class="n">FaceDetector</span><span class="o">.</span><span class="na">Face</span><span class="o">[</span><span class="n">MAX_FACES</span><span class="o">];</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">faceDet</span><span class="o">.</span><span class="na">findFaces</span><span class="o">(</span><span class="n">bm</span><span class="o">,</span> <span class="n">faceList</span><span class="o">);</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">faceList</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">FaceDetector</span><span class="o">.</span><span class="na">Face</span> <span class="n">face</span> <span class="o">=</span> <span class="n">faceList</span><span class="o">[</span><span class="n">i</span><span class="o">];</span>
+</span><span class='line'>        <span class="n">Log</span><span class="o">.</span><span class="na">d</span><span class="o">(</span><span class="s">&quot;FaceDet&quot;</span><span class="o">,</span> <span class="s">&quot;Face [&quot;</span><span class="o">+</span><span class="n">face</span><span class="o">+</span><span class="s">&quot;]&quot;</span><span class="o">);</span>
+</span><span class='line'>        <span class="k">if</span> <span class="o">(</span><span class="n">face</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>            <span class="n">Log</span><span class="o">.</span><span class="na">d</span><span class="o">(</span><span class="s">&quot;FaceDet&quot;</span><span class="o">,</span> <span class="s">&quot;Face [&quot;</span><span class="o">+</span><span class="n">i</span><span class="o">+</span><span class="s">&quot;] - Confidence [&quot;</span><span class="o">+</span><span class="n">face</span><span class="o">.</span><span class="na">confidence</span><span class="o">()+</span><span class="s">&quot;]&quot;</span><span class="o">);</span>
+</span><span class='line'>            <span class="n">tv</span><span class="o">.</span><span class="na">setText</span><span class="o">(</span><span class="s">&quot;人脸可信度 : &quot;</span> <span class="o">+</span> <span class="n">face</span><span class="o">.</span><span class="na">confidence</span><span class="o">());</span>
+</span><span class='line'>            <span class="n">PointF</span> <span class="n">pf</span> <span class="o">=</span> <span class="k">new</span> <span class="n">PointF</span><span class="o">();</span>
+</span><span class='line'>            <span class="c1">//getMidPoint(PointF point);</span>
+</span><span class='line'>            <span class="c1">//Sets the position of the mid-point between the eyes.</span>
+</span><span class='line'>            <span class="n">face</span><span class="o">.</span><span class="na">getMidPoint</span><span class="o">(</span><span class="n">pf</span><span class="o">);</span>
+</span><span class='line'>            <span class="n">RectF</span> <span class="n">r</span> <span class="o">=</span> <span class="k">new</span> <span class="n">RectF</span><span class="o">();</span>
+</span><span class='line'>            <span class="n">r</span><span class="o">.</span><span class="na">left</span> <span class="o">=</span> <span class="o">(</span><span class="kt">float</span><span class="o">)</span> <span class="o">(</span><span class="n">pf</span><span class="o">.</span><span class="na">x</span> <span class="o">-</span> <span class="n">face</span><span class="o">.</span><span class="na">eyesDistance</span><span class="o">()*</span><span class="mf">1.4</span><span class="o">);</span>
+</span><span class='line'>            <span class="n">r</span><span class="o">.</span><span class="na">right</span> <span class="o">=</span> <span class="o">(</span><span class="kt">float</span><span class="o">)</span> <span class="o">(</span><span class="n">pf</span><span class="o">.</span><span class="na">x</span> <span class="o">+</span> <span class="n">face</span><span class="o">.</span><span class="na">eyesDistance</span><span class="o">()*</span><span class="mf">1.4</span><span class="o">);</span>
+</span><span class='line'>            <span class="n">r</span><span class="o">.</span><span class="na">top</span> <span class="o">=</span> <span class="o">(</span><span class="kt">float</span><span class="o">)</span> <span class="o">(</span><span class="n">pf</span><span class="o">.</span><span class="na">y</span> <span class="o">-</span> <span class="n">face</span><span class="o">.</span><span class="na">eyesDistance</span><span class="o">()*</span><span class="mf">1.6</span><span class="o">);</span>
+</span><span class='line'>            <span class="n">r</span><span class="o">.</span><span class="na">bottom</span> <span class="o">=</span> <span class="o">(</span><span class="kt">float</span><span class="o">)</span> <span class="o">(</span><span class="n">pf</span><span class="o">.</span><span class="na">y</span> <span class="o">+</span> <span class="n">face</span><span class="o">.</span><span class="na">eyesDistance</span><span class="o">()*</span><span class="mf">1.7</span><span class="o">);</span>
+</span><span class='line'>
+</span><span class='line'>            <span class="n">imageView</span><span class="o">.</span><span class="na">setVisibility</span><span class="o">(</span><span class="n">View</span><span class="o">.</span><span class="na">GONE</span><span class="o">);</span>
+</span><span class='line'>            <span class="n">ll</span><span class="o">.</span><span class="na">removeAllViews</span><span class="o">();</span>
+</span><span class='line'>            <span class="n">FaceView</span> <span class="n">fv</span> <span class="o">=</span> <span class="k">new</span> <span class="n">FaceView</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="n">myBitMap</span><span class="o">,</span> <span class="n">r</span><span class="o">);</span>
+</span><span class='line'>            <span class="n">fv</span><span class="o">.</span><span class="na">invalidate</span><span class="o">();</span>
+</span><span class='line'>            <span class="n">ll</span><span class="o">.</span><span class="na">addView</span><span class="o">(</span><span class="n">fv</span><span class="o">);</span>
+</span><span class='line'>        <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+</span><span class='line'>            <span class="n">Toast</span><span class="o">.</span><span class="na">makeText</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="s">&quot;没有识别到人脸&quot;</span><span class="o">,</span> <span class="n">Toast</span><span class="o">.</span><span class="na">LENGTH_SHORT</span><span class="o">).</span><span class="na">show</span><span class="o">();</span>
+</span><span class='line'>        <span class="o">}</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p></p>
+
+<h4>显示到图片上</h4>
+
+<p>这里我们自己继承了一个View来把矩形画到图片里面</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">class</span> <span class="nc">FaceView</span> <span class="kd">extends</span> <span class="n">View</span> <span class="o">{</span>
+</span><span class='line'>    <span class="kd">private</span> <span class="n">RectF</span> <span class="n">rectF</span><span class="o">;</span>
+</span><span class='line'>    <span class="kd">private</span> <span class="n">Bitmap</span> <span class="n">bitmap</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">public</span> <span class="nf">FaceView</span><span class="o">(</span><span class="n">Context</span> <span class="n">context</span><span class="o">,</span> <span class="n">Bitmap</span> <span class="n">bitmap</span><span class="o">,</span> <span class="n">RectF</span> <span class="n">rectF</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="kd">super</span><span class="o">(</span><span class="n">context</span><span class="o">);</span>
+</span><span class='line'>        <span class="k">this</span><span class="o">.</span><span class="na">bitmap</span> <span class="o">=</span> <span class="n">bitmap</span><span class="o">;</span>
+</span><span class='line'>        <span class="k">this</span><span class="o">.</span><span class="na">rectF</span> <span class="o">=</span> <span class="n">rectF</span><span class="o">;</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nd">@Override</span>
+</span><span class='line'>    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onDraw</span><span class="o">(</span><span class="n">Canvas</span> <span class="n">canvas</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="kd">super</span><span class="o">.</span><span class="na">onDraw</span><span class="o">(</span><span class="n">canvas</span><span class="o">);</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">canvas</span><span class="o">.</span><span class="na">drawBitmap</span><span class="o">(</span><span class="n">bitmap</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="kc">null</span><span class="o">);</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">Paint</span> <span class="n">p</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Paint</span><span class="o">();</span>
+</span><span class='line'>        <span class="n">p</span><span class="o">.</span><span class="na">setColor</span><span class="o">(</span><span class="n">Color</span><span class="o">.</span><span class="na">RED</span><span class="o">);</span>
+</span><span class='line'>        <span class="n">p</span><span class="o">.</span><span class="na">setStyle</span><span class="o">(</span><span class="n">Paint</span><span class="o">.</span><span class="na">Style</span><span class="o">.</span><span class="na">STROKE</span><span class="o">);</span>
+</span><span class='line'>        <span class="n">canvas</span><span class="o">.</span><span class="na">drawRect</span><span class="o">(</span><span class="n">rectF</span><span class="o">,</span> <span class="n">p</span><span class="o">);</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Android客户端接收来自Faye的消息推送]]></title>
+    <link href="http://gonjay.github.io/blog/2014/03/03/android-receive-message-from-ruby-china-org/"/>
+    <updated>2014-03-03T21:53:50+08:00</updated>
+    <id>http://gonjay.github.io/blog/2014/03/03/android-receive-message-from-ruby-china-org</id>
+    <content type="html"><![CDATA[<h3>基本原理</h3>
+
+<p>先看了railscasts的<a href="http://railscasts.com/episodes/260-messaging-with-faye">260 Messaging with Faye</a>部分，了解Faye的基本原理。</p>
+
+<p>按照其教程发现有一个关于thin的bug，谷歌之解决，后来发现rubychina应该也是遇到过类似的问题。</p>
+
+<p>解决的方法是加上<code>Faye::WebSocket.load_adapter('thin')</code></p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">require</span> <span class="s1">&#39;faye&#39;</span>
+</span><span class='line'><span class="ss">Faye</span><span class="p">:</span><span class="ss">:WebSocket</span><span class="o">.</span><span class="n">load_adapter</span><span class="p">(</span><span class="s1">&#39;thin&#39;</span><span class="p">)</span>
+</span><span class='line'><span class="n">faye_server</span> <span class="o">=</span> <span class="ss">Faye</span><span class="p">:</span><span class="ss">:RackAdapter</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="ss">:mount</span> <span class="o">=&gt;</span> <span class="s1">&#39;/faye&#39;</span><span class="p">,</span> <span class="ss">:timeout</span> <span class="o">=&gt;</span> <span class="mi">45</span><span class="p">)</span>
+</span><span class='line'><span class="n">run</span> <span class="n">faye_server</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>当然，理论上来说，Faye是支持各种web服务器的，这个地方因为和Rails比较紧密所以选用Faye，如果考虑到更高的并发的话，选择Node.js来跑也是不错的，faye也是有Node的版本的。</p>
+
+<h3>实现</h3>
+
+<p>在实现了web端之后，就考虑到移植到安卓客户端</p>
+
+<p>谷歌android faye，发现有人已经做了一个安卓端的fayeclient，根据websocket的协议来，实现一个并不困难。</p>
+
+<p>对比faye客户端的js代码</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">$</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>  <span class="kd">var</span> <span class="nx">faye</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Faye</span><span class="p">.</span><span class="nx">Client</span><span class="p">(</span><span class="s1">&#39;http://localhost:9292/faye&#39;</span><span class="p">);</span>
+</span><span class='line'>  <span class="nx">faye</span><span class="p">.</span><span class="nx">subscribe</span><span class="p">(</span><span class="s1">&#39;/messages/new&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">alert</span><span class="p">(</span><span class="nx">data</span><span class="p">);</span>
+</span><span class='line'>  <span class="p">});</span>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>和<a href="https://github.com/saulpower/Android-Faye-Client">Android-Faye-Client</a>的java代码</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="n">URI</span> <span class="n">uri</span> <span class="o">=</span> <span class="n">URI</span><span class="o">.</span><span class="na">create</span><span class="o">(</span><span class="n">String</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="s">&quot;ws://%s:443/events&quot;</span><span class="o">,</span> <span class="n">baseUrl</span><span class="o">));</span>
+</span><span class='line'><span class="n">String</span> <span class="n">channel</span> <span class="o">=</span> <span class="n">String</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="s">&quot;/%s/**&quot;</span><span class="o">,</span> <span class="n">User</span><span class="o">.</span><span class="na">getCurrentUser</span><span class="o">().</span><span class="na">getUserId</span><span class="o">());</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">mClient</span> <span class="o">=</span> <span class="k">new</span> <span class="n">FayeClient</span><span class="o">(</span><span class="n">uri</span><span class="o">,</span> <span class="n">channel</span><span class="o">);</span>
+</span><span class='line'><span class="n">mClient</span><span class="o">.</span><span class="na">setFayeListener</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
+</span><span class='line'><span class="n">mClient</span><span class="o">.</span><span class="na">connectToServer</span><span class="o">(</span><span class="kc">null</span><span class="o">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>  <br/>
+我们就知道大概了如何实现了，需要指出的是，js客户端直接用的http协议，而我们在java这边需要用的是ws协议(也即WebSocket，wss类似https，是ws的安全加强版)</p>
+
+<p>如果你使用的是Android Studio，在你的<code>build.gradle</code>里面添加如下依赖即可:</p>
+
+<pre><code>dependencies {
+    compile 'com.saulpower.fayeclient:library:1.0'
+}
+</code></pre>
+
+<p>因为这个应用是基于Ruby-China做得的，端口号可以查看<a href="view-source:http://ruby-china.org/">RubyChina首页</a>的源代码获取。而channel号也在首页源代码中可见，用的一个temp_access_token，这个token是专门用来做faye的channel号的，通过第一个版本的api可以获取到这个token。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span> <span class="na">data-turbolinks-eval=</span><span class="s">false</span><span class="nt">&gt;</span>
+</span><span class='line'>  <span class="nx">ROOT_URL</span> <span class="o">=</span> <span class="s2">&quot;http://ruby-china.org/&quot;</span><span class="p">;</span>
+</span><span class='line'>  <span class="nx">ASSET_URL</span> <span class="o">=</span> <span class="s2">&quot;http://l.ruby-china.org/&quot;</span><span class="p">;</span>
+</span><span class='line'>  <span class="nx">FAYE_SERVER_URL</span> <span class="o">=</span> <span class="s2">&quot;http://ruby-china.org:8080/faye&quot;</span><span class="p">;</span>
+</span><span class='line'>    <span class="nx">CURRENT_USER_ACCESS_TOKEN</span> <span class="o">=</span> <span class="s2">&quot;72a47853462c91db8f7ed8d3d8899d00&quot;</span><span class="p">;</span>
+</span><span class='line'>  <span class="k">if</span> <span class="p">(</span><span class="nx">FAYE_SERVER_URL</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">App</span><span class="p">.</span><span class="nx">initNotificationSubscribe</span><span class="p">();</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="nt">&lt;/script&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>
+在<a href="https://github.com/gonjay/rubychina4android">RubyChina4Android</a>中，用户登录的时候会获取一遍temp_access_token，并注册Serveice。接下来，如果有人在论坛里面@你，应该就能在手机上收到消息推送了。</p>
+
+<h2>Source Code</h2>
+
+<p>以上所有的代码都可以在<a href="https://github.com/gonjay/rubychina4android">RubyChina4Android</a>里面找到</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Rails 自定义Rake Task 来备份和恢复数据库]]></title>
+    <link href="http://gonjay.github.io/blog/2014/02/25/rails-zi-ding-yi-ni-de-rake-task-lai-bei-fen-he-hui-fu-ni-de-shu-ju-ku/"/>
+    <updated>2014-02-25T13:00:35+08:00</updated>
+    <id>http://gonjay.github.io/blog/2014/02/25/rails-zi-ding-yi-ni-de-rake-task-lai-bei-fen-he-hui-fu-ni-de-shu-ju-ku</id>
+    <content type="html"><![CDATA[<p>打开Rakefile，添加</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">namespace</span> <span class="ss">:db</span> <span class="k">do</span>
+</span><span class='line'> <span class="n">task</span> <span class="ss">:backup</span> <span class="k">do</span>
+</span><span class='line'>   <span class="nb">system</span> <span class="s2">&quot;mysqldump --opt --user=root raiderboard &gt; backup.sql&quot;</span>
+</span><span class='line'> <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'> <span class="n">task</span> <span class="ss">:restore</span> <span class="k">do</span>
+</span><span class='line'>   <span class="nb">system</span> <span class="s2">&quot;mysql --user=root raiderboard &lt; backup.sql&quot;</span>
+</span><span class='line'> <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>然后在命令行输入<code>rake db:backup</code>就能获得一份sql备份文件，git/svn commit这份sql文件，到服务端git pull下来，然后输入<code>rake db:restore</code>便能恢复你本地的数据库到服务端的数据库了。</p>
+
+<h3>查看数据库大小</h3>
+
+<p>1 进去指定schema 数据库（存放了其他的数据库的信息）</p>
+
+<pre><code>mysql&gt; use information_schema;
+Database changed
+</code></pre>
+
+<p>2 查询所有数据的大小</p>
+
+<pre><code>mysql&gt; select concat(round(sum(DATA_LENGTH/1024/1024), 2), 'MB')
+-&gt; as data from TABLES;  
++-----------+
+| data      |
++-----------+
+| 6674.48MB |
++-----------+
+1 row in set (16.81 sec)
+</code></pre>
+
+<p>3 查看指定数据库实例的大小，比如说数据库 forexpert</p>
+
+<pre><code>mysql&gt; select concat(round(sum(DATA_LENGTH/1024/1024), 2), 'MB')
+-&gt; as data from TABLES where table_schema='forexpert';
++-----------+
+| data      |
++-----------+
+| 6542.30MB |
++-----------+
+1 row in set (7.47 sec)
+</code></pre>
+
+<p>4 查看指定数据库的表的大小，比如说数据库 forexpert 中的 member 表</p>
+
+<pre><code>mysql&gt; select concat(round(sum(DATA_LENGTH/1024/1024),2),'MB') as data
+-&gt; from TABLES where table_schema='forexpert'
+-&gt; and table_name='member';
++--------+
+| data   |
++--------+
+| 2.52MB |
++--------+
+1 row in set (1.88 sec)
+</code></pre>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Rake Db 列表及功能概述]]></title>
+    <link href="http://gonjay.github.io/blog/2014/02/24/rake-db-lie-biao-ji-gong-neng-gai-shu/"/>
+    <updated>2014-02-24T15:02:01+08:00</updated>
+    <id>http://gonjay.github.io/blog/2014/02/24/rake-db-lie-biao-ji-gong-neng-gai-shu</id>
+    <content type="html"><![CDATA[<ul>
+<li>db:create creates the database for the current env</li>
+<li>db:create:all creates the databases for all envs</li>
+<li>db:drop drops the database for the current env</li>
+<li>db:drop:all drops the databases for all envs</li>
+<li>db:migrate runs migrations for the current env that have not run yet</li>
+<li>db:migrate:up runs one specific migration</li>
+<li>db:migrate:down rolls back one specific migration</li>
+<li>db:migrate:status shows current migration status</li>
+<li>db:migrate:rollback rolls back the last migration</li>
+<li>db:forward advances the current schema version to the next one</li>
+<li>db:seed (only) runs the db/seed.rb file</li>
+<li>db:schema:load loads the schema into the current env&rsquo;s database</li>
+<li><p>db:schema:dump dumps the current env&rsquo;s schema (and seems to create the db as well)</p></li>
+<li><p>db:setup runs db:schema:load, db:seed</p></li>
+<li><p>db:reset runs db:drop db:setup</p></li>
+<li>db:migrate:redo runs (db:migrate:down db:migrate:up) or (db:migrate:rollback db:migrate:migrate) depending on the specified migration</li>
+<li>db:migrate:reset runs db:drop db:create db:migrate</li>
+</ul>
+
+]]></content>
+  </entry>
+  
+</feed>

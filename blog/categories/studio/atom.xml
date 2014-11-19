@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Studio | 博客]]></title>
+  <link href="http://gonjay.github.io/blog/categories/studio/atom.xml" rel="self"/>
+  <link href="http://gonjay.github.io/"/>
+  <updated>2014-11-18T23:04:08+08:00</updated>
+  <id>http://gonjay.github.io/</id>
+  <author>
+    <name><![CDATA[GonJay]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Android Studio 开发中的Tips]]></title>
+    <link href="http://gonjay.github.io/blog/2014/07/11/android-studio-kai-fa-zhong-de-tips/"/>
+    <updated>2014-07-11T11:42:59+08:00</updated>
+    <id>http://gonjay.github.io/blog/2014/07/11/android-studio-kai-fa-zhong-de-tips</id>
+    <content type="html"><![CDATA[<p>入门Android时使用的一直是Eclipse，后来就转用Android Studio了，最近因为需要返回使用Eclipse，突然发现在编译打包一个apk的时候，Eclipse居然比Android Studio要快上不少！！</p>
+
+<p>Android Studio build 速度太慢，这个太不科学了，google一下发现了以下解决方案：</p>
+
+<h4>使用最新的Android gradle plugin</h4>
+
+<pre><code>build.gradle
+
+    buildscript {
+           dependencies {
+                      classpath 'com.android.tools.build:gradle:0.9.+'       
+                  }    
+              }
+</code></pre>
+
+<h4>使用最新的Gradle</h4>
+
+<p>gradle-wrapper.properties
+distributionUrl=http://services.gradle.org/distributions/gradle-1.8-all.zip</p>
+
+<h4>使用gradle deamon 后台任务，使用gradle parallel并行任务</h4>
+
+<pre><code>gradle.properties
+
+org.gradle.daemon=true    
+org.gradle.parallel=true
+</code></pre>
+
+<p>开启deamon后，CPU起来了，这样就对了嘛，用机器时间减少人等待的时间，提高生产效率</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Android Sutio 使用指南--像Gemfile一样使用gradle]]></title>
+    <link href="http://gonjay.github.io/blog/2014/02/19/android-sutio-shi-yong-zhi-nan/"/>
+    <updated>2014-02-19T00:04:26+08:00</updated>
+    <id>http://gonjay.github.io/blog/2014/02/19/android-sutio-shi-yong-zhi-nan</id>
+    <content type="html"><![CDATA[<h1>像Gemfile一样使用gradle</h1>
+
+<p>随着项目越来越大，为了更多特性，我们不得不使用越来越多的开源库。按照Eclipse等传统的方式，我们一般会这样做：</p>
+
+<ol>
+<li>下载jar包，并添加到项目的build path里面</li>
+<li>下载library，将整个文件夹导入到workspace里面，然后在自己的项目里面添加依赖</li>
+</ol>
+
+
+<p>这种方式很有效，但你可以搜索一下Ruby的gem，node.js的npm，iOS的cocoapods，还有过去java项目中的maven依赖。</p>
+
+<p>对比你就发现了，原来这些包管理工具让使用者都不用自己从网上下载，Android依赖管理不是那么优秀，于是Google在最新的Android开发工具便使用gradle来管理项目。那么想比起传统的maven，gradle有哪些优势呢？</p>
+
+<h3>选择Gradle的五个优势</h3>
+
+<ol>
+<li>已经被证明能够处理大型的项目规模&ndash;LinkedIn, Netflix, Orbitz这些大公司都使用它来管理项目</li>
+<li>gradle提供了对于多语言、多平台最自然的处理方式&ndash;Scala, Groovy, C/C++这些项目都能用gradle来管理</li>
+<li>gradle专注build效率</li>
+<li>gradle的发布周期很短</li>
+<li>社区支持很棒</li>
+</ol>
+
+
+<p><a href="http://www.gradleware.com/resources/tech/java/maven">链接</a></p>
+
+<h3>如何引用Maven？</h3>
+
+<p>之前我们是这样引用</p>
+
+<pre><code>&lt;dependency&gt;
+    &lt;groupId&gt;com.nhaarman.listviewanimations&lt;/groupId&gt;
+    &lt;artifactId&gt;library&lt;/artifactId&gt;
+    &lt;version&gt;2.5.2&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre>
+
+<p>现在我们是这样</p>
+
+<pre><code>repositories {
+    mavenCentral()
+}
+
+dependencies{
+    compile 'com.nhaarman.listviewanimations:library:2.5.2'
+}
+</code></pre>
+
+<p>你看最新的依赖管理方式让你再也不用去github上面下载jar包了或者导入整个library</p>
+]]></content>
+  </entry>
+  
+</feed>

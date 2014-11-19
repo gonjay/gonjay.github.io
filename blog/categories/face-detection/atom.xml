@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Face Detection | 博客]]></title>
+  <link href="http://gonjay.github.io/blog/categories/face-detection/atom.xml" rel="self"/>
+  <link href="http://gonjay.github.io/"/>
+  <updated>2014-11-18T23:04:08+08:00</updated>
+  <id>http://gonjay.github.io/</id>
+  <author>
+    <name><![CDATA[GonJay]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Face Detection Based on AndroidSDK]]></title>
+    <link href="http://gonjay.github.io/blog/2014/03/06/face-detection-based-on-androidsdk/"/>
+    <updated>2014-03-06T23:43:35+08:00</updated>
+    <id>http://gonjay.github.io/blog/2014/03/06/face-detection-based-on-androidsdk</id>
+    <content type="html"><![CDATA[<h1>流程</h1>
+
+<ul>
+<li>读取一张图片生成Bitmap对象</li>
+<li>用FaceDetector分析Bitmap，获取图片中的人脸数组</li>
+<li>显示到图片上</li>
+</ul>
+
+
+<h4>第一步</h4>
+
+<p>从相册中选取一张照片：</p>
+
+<pre><code class="java">    private void readPictureFromAlbum() {
+
+        Intent i = new Intent(Intent.ACTION_PICK,
+        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(i, ALBUM_REQUEST_CODE);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode,int resultCode,Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == ALBUM_REQUEST_CODE &amp;&amp; resultCode == RESULT_OK &amp;&amp; null != data) {
+            Uri selectedImage = data.getData();
+            String[] filePathColumn = { MediaStore.Images.Media.DATA };
+            Cursor cursor = getContentResolver().query(selectedImage,
+            filePathColumn, null, null, null);
+            cursor.moveToFirst();
+            int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+            String picturePath = cursor.getString(columnIndex);
+            cursor.close();
+
+            Log.v("picturePath: ", picturePath + "");
+
+            BitmapFactory.Options options = new BitmapFactory.Options();
+
+            options.inJustDecodeBounds = true;
+
+            Bitmap bm = BitmapFactory.decodeFile(picturePath, options);
+
+            options.inSampleSize = options.outWidth / 400;
+
+            options.inJustDecodeBounds = false;
+
+            myBitMap = BitmapFactory.decodeFile(picturePath, options);
+
+            Log.v("Size: ", options.inSampleSize + " " + options.outHeight + " " + options.outWidth);
+
+            imageView.setImageBitmap(myBitMap);
+
+            findMyFace();
+        }
+    }
+</code></pre>
+
+<p>在这个地方为了方便后面找到人脸，同时防止内存溢出，节约资源，需要对图像做一些压缩，用到了<code>options.inSampleSize</code>参数。但为了能比较好的显示图片，我们需要根据图片的实际大小来设置<code>options.inSampleSize</code>参数，这里用到了<code>options.inJustDecodeBounds = true</code>来获取一张空的Bitmap，因为用到的是Factory类，在decodeFile之后，optioins对象里面便会包含了这张照片的长和宽，我们拿着这个长和宽来设置<code>options.inSampleSize</code></p>
+
+<h4>第二步</h4>
+
+<p>进行人脸检测
+&#8220;` java
+    private void findMyFace(){</p>
+
+<pre><code>    Bitmap bm = myBitMap.copy(Bitmap.Config.RGB_565, true);
+
+    FaceDetector faceDet = new FaceDetector(bm.getWidth(), bm.getHeight(), MAX_FACES);
+
+    FaceDetector.Face[] faceList = new FaceDetector.Face[MAX_FACES];
+
+    faceDet.findFaces(bm, faceList);
+
+    for (int i=0; i &lt; faceList.length; i++) {
+        FaceDetector.Face face = faceList[i];
+        Log.d("FaceDet", "Face ["+face+"]");
+        if (face != null) {
+            Log.d("FaceDet", "Face ["+i+"] - Confidence ["+face.confidence()+"]");
+            tv.setText("人脸可信度 : " + face.confidence());
+            PointF pf = new PointF();
+            //getMidPoint(PointF point);
+            //Sets the position of the mid-point between the eyes.
+            face.getMidPoint(pf);
+            RectF r = new RectF();
+            r.left = (float) (pf.x - face.eyesDistance()*1.4);
+            r.right = (float) (pf.x + face.eyesDistance()*1.4);
+            r.top = (float) (pf.y - face.eyesDistance()*1.6);
+            r.bottom = (float) (pf.y + face.eyesDistance()*1.7);
+
+            imageView.setVisibility(View.GONE);
+            ll.removeAllViews();
+            FaceView fv = new FaceView(this, myBitMap, r);
+            fv.invalidate();
+            ll.addView(fv);
+        } else {
+            Toast.makeText(this, "没有识别到人脸", Toast.LENGTH_SHORT).show();
+        }
+    }
+}
+</code></pre>
+
+<pre><code class="">#### 显示到图片上
+
+这里我们自己继承了一个View来把矩形画到图片里面
+</code></pre>
+
+<pre><code>class FaceView extends View {
+    private RectF rectF;
+    private Bitmap bitmap;
+
+    public FaceView(Context context, Bitmap bitmap, RectF rectF) {
+        super(context);
+        this.bitmap = bitmap;
+        this.rectF = rectF;
+    }
+
+    @Override
+    protected void onDraw(Canvas canvas) {
+        super.onDraw(canvas);
+
+        canvas.drawBitmap(bitmap, 0, 0, null);
+
+        Paint p = new Paint();
+        p.setColor(Color.RED);
+        p.setStyle(Paint.Style.STROKE);
+        canvas.drawRect(rectF, p);
+
+    }
+}
+</code></pre>
+
+<p>&#8220;`</p>
+]]></content>
+  </entry>
+  
+</feed>

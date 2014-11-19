@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: 前端 | 博客]]></title>
+  <link href="http://gonjay.github.io/blog/categories/qian-duan/atom.xml" rel="self"/>
+  <link href="http://gonjay.github.io/"/>
+  <updated>2014-11-18T23:04:08+08:00</updated>
+  <id>http://gonjay.github.io/</id>
+  <author>
+    <name><![CDATA[GonJay]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Rosace API]]></title>
+    <link href="http://gonjay.github.io/blog/2014/03/07/rosace-api/"/>
+    <updated>2014-03-07T00:04:23+08:00</updated>
+    <id>http://gonjay.github.io/blog/2014/03/07/rosace-api</id>
+    <content type="html"><![CDATA[<h1>syntax</h1>
+
+<hr />
+
+<h4>文本：</h4>
+
+<pre><code>1.   
+2. !
+3. ##
+4. \(任意字符）
+</code></pre>
+
+<p>属性：（可加 namespace 如 <elem rosace:if="expr">）</p>
+
+<pre><code>1. &lt;elem var.varname="expr"&gt;
+2. &lt;elem repeat.varname="expr"&gt;
+3. &lt;elem if="expr"&gt;
+4. &lt;elem if.attrname="expr"&gt;
+5. &lt;elem templ="text "&gt;
+6. &lt;elem macro="macroname(param,..)[optional (arg,...)]"&gt;
+7. &lt;elem require.renderername="src.html"&gt;
+</code></pre>
+
+<p>自动编译模板：（使用 rosace-page.js 时有效）</p>
+
+<pre><code>&lt;elem class="rosace"&gt;...&lt;/elem&gt;
+</code></pre>
+
+<p>自动渲染数据：（使用 rosace-page.js 时有效，优先级从高到低）</p>
+
+<pre><code>1. &lt;elem class="rosace"&gt;
+      &lt;script type="text/json" class="rosace-data"&gt;
+         { "items" : [1, 2, 3] }
+      &lt;/script&gt;
+      ...
+   &lt;/elem&gt;
+2. &lt;elem class="rosace"&gt;
+      &lt;script type="text/json" src="data.json" class="rosace-data"&gt;&lt;/script&gt;
+      ...
+   &lt;/elem&gt;
+3. &lt;elem class="rosace" [rosace:]data-obj="expr"&gt;
+4. &lt;elem class="rosace" [rosace:]data-src="src.json"&gt;
+</code></pre>
+
+<h1>api</h1>
+
+<hr />
+
+<ol>
+<li><p>创建（或取回已缓存的）模板</p>
+
+<pre><code> var renderer = $rosace('&lt;elem&gt;...&lt;/elem&gt;', [optional] opts, [optional]      callback(err, renderer));
+                     (element,
+                     ([element, ..],
+                     (element.childNodes,
+                     ($(selector),
+                     (url,
+
+ 当参数为 url 时，返回的 renderer 尚未初始化
+
+ 必须等到 callback(err, renderer) 被调用时才处在可用的状态
+</code></pre></li>
+<li><p>渲染模板与宏</p>
+
+<pre><code> 在模板外：
+ var html = renderer(data_object);
+        renderer.macroname(arg, arg2, ...);
+
+ 在模板内：
+
+ !
+ !
+ !
+ !
+</code></pre></li>
+<li><p>用 jQuery 一次性编译+渲染</p>
+
+<pre><code> var renderer = $(selector).rosace([optional] data_object, [optional] opts);
+</code></pre></li>
+<li><p>opts</p>
+
+<pre><code> (string)  id：指定模板根元素的 id。如果不指定，会自动生成。
+ (bool) cache：是否缓存已编译的模板
+
+ 默认值：{ id: undefined, cache: true })
+ 仅当用 html, url 或单个 elem 编译模板时有效。
+</code></pre></li>
+<li><p>第三方依赖</p>
+
+<pre><code> 使用 YAML 需引用：[js-yaml](http://nodeca.github.io/js-yaml/)
+</code></pre></li>
+</ol>
+
+
+<h1>samples</h1>
+
+<hr />
+
+<p>2-7: require</p>
+
+<p>inc-menu.html</p>
+
+<pre><code>&lt;ul macro="ul(items)(tree.items)"&gt;
+    &lt;li repeat="item in items"&gt;
+        
+        !
+    &lt;/ li&gt;
+&lt;/ul&gt;
+</code></pre>
+
+<p>page.html</p>
+
+<pre><code>&lt;div class="rosace" data-src="tree.json" require.menu="inc-menu.html"&gt;
+    !
+    !
+&lt;/div&gt;
+</code></pre>
+
+<p>创建好的模板本身是一个形如 <code>function (data) { return str; }</code> 的函数
+例如：</p>
+
+<pre><code>var html = '&lt;span macro="hello(name)('World')"&gt;Hello, !&lt;/span&gt;' +
+           '';
+var f = $rosace(html);
+
+f({ user: 'World' })
+
+--&gt; 输出
+&lt;span&gt;Hello, World!&lt;/span&gt;
+&lt;span&gt;Hello, rosace!&lt;/span&gt;
+</code></pre>
+
+<p>创建好的模板里包含有所有子模板的引用。
+例如还是刚才的模板为例：</p>
+
+<pre><code>var html = '&lt;span macro="hello(name)('World')"&gt;Hello, !&lt;/span&gt;' +
+           '';
+var f = $rosace(html);
+
+f.hello('World')
+--&gt; 输出
+&lt;span&gt;Hello, World!&lt;/span&gt;
+
+&lt;elem id="temp"&gt;
+   
+&lt;elem&gt;
+</code></pre>
+
+<p>调用 <code>$('#temp').rosace({ name: 'Kabbesy' });</code>
+则页面直接被修改为</p>
+
+<pre><code>&lt;elem id="temp&gt;
+   Kabbesy
+&lt;/elem&gt;
+</code></pre>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Rails中app/assets的来历]]></title>
+    <link href="http://gonjay.github.io/blog/2014/02/22/rails-zhong-app-slash-assets-de-lai-li/"/>
+    <updated>2014-02-22T00:46:31+08:00</updated>
+    <id>http://gonjay.github.io/blog/2014/02/22/rails-zhong-app-slash-assets-de-lai-li</id>
+    <content type="html"><![CDATA[<h2>引用更多</h2>
+
+<p>在过去的rails和传统应用中，所有的css和js文件全部都是静态的，写好了放在public，需要的时候就引用。</p>
+
+<p>但是，随着项目不断发展，这些文件会变得越来越多，在一个网站的首页你经常看见这样的壮观场景：</p>
+
+<pre><code>
+    &lt;link rel="stylesheet" type="text/css" href="libs/jquery-ui-1.10.3/themes/base/jquery-ui.css" /&gt;
+    &lt;link rel="stylesheet" type="text/css" href="libs/bootstrap-2.3.2/css/bootstrap.min.css" /&gt;
+    &lt;link rel="stylesheet" type="text/css" href="libs/fotorama-4.4.8/fotorama.css" /&gt;
+    &lt;link rel="stylesheet" type="text/css" href="libs/wp-pagenavi-2.50/pagenavi-css" /&gt;
+    &lt;link rel="stylesheet" type="text/css" href="libs/prettyPhoto/prettyPhoto.css" /&gt;
+    &lt;link rel="stylesheet" type="text/css" href="libs/anthology/styles/superfish.css" /&gt;
+    &lt;link rel="stylesheet" type="text/css" href="libs/anthology/plugins/fonts/fonts.css" /&gt;
+    &lt;link rel="stylesheet" type="text/css" href="styles/style.css" /&gt;
+    &lt;link rel="stylesheet" type="text/css" href="styles/model-jewellery.css" /&gt;
+    &lt;link rel="stylesheet" type="text/css" href="styles/model-diamond.css" /&gt;
+    &lt;script type="text/javascript" src="libs/jquery-1.9.1/jquery-1.9.1.min.js"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript" src="libs/jquery-ui-1.10.3/ui/jquery-ui.min.js"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript" src="libs/jquery-ui-touch-punch-0.2.2/jquery.ui.touch-punch.min.js"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript" src="libs/jQuery.jPlayer.2.5.0/jquery.jplayer.min.js"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript" src="libs/angular-1.2.6/angular.js"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript" src="libs/angular-1.2.6/angular-resource.min.js"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript" src="libs/angular-1.2.6/angular-route.min.js"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript" src="libs/angular-1.2.6/angular-cookies.min.js"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript" src="libs/angular-1.2.6/angular-sanitize.min.js"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript" src="libs/angular-1.2.6/angular-touch.min.js"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript" src="libs/angular-1.2.6/angular-animate.min.js"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript" src="libs/angular-ui-bootstrap-0.7.0/ui-bootstrap-tpls-0.7.0.min.js"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript" src="libs/fotorama-4.4.8/fotorama.js"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript" src="libsx/jquery-ui-slider-namearray.js"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript" src="libsx/touch-tricks.js"&gt;&lt;/script&gt;
+
+    &lt;link rel="stylesheet" type="text/css" href="styles/fix-anthlogy-style.css" /&gt;
+    &lt;link rel="stylesheet" type="text/css" href="styles/fix-4c-screen.css" /&gt;
+    &lt;link rel="stylesheet" type="text/css" href="styles/model-common.css" /&gt;
+
+    &lt;script src="scripts/mvc/model-common.js"&gt;&lt;/script&gt;
+    &lt;script src="scripts/mvc/model-filter.js"&gt;&lt;/script&gt;
+    &lt;script src="scripts/mvc/model-diamond.js"&gt;&lt;/script&gt;
+    &lt;script src="scripts/mvc/model-jewellery.js"&gt;&lt;/script&gt;
+    &lt;script src="scripts/mvc/model-4c.js"&gt;&lt;/script&gt;
+    &lt;script src="scripts/mvc/model-misc.js"&gt;&lt;/script&gt;
+    &lt;script src="scripts/mvc/model-wishcar.js"&gt;&lt;/script&gt;
+    &lt;script src="scripts/mvc/app-main.js"&gt;&lt;/script&gt;
+
+    &lt;script src="scripts/env.js"&gt;&lt;/script&gt;
+    &lt;script src="scripts/config.js"&gt;&lt;/script&gt;
+    &lt;script src="scripts/main.js"&gt;&lt;/script&gt;
+</code></pre>
+
+<h3>害怕了？😨</h3>
+
+<p>我也怕了，不仅是我们怕了，浏览器也怕了。浏览器为了照顾设备的感受，一般情况下是会限制同一时间的发送网络请求的次数的，所以这必然造成了网站的访问速度下降。So，玩Ruby的那群人做了些gem <code>Sprockets</code> <code>Jammit</code>来当做连接css和js并压缩它们的框架，后来发现确实好用，Rails3.2也就自带了。于是便有了统一管理这些css和js的资源目录，框架会自己去相应的目录里面寻找这些文件然后生产一份大文件，随后就有了Rails应用的标志HTML</p>
+
+<pre><code>&lt;link href="http://gonjay.github.io/assets/application-1e0b7b6177f955c71f083db518841bbf.css" media="all" rel="stylesheet" type="text/css" /&gt;
+&lt;script src="http://gonjay.github.io/assets/application-ef900b6062fe4b543f09c78ba9062141.js" type="text/javascript"&gt;&lt;/script&gt;
+</code></pre>
+
+<p>这样子，世界一下清净了很多呢，这便是<code>assets pipline</code>概念的由来。当然，我所在的那个项目因为是基于本地html做的，所以加载这么多次资源文件压力会很小，如果是在线的应用按照assets pipline的思路来是最好的选择。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Bootstrap 后台模板推荐]]></title>
+    <link href="http://gonjay.github.io/blog/2014/02/19/bootstrap-hou-tai-mo-ban-tui-jian/"/>
+    <updated>2014-02-19T01:01:39+08:00</updated>
+    <id>http://gonjay.github.io/blog/2014/02/19/bootstrap-hou-tai-mo-ban-tui-jian</id>
+    <content type="html"><![CDATA[<h3>Aquincum - 纯的相应式后台模板:</h3>
+
+<p>推荐指数：8/10</p>
+
+<p><img src="http://gonjay.github.io/images/demo/7cf92825-ba44-47f0-8988-045f3ac749c7.png" alt="" /></p>
+
+<p><a href="http://demo.kopyov.com/?theme=aquincum">在线网址</a></p>
+
+<p>Aquincum
+35个以及更多插件和灵活的内容结构
+3列的结构、3级导航、2级工具栏
+兼容iPad和iPhone</p>
+
+<h3>Supr</h3>
+
+<p>推荐指数：9/10</p>
+
+<p><img src="http://gonjay.github.io/images/demo/30bb36e2-6d24-4da4-8402-e9b5c0817c30.png" alt="" /></p>
+
+<p><a href="http://themes.suggeelson.com/?theme=supr">在线网址</a>
+（可在线查看PC版、Pad版横屏竖屏、Phone版横屏竖屏）</p>
+
+<p>可在线查看PC版、Pad及Phone版的横屏与竖屏</p>
+
+<h3>MWS Admin</h3>
+
+<p>推荐指数：9/10</p>
+
+<p><img src="http://gonjay.github.io/images/demo/6b7edd3e-25f0-4730-9e34-9c0646cff8ae.png" alt="" /></p>
+
+<p><a href="http://www.youxithemes.com/themes/mws-admin">在线网站</a></p>
+
+<ul>
+<li>配色偏向商务风格</li>
+<li>面包屑导航看起来不错</li>
+<li>拟物化的设计倾向</li>
+</ul>
+
+
+<h3>Start - Metro风格的模板:</h3>
+
+<p>推荐指数：9/10</p>
+
+<p><img src="http://gonjay.github.io/images/demo/67e8dd1b-d520-4f0e-a2ea-72f65b36d5ac.png" alt="" /></p>
+
+<p><a href="http://themeforest.net/item/start-metro-ui-responsive-admin-template/full_screen_preview/3408505">在线网址</a></p>
+
+<p>Start 整体风格比较现代化</p>
+
+<h3>FLAT - 扁平化的风格</h3>
+
+<p>推荐指数：8/10</p>
+
+<p><img src="http://gonjay.github.io/images/demo/4069e3eb-1986-453f-aea0-b1206a2c1b16.png" alt="" /></p>
+
+<p><a href="http://theme.eakroko.de/flat">在线网址</a></p>
+
+<ul>
+<li>FLAT 扁平化，很简洁</li>
+<li>消息提示的弹出窗口设计的很不错</li>
+<li>有一个抽象化的世界地图很棒</li>
+<li>完成度很高</li>
+</ul>
+
+
+<h3>MoonCake</h3>
+
+<p>推荐指数：8/10</p>
+
+<p><img src="http://gonjay.github.io/images/demo/a57ed507-edb7-4e7b-b655-4207e30ed974.png" alt="" /></p>
+
+<p><a href="http://www.youxithemes.com/themes/mooncake">在线网址</a></p>
+
+<ul>
+<li>有一个漂亮的登陆界面</li>
+<li>相应式布局</li>
+<li>背景有拟物化的倾向，图标、数据表格偏向扁平化</li>
+</ul>
+
+]]></content>
+  </entry>
+  
+</feed>

@@ -1,0 +1,238 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>几种GC的方式小结 - 博客</title>
+  <meta name="author" content="GonJay">
+
+  
+  <meta name="description" content="标记清除方式 从根开始将可能被引用的对象用递归的方式进行标记，没有被标记的就当垃圾回收掉。 复制收集方式 因为标记清楚方式中有一个弊病就是在一次清除中，如果只有一小部分存活，消耗的时间会很多，所以复制收集方式应运而生。 引用计数方式 熟悉Objective-C开发iOS或者一些C++ &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://gonjay.github.io/blog/2014/07/11/ji-chong-gcde-fang-shi-xiao-jie">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="博客" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/libs/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-40130853-2']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">博客</a></h1>
+  
+    <h2>群星，我的归宿</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:gonjay.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">几种GC的方式小结</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2014-07-11T11:26:54+08:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>11</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>11:26 am</span></time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><h3>标记清除方式</h3>
+
+<p>从根开始将可能被引用的对象用递归的方式进行标记，没有被标记的就当垃圾回收掉。</p>
+
+<p><img src="http://ww2.sinaimg.cn/mw600/a22a83f5gw1ehhxoubcppj20an0jk75f.jpg" alt="" /></p>
+
+<h3>复制收集方式</h3>
+
+<p>因为标记清楚方式中有一个弊病就是在一次清除中，如果只有一小部分存活，消耗的时间会很多，所以复制收集方式应运而生。</p>
+
+<p><img src="http://ww2.sinaimg.cn/mw600/a22a83f5gw1ehhxorye36j20aj0jodgt.jpg" alt="" /></p>
+
+<h3>引用计数方式</h3>
+
+<p>熟悉Objective-C开发iOS或者一些C++的开发者可能非常熟悉。</p>
+
+<p>基本原理是，在每个对象中保存该对象的引用计数，当引用增加或者减少的时候对计数更新。</p>
+
+<p><img src="http://ww2.sinaimg.cn/mw600/a22a83f5gw1ehhxopz9awj20bz0czjs2.jpg" alt="" /></p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">GonJay</span></span>
+
+      
+
+
+
+
+<time class='entry-date' datetime='2014-07-11T11:26:54+08:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>11</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>11:26 am</span></time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/gc/'>gc</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2014/07/10/flask-and-rails/" title="Previous Post: Flask and Rails part 1">&laquo; Flask and Rails part 1</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2014/07/11/markdownde-chun-qian-duan-jie-jue-fang-an/" title="Next Post: Markdown的纯前端解决方案">Markdown的纯前端解决方案 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/10/14/androidyu-cocos2d-xkai-fa-zhong-de-huan-cun-chi/">Android与Cocos2d-x开发中的缓存池</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/10/12/vimtutor/">Vimtutor 简体中文</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/09/20/er-cha-shu-de-bian-li/">二叉树的遍历</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/09/19/rspeczhong-shi-yong-database-cleaner/">Rspec中使用database_cleaner</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/09/17/ruby-zhong-de-xiao-yu-fa/">Ruby 中的&#8217;小语法&#8217;</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - GonJay -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'gonjay';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://gonjay.github.io/blog/2014/07/11/ji-chong-gcde-fang-shi-xiao-jie/';
+        var disqus_url = 'http://gonjay.github.io/blog/2014/07/11/ji-chong-gcde-fang-shi-xiao-jie/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+</body>
+</html>

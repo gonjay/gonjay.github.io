@@ -1,0 +1,393 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Ruby | 博客]]></title>
+  <link href="http://gonjay.github.io/blog/categories/ruby/atom.xml" rel="self"/>
+  <link href="http://gonjay.github.io/"/>
+  <updated>2014-11-18T23:04:08+08:00</updated>
+  <id>http://gonjay.github.io/</id>
+  <author>
+    <name><![CDATA[GonJay]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Rspec中使用database_cleaner]]></title>
+    <link href="http://gonjay.github.io/blog/2014/09/19/rspeczhong-shi-yong-database-cleaner/"/>
+    <updated>2014-09-19T16:56:50+08:00</updated>
+    <id>http://gonjay.github.io/blog/2014/09/19/rspeczhong-shi-yong-database-cleaner</id>
+    <content type="html"><![CDATA[<p>这两天重新写Rspec测试，参考了 ruby-china 的测试用例和配置方法。</p>
+
+<p>在使用Rspec的过程中因为有使用 FactoryGirl ，发现在一些用例中使用user的时候会发生</p>
+
+<pre><code>Validation failed: Email has already been taken (ActiveRecord::RecordInvalid)
+</code></pre>
+
+<p>因为在生成user的时候没有使用单例模式，所有每次向 FactoryGirl 要 user 的时候都会重新生成新的数据，所以就和之前发生冲突了。</p>
+
+<p>参考 ruby-china 的测试代码，发现是使用了 database_cleaner 使得每个测试用例之后清扫了测试数据库，就不会引发冲突了。</p>
+
+<pre><code class="ruby">  config.before(:each) do
+    DatabaseCleaner.orm = :mongoid
+    DatabaseCleaner.strategy = :truncation
+    DatabaseCleaner.clean
+    Rails.cache.clear
+  end
+</code></pre>
+
+<p>但是当我把 database_cleaner 配置好并加到我项目 rspec 中的时候，却遇到了</p>
+
+<pre><code>/gems/database_cleaner-0.8.0/lib/database_cleaner/active_record/truncation.rb:62:in `&lt;module:ConnectionAdapters&gt;': superclass mismatch for class SQLite3Adapter (TypeError)
+</code></pre>
+
+<p>网上搜索一堆无效之后，转而使用另外一个解决方案</p>
+
+<pre><code class="ruby">  config.after(:each) do
+    ActiveRecord::Base.subclasses.each(&amp;:delete_all)
+  end
+</code></pre>
+
+<p>也就是在跑完每个测试用例之后，删除掉数据库中所有的 Model 数据</p>
+
+<p>由于这样一段代码，接下来我遇到了一个更加头疼的问题。因为我使用 Devise 的 <code>sign_in user</code> 在每个测试用例中来模拟登陆后的用户，结果发现，前后两个测试用例，总是出现第一个用例能通过，第二个用例死活通过不了。</p>
+
+<pre><code class="ruby">class TeamsController &lt; ApplicationController
+  before_action :authenticate_user!
+end
+
+# 第一个 examples 能通过，第二个 examples 无法通过
+describe TeamsController, :type =&gt; :controller do
+  user = FactoryGirl.create(:user)
+
+  describe ":index" do
+    it "should show list of teams" do
+      sign_in user
+      get :index
+      expect(response).to be_success
+    end
+  end
+
+  describe ":new" do
+    it "should allow access from authenticated user" do
+      sign_in user
+      get :new
+      expect(response).to be_success
+    end
+  end
+
+end
+</code></pre>
+
+<p>将第二个 examples 的 response.body 打印出来，发现</p>
+
+<pre><code>&lt;html&gt;&lt;body&gt;You are being &lt;a href="http://test.host/users/sign_in"&gt;redirected&lt;/a&gt;.&lt;/body&gt;&lt;/html&gt;
+</code></pre>
+
+<p>无解，然后分别打印两个用例的 controller.current_user，发现后一个是 nil</p>
+
+<p>最终我将 database_cleaner 升级到了 1.3.0 重新bundle了一下，解决了 <code>superclass mismatch for class SQLite3Adapter</code> 的问题，移除了那段删除所有 Model 数据的 trick 代码所有的问题全部解决了。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Ruby 中的'小语法']]></title>
+    <link href="http://gonjay.github.io/blog/2014/09/17/ruby-zhong-de-xiao-yu-fa/"/>
+    <updated>2014-09-17T00:00:50+08:00</updated>
+    <id>http://gonjay.github.io/blog/2014/09/17/ruby-zhong-de-xiao-yu-fa</id>
+    <content type="html"><![CDATA[<p>生成1到10的数组
+<code>ruby
+array = (1..10).to_a
+</code></p>
+
+<p>通过数组的each，直接调用对象的方法
+<code>ruby
+ActiveRecord::Base.subclasses.each(&amp;:delete_all)
+</code></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Flask and Rails Part 1]]></title>
+    <link href="http://gonjay.github.io/blog/2014/07/10/flask-and-rails/"/>
+    <updated>2014-07-10T17:41:11+08:00</updated>
+    <id>http://gonjay.github.io/blog/2014/07/10/flask-and-rails</id>
+    <content type="html"><![CDATA[<p>I have written flask recently,with a little project that I can study python.</p>
+
+<p>I used to write Ruby on Rails, which is a very famous web framework and the most popular web framework all over the world.Rails is really really fast to develop most web products,MVC with RESTful design makes very thing easy. Based on meta-programming, the ActiveRecord makes data handles fly in the air.</p>
+
+<p>But flask is also an awesome web framework after a few days since I write my project.It’s more like sinatra,which is a light ruby web framework.</p>
+
+<h3>Request handle</h3>
+
+<p>With rails,you need to handle a request URL at <code>routes.rb</code>
+<code>ruby
+get ‘blogs’ =&gt; ‘blogs#index’
+</code>
+This code will handle <code>/blogs</code> GET method  to a controller named <code>blogs_controller.rb</code> in <code>app/controller/</code>,and pass the params to function named <code>index</code>. After process the request,rails will render a view named <code>index.html.erb</code> in <code>app/views/blogs/</code>.</p>
+
+<p>With flask,you need to handle a request URL at <code>app.py</code>
+<code>python
+@app.route(‘/blogs’)
+def index():
+    return render_template(‘index')
+</code></p>
+
+<h3>ORM</h3>
+
+<p>In my own words,ActiveRecord is much better than SQLAlchemy.</p>
+
+<p>The Types of Associations in Rails:</p>
+
+<ul>
+<li>belongs_to</li>
+<li>has_one</li>
+<li>has_many</li>
+<li>has_many :through</li>
+<li>has_one :through</li>
+<li>has_and_belongs_to_many</li>
+</ul>
+
+
+<p>Here are some data relationship implements of two ORM:</p>
+
+<h4>One to Many</h4>
+
+<p>With Rails:</p>
+
+<pre><code class="ruby     ">class Customer &lt; ActiveRecord::Base
+  has_many :orders, dependent: :destroy
+end
+
+class Order &lt; ActiveRecord::Base
+  belongs_to :customer
+end
+</code></pre>
+
+<p> Now you can get a customer’s orders by:
+<code>ruby
+          @order = @customer.order.all()
+</code>
+Get an order’s customer by:
+<code>ruby
+          @customer = @order.customer
+</code></p>
+
+<p>With SQLAchemy:</p>
+
+<pre><code class="python">class App(db.Model):
+     __tablename__  = 'apps'
+     owner_id       = db.Column(db.Integer, db.ForeignKey(‘users.id'))
+     owner          = db.relationship('User', backref=db.backref('apps’))
+
+class User(db.Model):
+      __tablename__  =  'users'
+       id            =  db.Column('id', db.Integer, primary_key=True)
+</code></pre>
+
+<p>Now you can get a user’s apps by:</p>
+
+<pre><code class="python">          app = user.apps
+</code></pre>
+
+<p>Get an app’s owner by:
+<code>python
+          user = app.owner
+</code></p>
+
+<h4>Many to Many</h4>
+
+<p>Although you need migration files in rails,since Flask and SQLAlchemy just configure data structure within model.The benefit of migration files comes out when you want to change your data structure of model.And now I finally known why my teacher ask me to design data structure at first,because other web framework have no ideas about what if our data structure changed.</p>
+
+<p>With migration files in rails, you can change you data structure so easy that you can develop really really align.All details about the program becomes more and more clear after you start coding.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[一些简单算法的Ruby实现]]></title>
+    <link href="http://gonjay.github.io/blog/2014/03/16/%5B%3F%5D-xie-jian-dan-suan-fa-de-rubyshi-xian/"/>
+    <updated>2014-03-16T10:32:51+08:00</updated>
+    <id>http://gonjay.github.io/blog/2014/03/16/[?]-xie-jian-dan-suan-fa-de-rubyshi-xian</id>
+    <content type="html"><![CDATA[<h2>堆排序</h2>
+
+<p>原理：利用大根堆或小根堆思想，首先建立堆，然后将堆首与堆尾交换，堆尾之后为有序区。</p>
+
+<p>这里有一张原理图</p>
+
+<p><img src="http://upload.wikimedia.org/wikipedia/commons/4/4d/Heapsort-example.gif" alt="" /></p>
+
+<p>有这样一道笔试题</p>
+
+<pre><code>初始顺序为：1 8 6 2 5 4 7 3 一组数采用堆排序，当建堆（小根堆）完毕
+时，堆所对应的二叉树中序遍历顺序是什么。
+</code></pre>
+
+<p>上图给出的例子是建大根堆的情况，这个题目要求的是建小堆，但是原理类似：按照构建<code>满二叉树</code>的方法，将一个数组依次填入树中的相应位置，但是要保证根节点小于子节点，如果不小于子节点则将根节点与这个节点交换。</p>
+
+<h2>插入排序</h2>
+
+<p>直接插入排序</p>
+
+<p>原理：将数组分为无序和有序两个区，然后不断将无序区的第一个元素按大小顺序插入到有序区中，最终将所有无序区元素都移动到无序区完成排序。</p>
+
+<pre><code class="c">    void InsertSort(Node L[],int length)
+    {
+        int i,j;
+        for(i = 1; i &lt; length; i ++)
+        {
+            j = i + 1;
+            if(L[j] &lt; L[i])
+            {
+                L[0] = L[j];
+                //当L[0]小于有序区的最后一个元素的时候，最后一个元素扩大，再和有序区倒数第二个比较
+                while(L[0] &lt; L[i])
+                {
+                    L[i+1] = L[i];
+                    i --;
+                }
+                L[i+1] = L[0];
+            }
+            i = j - 1;
+        }       
+    }
+</code></pre>
+
+<pre><code class="ruby">def insert_sort(node)
+  i,j=0
+  for i in 0...(node.length - 1)
+    # puts i
+    j = i + 1
+    if node[j] &lt; node[i]
+      break if node[j].nil?
+      n = node[j]
+      while n &lt; node[i]
+        node[i+1] = node[i]
+        i -= 1
+      end
+      node[i+1] = n
+    end
+    i = j - 1
+  end
+  node
+end
+
+node = [7,2,13,4,5,1,1]
+
+puts insert_sort node
+</code></pre>
+
+<p>希尔算法</p>
+
+<p>原理：又称增量缩小排序。先将序列按增量划分为元素个数相同的若干组，使用直接插入排序法进行排序，然后不断缩小增量直至1，最后使用直接插入排序完成排序。</p>
+
+<pre><code class="c">void ShellSort(Node L[], int d)
+{
+  while(d &gt;= 1)
+  {
+    Shell(L,d);
+    d = d/2;
+  }
+}
+
+void Shell(Node L[], int d)
+{
+  int i,j;
+  for(i = d + 1 ; i &lt; length; i ++)
+  {
+    if(L[i] &lt; L[i-d])
+    {
+      L[0] = L[i];
+      j = i - d;
+      while(j &gt; 0 &amp;&amp; L[j] &gt; L[0])
+      {
+        L[j+d] = L[j];
+        j = j - d;
+      }
+      L[j+d] = L[0];
+    }
+  }
+}
+</code></pre>
+
+<pre><code class="ruby">def shell_sort(node, d)
+  while(d &gt; 0)
+    shell node, d
+    d = d / 2
+  end
+end
+
+def shell(node, d)
+  j = 0
+  i = i + d
+  for i in 1...(node.length - 1) do
+    if(node[i] &lt; node[i-d])
+      j = i - d
+      node[0] = node[i]
+      while(j &gt; 0 &amp;&amp; node[j] &gt; node[i])
+        node[j+d] = node[j]
+        j = j - d
+      end
+      node[j] = node[0]
+    end
+  end
+end
+</code></pre>
+
+<h3>交换排序</h3>
+
+<p>冒泡排序</p>
+
+<p>原理：将序列划分为无序和有序区，不断通过交换较大元素至无序区尾完成排序</p>
+
+<pre><code class="c">void bubble_sort(Node L[])
+{
+  int i, j;
+  Bool isChanged;
+  for(j = L.length; j &gt; 0; j --)
+  {
+    isChanged = false;
+    for(i=0; i &lt; j; i ++)
+    {
+      if(L[i] &gt; L[i+1])
+      {
+        int temp = L[i];
+        L[i] = L[i+1];
+        L[i+1] = temp;
+        isChanged = true;
+      }
+    }
+    if(!isChanged)break;
+  }
+}
+</code></pre>
+
+<h3>选择排序</h3>
+
+<p>直接选择排序</p>
+
+<p>原理：将序列分为无序和有序区，寻找无序区中最小值和无序区的首元素交换，有序区扩大一个，循环最终完成排序</p>
+
+<pre><code class="c">void SelectSort(Node L[])
+{
+  int i,j,k;
+  for(i=0;i&lt;L.length;i++)
+  {
+    k = i;
+    for(j=i+1;j&lt;L.length;j++)
+    {
+      if(L[j] &lt; L[k]) k = j;
+    }
+    if(k != i)
+    {
+      int temp = L[i];
+      L[i] = L[k];
+      L[k] = temp;
+    }
+  }
+}
+</code></pre>
+]]></content>
+  </entry>
+  
+</feed>

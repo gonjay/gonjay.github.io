@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Markdown | 博客]]></title>
+  <link href="http://gonjay.github.io/blog/categories/markdown/atom.xml" rel="self"/>
+  <link href="http://gonjay.github.io/"/>
+  <updated>2014-11-18T23:04:08+08:00</updated>
+  <id>http://gonjay.github.io/</id>
+  <author>
+    <name><![CDATA[GonJay]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Markdown的纯前端解决方案]]></title>
+    <link href="http://gonjay.github.io/blog/2014/07/11/markdownde-chun-qian-duan-jie-jue-fang-an/"/>
+    <updated>2014-07-11T11:28:33+08:00</updated>
+    <id>http://gonjay.github.io/blog/2014/07/11/markdownde-chun-qian-duan-jie-jue-fang-an</id>
+    <content type="html"><![CDATA[<h2>更新</h2>
+
+<p>这个解决方案应该是我目前遇到的最完美的方案了：</p>
+
+<p><a href="http://jbt.github.io/markdown-editor/">http://jbt.github.io/markdown-editor/</a></p>
+
+<h3>Stuff used to make this:</h3>
+
+<ul>
+<li><a href="https://github.com/chjj">marked</a> for Markdown parsing</li>
+<li><a href="http://codemirror.net/">CodeMirror</a> for the awesome syntax-highlighted editor</li>
+<li><a href="http://softwaremaniacs.org/soft/highlight/en/">highlight.js</a> for syntax highlighting in output code blocks</li>
+<li><a href="https://github.com/dankogai/js-deflate">js-deflate</a> for gzipping of data to make it fit in URLs</li>
+</ul>
+
+
+<!--more-->
+
+
+<h2>Old</h2>
+
+<p>前阵子在维护一个Node.js的项目，是用来做git仓库管理的，类似 <code>github</code> <code>gitlab</code> 之类的内部项目。</p>
+
+<p>整个项目的Markdown以及包括代码高亮等的操作，全部放在后端来渲染，因为人家Node.js本来就是<code>Javascript</code>嘛，所以各种js的库也是用得顺手。不像许多Node项目是由前端出身的人转做后端，这个项目给人的感觉就是一个纯后端做出来的东西，整个前端部分在我看来很多都可以剥离出来的。</p>
+
+<p>其实不仅仅像这种项目，许多web应用都是，它作为一个web app来使用的时候，不是什么事情都交给后端就好了，后端很强大能实现很多东西，但是后端毕竟不是万能的，该用前端优化的时候就应该应前端来做，典型的例子就是Markdown文本的渲染了。</p>
+
+<p>其实像我知道的github、ruby-china等，Markdown的渲染都是交由后端来实现的，不是特别理解这个事情，因为在github上面经常会因为网络不通常导致，一个markdown的文本预览不到，很是恼火，ruby-china因为是在国内，所以感觉不出来。</p>
+
+<p>而且放到后端渲染还有一个比较痛苦的问题就是升级和维护这个模块，用起来不觉得，一旦要升级下markdwon渲染引擎的版本可着实一件苦逼的事情。</p>
+
+<p>所有在有了showdown.js这样的神器之后，果断将整个项目的Markdwon放到到了前端，配合着highlight.js非常的容易就能实现Markdown文本的渲染，最关键的是，因为jQuery的便利性，这货和后端结合的时候完全是无缝的啊有木有。</p>
+
+<p>这里有一个 <a href="http://gonjay.github.io/editor/">传送门</a>，是我测试用的在线Markdown在线编辑器，可以查看一下源代码，非常简单就能完成设置。</p>
+
+<p><div><script src='https://gist.github.com/9a2d7b4e97f6e483c475.js?file=index.js'></script>
+<noscript><pre><code>var converter = new Showdown.converter({
+    &#39;github_flavouring&#39;: true,
+    &#39;tables&#39;: true
+});
+
+    // var md = isFromAndroid.getContentBody();
+
+    $(&#39;.btn&#39;).click(function(){
+        var html = converter.makeHtml($(&#39;#origin&#39;).val());
+        $(&#39;#display&#39;).html(html);
+        $(&#39;code&#39;).each(function(i, e) {hljs.highlightBlock(e)});
+    });</code></pre></noscript></div>
+</p>
+
+<p>步骤是：</p>
+
+<ul>
+<li>showdown.js渲染出对应的html</li>
+<li>highlight.js渲染对应的语言的语法高亮</li>
+</ul>
+
+]]></content>
+  </entry>
+  
+</feed>

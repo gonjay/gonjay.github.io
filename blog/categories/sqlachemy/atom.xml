@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Sqlachemy | 博客]]></title>
+  <link href="http://gonjay.github.io/blog/categories/sqlachemy/atom.xml" rel="self"/>
+  <link href="http://gonjay.github.io/"/>
+  <updated>2014-11-18T23:04:08+08:00</updated>
+  <id>http://gonjay.github.io/</id>
+  <author>
+    <name><![CDATA[GonJay]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Flask and Rails Part 1]]></title>
+    <link href="http://gonjay.github.io/blog/2014/07/10/flask-and-rails/"/>
+    <updated>2014-07-10T17:41:11+08:00</updated>
+    <id>http://gonjay.github.io/blog/2014/07/10/flask-and-rails</id>
+    <content type="html"><![CDATA[<p>I have written flask recently,with a little project that I can study python.</p>
+
+<p>I used to write Ruby on Rails, which is a very famous web framework and the most popular web framework all over the world.Rails is really really fast to develop most web products,MVC with RESTful design makes very thing easy. Based on meta-programming, the ActiveRecord makes data handles fly in the air.</p>
+
+<p>But flask is also an awesome web framework after a few days since I write my project.It’s more like sinatra,which is a light ruby web framework.</p>
+
+<h3>Request handle</h3>
+
+<p>With rails,you need to handle a request URL at <code>routes.rb</code>
+<code>ruby
+get ‘blogs’ =&gt; ‘blogs#index’
+</code>
+This code will handle <code>/blogs</code> GET method  to a controller named <code>blogs_controller.rb</code> in <code>app/controller/</code>,and pass the params to function named <code>index</code>. After process the request,rails will render a view named <code>index.html.erb</code> in <code>app/views/blogs/</code>.</p>
+
+<p>With flask,you need to handle a request URL at <code>app.py</code>
+<code>python
+@app.route(‘/blogs’)
+def index():
+    return render_template(‘index')
+</code></p>
+
+<h3>ORM</h3>
+
+<p>In my own words,ActiveRecord is much better than SQLAlchemy.</p>
+
+<p>The Types of Associations in Rails:</p>
+
+<ul>
+<li>belongs_to</li>
+<li>has_one</li>
+<li>has_many</li>
+<li>has_many :through</li>
+<li>has_one :through</li>
+<li>has_and_belongs_to_many</li>
+</ul>
+
+
+<p>Here are some data relationship implements of two ORM:</p>
+
+<h4>One to Many</h4>
+
+<p>With Rails:</p>
+
+<pre><code class="ruby     ">class Customer &lt; ActiveRecord::Base
+  has_many :orders, dependent: :destroy
+end
+
+class Order &lt; ActiveRecord::Base
+  belongs_to :customer
+end
+</code></pre>
+
+<p> Now you can get a customer’s orders by:
+<code>ruby
+          @order = @customer.order.all()
+</code>
+Get an order’s customer by:
+<code>ruby
+          @customer = @order.customer
+</code></p>
+
+<p>With SQLAchemy:</p>
+
+<pre><code class="python">class App(db.Model):
+     __tablename__  = 'apps'
+     owner_id       = db.Column(db.Integer, db.ForeignKey(‘users.id'))
+     owner          = db.relationship('User', backref=db.backref('apps’))
+
+class User(db.Model):
+      __tablename__  =  'users'
+       id            =  db.Column('id', db.Integer, primary_key=True)
+</code></pre>
+
+<p>Now you can get a user’s apps by:</p>
+
+<pre><code class="python">          app = user.apps
+</code></pre>
+
+<p>Get an app’s owner by:
+<code>python
+          user = app.owner
+</code></p>
+
+<h4>Many to Many</h4>
+
+<p>Although you need migration files in rails,since Flask and SQLAlchemy just configure data structure within model.The benefit of migration files comes out when you want to change your data structure of model.And now I finally known why my teacher ask me to design data structure at first,because other web framework have no ideas about what if our data structure changed.</p>
+
+<p>With migration files in rails, you can change you data structure so easy that you can develop really really align.All details about the program becomes more and more clear after you start coding.</p>
+]]></content>
+  </entry>
+  
+</feed>

@@ -1,0 +1,270 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Android Sutio 使用指南&#8211;像Gemfile一样使用gradle - 博客</title>
+  <meta name="author" content="GonJay">
+
+  
+  <meta name="description" content="像Gemfile一样使用gradle 随着项目越来越大，为了更多特性，我们不得不使用越来越多的开源库。按照Eclipse等传统的方式，我们一般会这样做： 下载jar包，并添加到项目的build path里面
+下载library，将整个文件夹导入到workspace里面，然后在自己的项目里面添加依赖 &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://gonjay.github.io/blog/2014/02/19/android-sutio-shi-yong-zhi-nan">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="博客" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/libs/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-40130853-2']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">博客</a></h1>
+  
+    <h2>群星，我的归宿</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:gonjay.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Android Sutio 使用指南&#8211;像Gemfile一样使用gradle</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2014-02-19T00:04:26+08:00'><span class='date'><span class='date-month'>Feb</span> <span class='date-day'>19</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>12:04 am</span></time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><h1>像Gemfile一样使用gradle</h1>
+
+<p>随着项目越来越大，为了更多特性，我们不得不使用越来越多的开源库。按照Eclipse等传统的方式，我们一般会这样做：</p>
+
+<ol>
+<li>下载jar包，并添加到项目的build path里面</li>
+<li>下载library，将整个文件夹导入到workspace里面，然后在自己的项目里面添加依赖</li>
+</ol>
+
+
+<p>这种方式很有效，但你可以搜索一下Ruby的gem，node.js的npm，iOS的cocoapods，还有过去java项目中的maven依赖。</p>
+
+<p>对比你就发现了，原来这些包管理工具让使用者都不用自己从网上下载，Android依赖管理不是那么优秀，于是Google在最新的Android开发工具便使用gradle来管理项目。那么想比起传统的maven，gradle有哪些优势呢？</p>
+
+<h3>选择Gradle的五个优势</h3>
+
+<ol>
+<li>已经被证明能够处理大型的项目规模&ndash;LinkedIn, Netflix, Orbitz这些大公司都使用它来管理项目</li>
+<li>gradle提供了对于多语言、多平台最自然的处理方式&ndash;Scala, Groovy, C/C++这些项目都能用gradle来管理</li>
+<li>gradle专注build效率</li>
+<li>gradle的发布周期很短</li>
+<li>社区支持很棒</li>
+</ol>
+
+
+<p><a href="http://www.gradleware.com/resources/tech/java/maven">链接</a></p>
+
+<h3>如何引用Maven？</h3>
+
+<p>之前我们是这样引用</p>
+
+<pre><code>&lt;dependency&gt;
+    &lt;groupId&gt;com.nhaarman.listviewanimations&lt;/groupId&gt;
+    &lt;artifactId&gt;library&lt;/artifactId&gt;
+    &lt;version&gt;2.5.2&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre>
+
+<p>现在我们是这样</p>
+
+<pre><code>repositories {
+    mavenCentral()
+}
+
+dependencies{
+    compile 'com.nhaarman.listviewanimations:library:2.5.2'
+}
+</code></pre>
+
+<p>你看最新的依赖管理方式让你再也不用去github上面下载jar包了或者导入整个library</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">GonJay</span></span>
+
+      
+
+
+
+
+<time class='entry-date' datetime='2014-02-19T00:04:26+08:00'><span class='date'><span class='date-month'>Feb</span> <span class='date-day'>19</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>12:04 am</span></time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/android/'>android</a>, <a class='category' href='/blog/categories/studio/'>studio</a>, <a class='category' href='/blog/categories/useful-tips/'>useful tips</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2014/01/04/ruby-china-for-android/" title="Previous Post: Ruby-china 的 Android 客户端">&laquo; Ruby-china 的 Android 客户端</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2014/02/19/bootstrap-hou-tai-mo-ban-tui-jian/" title="Next Post: Bootstrap 后台模板推荐">Bootstrap 后台模板推荐 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/10/14/androidyu-cocos2d-xkai-fa-zhong-de-huan-cun-chi/">Android与Cocos2d-x开发中的缓存池</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/10/12/vimtutor/">Vimtutor 简体中文</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/09/20/er-cha-shu-de-bian-li/">二叉树的遍历</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/09/19/rspeczhong-shi-yong-database-cleaner/">Rspec中使用database_cleaner</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/09/17/ruby-zhong-de-xiao-yu-fa/">Ruby 中的&#8217;小语法&#8217;</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - GonJay -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'gonjay';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://gonjay.github.io/blog/2014/02/19/android-sutio-shi-yong-zhi-nan/';
+        var disqus_url = 'http://gonjay.github.io/blog/2014/02/19/android-sutio-shi-yong-zhi-nan/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,228 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Start Cocos2d With Lua - 博客</title>
+  <meta name="author" content="GonJay">
+
+  
+  <meta name="description" content="quick-cocos2d-x tip cocos游戏开发的流程是先采用Lua或者JS，把整个游戏实现出来，然后利用相应的工具去打包成不同平台下的项目，比如打包Android平台或者iOS平台的项目，然后利用相应平台的工具编译成apk或者ipa文件。 这也就意味着， &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://gonjay.github.io/blog/2014/03/25/start-cocos2d-with-lua">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="博客" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/libs/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-40130853-2']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">博客</a></h1>
+  
+    <h2>群星，我的归宿</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:gonjay.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Start Cocos2d With Lua</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2014-03-25T15:02:55+08:00'><span class='date'><span class='date-month'>Mar</span> <span class='date-day'>25</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>3:02 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><h2>quick-cocos2d-x</h2>
+
+<h2>tip</h2>
+
+<p>cocos游戏开发的流程是先采用Lua或者JS，把整个游戏实现出来，然后利用相应的工具去打包成不同平台下的项目，比如打包Android平台或者iOS平台的项目，然后利用相应平台的工具编译成apk或者ipa文件。</p>
+
+<p>这也就意味着，对于一个利用cocos开发的游戏要接入我们的SDK，我们应该不会去开发针对Lua或者JS的单独SDK，而是给出一个指导，即当游戏开发商生成了一个Android项目或者iOS项目之后，应该怎样接入我们的平台。这就涉及到Lua调用Java，Java调用Lua，又或者Objective-C调用Lua或者Lua调用Objective-C了，剩下的事情，就是纯粹SDK的一些操作。</p>
+
+<p>接下来尝试，将一个html5的cocos打包生成一个Android项目，尝试用js去调用java以及java调用js</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">GonJay</span></span>
+
+      
+
+
+
+
+<time class='entry-date' datetime='2014-03-25T15:02:55+08:00'><span class='date'><span class='date-month'>Mar</span> <span class='date-day'>25</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>3:02 pm</span></time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/cocos2d-x/'>cocos2d-x</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2014/03/20/guan-yu-tiao-yue-shi-si-wei/" title="Previous Post: 关于跳跃式思维">&laquo; 关于跳跃式思维</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2014/07/10/flask-and-rails/" title="Next Post: Flask and Rails part 1">Flask and Rails part 1 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/10/14/androidyu-cocos2d-xkai-fa-zhong-de-huan-cun-chi/">Android与Cocos2d-x开发中的缓存池</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/10/12/vimtutor/">Vimtutor 简体中文</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/09/20/er-cha-shu-de-bian-li/">二叉树的遍历</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/09/19/rspeczhong-shi-yong-database-cleaner/">Rspec中使用database_cleaner</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/09/17/ruby-zhong-de-xiao-yu-fa/">Ruby 中的&#8217;小语法&#8217;</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - GonJay -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'gonjay';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://gonjay.github.io/blog/2014/03/25/start-cocos2d-with-lua/';
+        var disqus_url = 'http://gonjay.github.io/blog/2014/03/25/start-cocos2d-with-lua/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+</body>
+</html>

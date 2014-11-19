@@ -1,0 +1,1514 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>博客</title>
+  <meta name="author" content="GonJay">
+
+  
+  <meta name="description" content="标记清除方式 从根开始将可能被引用的对象用递归的方式进行标记，没有被标记的就当垃圾回收掉。 复制收集方式 因为标记清楚方式中有一个弊病就是在一次清除中，如果只有一小部分存活，消耗的时间会很多，所以复制收集方式应运而生。 引用计数方式 熟悉Objective-C开发iOS或者一些C++ &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://gonjay.github.io/posts/2">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="博客" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/libs/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-40130853-2']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">博客</a></h1>
+  
+    <h2>群星，我的归宿</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:gonjay.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">
+  
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/07/11/ji-chong-gcde-fang-shi-xiao-jie/">几种GC的方式小结</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2014-07-11T11:26:54+08:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>11</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>11:26 am</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h3>标记清除方式</h3>
+
+<p>从根开始将可能被引用的对象用递归的方式进行标记，没有被标记的就当垃圾回收掉。</p>
+
+<p><img src="http://ww2.sinaimg.cn/mw600/a22a83f5gw1ehhxoubcppj20an0jk75f.jpg" alt="" /></p>
+
+<h3>复制收集方式</h3>
+
+<p>因为标记清楚方式中有一个弊病就是在一次清除中，如果只有一小部分存活，消耗的时间会很多，所以复制收集方式应运而生。</p>
+
+<p><img src="http://ww2.sinaimg.cn/mw600/a22a83f5gw1ehhxorye36j20aj0jodgt.jpg" alt="" /></p>
+
+<h3>引用计数方式</h3>
+
+<p>熟悉Objective-C开发iOS或者一些C++的开发者可能非常熟悉。</p>
+
+<p>基本原理是，在每个对象中保存该对象的引用计数，当引用增加或者减少的时候对计数更新。</p>
+
+<p><img src="http://ww2.sinaimg.cn/mw600/a22a83f5gw1ehhxopz9awj20bz0czjs2.jpg" alt="" /></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/07/10/flask-and-rails/">Flask and Rails Part 1</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2014-07-10T17:41:11+08:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>10</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>5:41 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I have written flask recently,with a little project that I can study python.</p>
+
+<p>I used to write Ruby on Rails, which is a very famous web framework and the most popular web framework all over the world.Rails is really really fast to develop most web products,MVC with RESTful design makes very thing easy. Based on meta-programming, the ActiveRecord makes data handles fly in the air.</p>
+
+<p>But flask is also an awesome web framework after a few days since I write my project.It’s more like sinatra,which is a light ruby web framework.</p>
+
+<h3>Request handle</h3>
+
+<p>With rails,you need to handle a request URL at <code>routes.rb</code></p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">get</span> <span class="err">‘</span><span class="n">blogs</span><span class="err">’</span> <span class="o">=&gt;</span> <span class="err">‘</span><span class="n">blogs</span><span class="c1">#index’</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This code will handle <code>/blogs</code> GET method  to a controller named <code>blogs_controller.rb</code> in <code>app/controller/</code>,and pass the params to function named <code>index</code>. After process the request,rails will render a view named <code>index.html.erb</code> in <code>app/views/blogs/</code>.</p>
+
+<p>With flask,you need to handle a request URL at <code>app.py</code></p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="nd">@app.route</span><span class="p">(</span><span class="err">‘</span><span class="o">/</span><span class="n">blogs</span><span class="err">’</span><span class="p">)</span>
+</span><span class='line'><span class="k">def</span> <span class="nf">index</span><span class="p">():</span>
+</span><span class='line'>    <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="err">‘</span><span class="n">index</span><span class="s">&#39;)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>ORM</h3>
+
+<p>In my own words,ActiveRecord is much better than SQLAlchemy.</p>
+
+<p>The Types of Associations in Rails:</p>
+
+<ul>
+<li>belongs_to</li>
+<li>has_one</li>
+<li>has_many</li>
+<li>has_many :through</li>
+<li>has_one :through</li>
+<li>has_and_belongs_to_many</li>
+</ul>
+
+
+<p>Here are some data relationship implements of two ORM:</p>
+
+<h4>One to Many</h4>
+
+<p>With Rails:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">Customer</span> <span class="o">&lt;</span> <span class="ss">ActiveRecord</span><span class="p">:</span><span class="ss">:Base</span>
+</span><span class='line'>  <span class="n">has_many</span> <span class="ss">:orders</span><span class="p">,</span> <span class="ss">dependent</span><span class="p">:</span> <span class="ss">:destroy</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">Order</span> <span class="o">&lt;</span> <span class="ss">ActiveRecord</span><span class="p">:</span><span class="ss">:Base</span>
+</span><span class='line'>  <span class="n">belongs_to</span> <span class="ss">:customer</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p> Now you can get a customer’s orders by:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'>      <span class="vi">@order</span> <span class="o">=</span> <span class="vi">@customer</span><span class="o">.</span><span class="n">order</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Get an order’s customer by:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'>      <span class="vi">@customer</span> <span class="o">=</span> <span class="vi">@order</span><span class="o">.</span><span class="n">customer</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>With SQLAchemy:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="k">class</span> <span class="nc">App</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+</span><span class='line'>     <span class="n">__tablename__</span>  <span class="o">=</span> <span class="s">&#39;apps&#39;</span>
+</span><span class='line'>     <span class="n">owner_id</span>       <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">Integer</span><span class="p">,</span> <span class="n">db</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="err">‘</span><span class="n">users</span><span class="o">.</span><span class="n">id</span><span class="s">&#39;))</span>
+</span><span class='line'>     <span class="n">owner</span>          <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">relationship</span><span class="p">(</span><span class="s">&#39;User&#39;</span><span class="p">,</span> <span class="n">backref</span><span class="o">=</span><span class="n">db</span><span class="o">.</span><span class="n">backref</span><span class="p">(</span><span class="s">&#39;apps’))</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">User</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+</span><span class='line'>      <span class="n">__tablename__</span>  <span class="o">=</span>  <span class="s">&#39;users&#39;</span>
+</span><span class='line'>       <span class="nb">id</span>            <span class="o">=</span>  <span class="n">db</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="s">&#39;id&#39;</span><span class="p">,</span> <span class="n">db</span><span class="o">.</span><span class="n">Integer</span><span class="p">,</span> <span class="n">primary_key</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Now you can get a user’s apps by:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'>      <span class="n">app</span> <span class="o">=</span> <span class="n">user</span><span class="o">.</span><span class="n">apps</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Get an app’s owner by:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'>      <span class="n">user</span> <span class="o">=</span> <span class="n">app</span><span class="o">.</span><span class="n">owner</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>Many to Many</h4>
+
+<p>Although you need migration files in rails,since Flask and SQLAlchemy just configure data structure within model.The benefit of migration files comes out when you want to change your data structure of model.And now I finally known why my teacher ask me to design data structure at first,because other web framework have no ideas about what if our data structure changed.</p>
+
+<p>With migration files in rails, you can change you data structure so easy that you can develop really really align.All details about the program becomes more and more clear after you start coding.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/03/25/start-cocos2d-with-lua/">Start Cocos2d With Lua</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2014-03-25T15:02:55+08:00'><span class='date'><span class='date-month'>Mar</span> <span class='date-day'>25</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>3:02 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2>quick-cocos2d-x</h2>
+
+<h2>tip</h2>
+
+<p>cocos游戏开发的流程是先采用Lua或者JS，把整个游戏实现出来，然后利用相应的工具去打包成不同平台下的项目，比如打包Android平台或者iOS平台的项目，然后利用相应平台的工具编译成apk或者ipa文件。</p>
+
+<p>这也就意味着，对于一个利用cocos开发的游戏要接入我们的SDK，我们应该不会去开发针对Lua或者JS的单独SDK，而是给出一个指导，即当游戏开发商生成了一个Android项目或者iOS项目之后，应该怎样接入我们的平台。这就涉及到Lua调用Java，Java调用Lua，又或者Objective-C调用Lua或者Lua调用Objective-C了，剩下的事情，就是纯粹SDK的一些操作。</p>
+
+<p>接下来尝试，将一个html5的cocos打包生成一个Android项目，尝试用js去调用java以及java调用js</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/03/20/guan-yu-tiao-yue-shi-si-wei/">关于跳跃式思维</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2014-03-20T21:50:39+08:00'><span class='date'><span class='date-month'>Mar</span> <span class='date-day'>20</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>9:50 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>我给堂姐大概提了下我被一家游戏公司录取实习后的待遇，显得非常吃惊，这个水平的报酬是她和姐夫在深圳打拼多少年后才有的，对我一番褒奖后又是感叹时代变化的剧烈。但是我也知道，如今再想达到他们在深圳现在的水平，真的是难上加难。</p>
+
+<p>他们本身也是供职一家上市公司，在这座城市里面过得还蛮体面的，不过却依然报名了一个英语补习班，利用晚饭后闲暇的时间给自己充电。晚上闲来无事，我便跟他们一起去上课了。</p>
+
+<p>讲台上的英文老师操着一口温文尔雅的英文口语，听着贼舒服。大多数情况下，我这个农村的孩子只能在电影里面才能听见这种口语，那种由胸腔发出的地道美式口语一直是我非常向往的能力。</p>
+
+<p>课不难，对我而言很是轻松，老师讲得仔细，恍惚之中我又回到了高中课堂，非常兴奋的听着老师的课，嘴巴跟着老师一句一句说着，试图模仿老师的发音，思维十分活跃。</p>
+
+<p>老师突然提了一个问题<code>Do you think cheap goods is bad in quality?Why?</code>。</p>
+
+<p>我立马说<code>Brand price!</code>,品牌溢价是立马想到的一个词，然后脑海里奔腾而过的是Apple、乔布斯、iPhone。。。。好吧，IT男的属性光环立马就出来了。</p>
+
+<p>老师听见安静的学员里面就我发出了声音，对我非常有兴趣，示意我大声说一遍，此时我的优越感立马暴涨，又大声重复了一遍，心里还为自己如此高端的答案自豪不已，然后。。然后老师失望的摇摇头，说<code>Because the origin price is wrong</code></p>
+
+<p>我了个擦擦擦。。。要不要问这种蛋疼的事情！！</p>
+
+<p>心里各种奔腾，但表面只好悻悻的笑了笑，坐了下来。我突然意识到这其实已经不是第一次了，早在小学、初中、高中，我就经常作出如此‘乌龙’的事情，班上思维最活跃的那个，最积极的那个，就是给不出老师一个满意的回答或者提问，那个时候因为这样的事情，每每对一门课堂感兴趣起来，用不了多久就会被老师失望的眼神变得对这门课程沉默、被动。就我个人而言，每当遇到一个问题，或者说无人解决的难题，我首先就会用各种非常规的思维方式去思考<code>或者说有点像在找bug，然后让这个问题出现栈溢出，再注入自己的思维方式去解决这个问题</code>。当然，实际效果而言，大多数中国老师都是不认同的，或者从另一个角度而言，他们意识不到原来解决一个问题还可以用这种方式？这种扩大问题的方式，最后难以把答案收缩到他们所理解的或者准备的那个狭小的区域，也就没有了标准答案，这个才是他们最害怕的。</p>
+
+<p>其实，这个也是正常人遇见一个陌生问题后非常平常的思维习惯，那种发散式的，漫无目的的思维本质上也是人类创造性思维的一部分，而很多学生时常因为发散性的思维而被老师冷眼对待而努力去压抑自己，慢慢的，面对陌生的问题，有的就只剩下沉默了。</p>
+
+<p>优秀的教育里面，应该是鼓励学生的这种思维方式的，但是从老师而言，这种思维方式会增加他们的授课成本，不利于整个教学进度。</p>
+
+<p>对于经济发达地区，因为家长愿意付出更多成本给老师，老师只用教授人数不多的学生，没有教学进度的压力，便能更好的应对学生的跳跃式思维，帮助学生去完善和引导学生的思维，并从这种跳跃式的、发散式的思维里面迸发出精彩的idea。最终，这些学生会非常富有创造力，长大后也更容易去从事高附加值和创造性的工作，不仅充满激情也能为社会创造巨大的价值。</p>
+
+<p>然后，问题又来了，那些穷人的孩子呢？为了实现更低成本的教学方式，他们不得不像工厂里的零件一样被批量的加工，从一个流水线送到另一个流水线上。。。</p>
+
+<p>随着富有创造力的那批人不断改进计算机、软件、算法、机器人进而取代那些重复性劳动，很多领域都会被计算机所替代，举些例子：<a href="http://www.fdrobot.com/news_show_28.aspx">富士康机器人上岗 生产线由30人减至5人</a>；高速路上的ETC通道几乎没什么车而人工收费的通道队排得老长；电召打车和移动终端上的打车软件；</p>
+
+<p>社会差距会不会因此变得越来越大？这是一个严肃的社会问题。。。</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/03/16/%5B%3F%5D-xie-jian-dan-suan-fa-de-rubyshi-xian/">一些简单算法的Ruby实现</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2014-03-16T10:32:51+08:00'><span class='date'><span class='date-month'>Mar</span> <span class='date-day'>16</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>10:32 am</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2>堆排序</h2>
+
+<p>原理：利用大根堆或小根堆思想，首先建立堆，然后将堆首与堆尾交换，堆尾之后为有序区。</p>
+
+<p>这里有一张原理图</p>
+
+<p><img src="http://upload.wikimedia.org/wikipedia/commons/4/4d/Heapsort-example.gif" alt="" /></p>
+
+<p>有这样一道笔试题</p>
+
+<pre><code>初始顺序为：1 8 6 2 5 4 7 3 一组数采用堆排序，当建堆（小根堆）完毕
+时，堆所对应的二叉树中序遍历顺序是什么。
+</code></pre>
+
+<p>上图给出的例子是建大根堆的情况，这个题目要求的是建小堆，但是原理类似：按照构建<code>满二叉树</code>的方法，将一个数组依次填入树中的相应位置，但是要保证根节点小于子节点，如果不小于子节点则将根节点与这个节点交换。</p>
+
+<h2>插入排序</h2>
+
+<p>直接插入排序</p>
+
+<p>原理：将数组分为无序和有序两个区，然后不断将无序区的第一个元素按大小顺序插入到有序区中，最终将所有无序区元素都移动到无序区完成排序。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="kt">void</span> <span class="nf">InsertSort</span><span class="p">(</span><span class="n">Node</span> <span class="n">L</span><span class="p">[],</span><span class="kt">int</span> <span class="n">length</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="kt">int</span> <span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">;</span>
+</span><span class='line'>  <span class="k">for</span><span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">length</span><span class="p">;</span> <span class="n">i</span> <span class="o">++</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">{</span>
+</span><span class='line'>      <span class="n">j</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+</span><span class='line'>      <span class="k">if</span><span class="p">(</span><span class="n">L</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">L</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+</span><span class='line'>      <span class="p">{</span>
+</span><span class='line'>          <span class="n">L</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">L</span><span class="p">[</span><span class="n">j</span><span class="p">];</span>
+</span><span class='line'>          <span class="c1">//当L[0]小于有序区的最后一个元素的时候，最后一个元素扩大，再和有序区倒数第二个比较</span>
+</span><span class='line'>          <span class="k">while</span><span class="p">(</span><span class="n">L</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">L</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+</span><span class='line'>          <span class="p">{</span>
+</span><span class='line'>              <span class="n">L</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">L</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+</span><span class='line'>              <span class="n">i</span> <span class="o">--</span><span class="p">;</span>
+</span><span class='line'>          <span class="p">}</span>
+</span><span class='line'>          <span class="n">L</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">L</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+</span><span class='line'>      <span class="p">}</span>
+</span><span class='line'>      <span class="n">i</span> <span class="o">=</span> <span class="n">j</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">}</span>        
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">def</span> <span class="nf">insert_sort</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+</span><span class='line'>  <span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="o">=</span><span class="mi">0</span>
+</span><span class='line'>  <span class="k">for</span> <span class="n">i</span> <span class="k">in</span> <span class="mi">0</span><span class="o">.</span><span class="n">.</span><span class="o">.</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">length</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+</span><span class='line'>    <span class="c1"># puts i</span>
+</span><span class='line'>    <span class="n">j</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span>
+</span><span class='line'>    <span class="k">if</span> <span class="n">node</span><span class="o">[</span><span class="n">j</span><span class="o">]</span> <span class="o">&lt;</span> <span class="n">node</span><span class="o">[</span><span class="n">i</span><span class="o">]</span>
+</span><span class='line'>      <span class="k">break</span> <span class="k">if</span> <span class="n">node</span><span class="o">[</span><span class="n">j</span><span class="o">].</span><span class="n">nil?</span>
+</span><span class='line'>      <span class="n">n</span> <span class="o">=</span> <span class="n">node</span><span class="o">[</span><span class="n">j</span><span class="o">]</span>
+</span><span class='line'>      <span class="k">while</span> <span class="n">n</span> <span class="o">&lt;</span> <span class="n">node</span><span class="o">[</span><span class="n">i</span><span class="o">]</span>
+</span><span class='line'>        <span class="n">node</span><span class="o">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="o">]</span> <span class="o">=</span> <span class="n">node</span><span class="o">[</span><span class="n">i</span><span class="o">]</span>
+</span><span class='line'>        <span class="n">i</span> <span class="o">-=</span> <span class="mi">1</span>
+</span><span class='line'>      <span class="k">end</span>
+</span><span class='line'>      <span class="n">node</span><span class="o">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="o">]</span> <span class="o">=</span> <span class="n">n</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>    <span class="n">i</span> <span class="o">=</span> <span class="n">j</span> <span class="o">-</span> <span class="mi">1</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>  <span class="n">node</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">node</span> <span class="o">=</span> <span class="o">[</span><span class="mi">7</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">13</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="o">]</span>
+</span><span class='line'>
+</span><span class='line'><span class="nb">puts</span> <span class="n">insert_sort</span> <span class="n">node</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>希尔算法</p>
+
+<p>原理：又称增量缩小排序。先将序列按增量划分为元素个数相同的若干组，使用直接插入排序法进行排序，然后不断缩小增量直至1，最后使用直接插入排序完成排序。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="kt">void</span> <span class="nf">ShellSort</span><span class="p">(</span><span class="n">Node</span> <span class="n">L</span><span class="p">[],</span> <span class="kt">int</span> <span class="n">d</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="k">while</span><span class="p">(</span><span class="n">d</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">{</span>
+</span><span class='line'>      <span class="n">Shell</span><span class="p">(</span><span class="n">L</span><span class="p">,</span><span class="n">d</span><span class="p">);</span>
+</span><span class='line'>      <span class="n">d</span> <span class="o">=</span> <span class="n">d</span><span class="o">/</span><span class="mi">2</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kt">void</span> <span class="nf">Shell</span><span class="p">(</span><span class="n">Node</span> <span class="n">L</span><span class="p">[],</span> <span class="kt">int</span> <span class="n">d</span><span class="p">)</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="kt">int</span> <span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">;</span>
+</span><span class='line'>  <span class="k">for</span><span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="n">d</span> <span class="o">+</span> <span class="mi">1</span> <span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">length</span><span class="p">;</span> <span class="n">i</span> <span class="o">++</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">{</span>
+</span><span class='line'>      <span class="k">if</span><span class="p">(</span><span class="n">L</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">L</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="n">d</span><span class="p">])</span>
+</span><span class='line'>      <span class="p">{</span>
+</span><span class='line'>      <span class="n">L</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">L</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+</span><span class='line'>      <span class="n">j</span> <span class="o">=</span> <span class="n">i</span> <span class="o">-</span> <span class="n">d</span><span class="p">;</span>
+</span><span class='line'>      <span class="k">while</span><span class="p">(</span><span class="n">j</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">L</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">L</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</span><span class='line'>      <span class="p">{</span>
+</span><span class='line'>          <span class="n">L</span><span class="p">[</span><span class="n">j</span><span class="o">+</span><span class="n">d</span><span class="p">]</span> <span class="o">=</span> <span class="n">L</span><span class="p">[</span><span class="n">j</span><span class="p">];</span>
+</span><span class='line'>          <span class="n">j</span> <span class="o">=</span> <span class="n">j</span> <span class="o">-</span> <span class="n">d</span><span class="p">;</span>
+</span><span class='line'>      <span class="p">}</span>
+</span><span class='line'>      <span class="n">L</span><span class="p">[</span><span class="n">j</span><span class="o">+</span><span class="n">d</span><span class="p">]</span> <span class="o">=</span> <span class="n">L</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+</span><span class='line'>      <span class="p">}</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">def</span> <span class="nf">shell_sort</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">while</span><span class="p">(</span><span class="n">d</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
+</span><span class='line'>  <span class="n">shell</span> <span class="n">node</span><span class="p">,</span> <span class="n">d</span>
+</span><span class='line'>  <span class="n">d</span> <span class="o">=</span> <span class="n">d</span> <span class="o">/</span> <span class="mi">2</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="nf">shell</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span>
+</span><span class='line'>  <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span>
+</span><span class='line'>  <span class="n">i</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="n">d</span>
+</span><span class='line'>  <span class="k">for</span> <span class="n">i</span> <span class="k">in</span> <span class="mi">1</span><span class="o">.</span><span class="n">.</span><span class="o">.</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">length</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="k">do</span>
+</span><span class='line'>    <span class="k">if</span><span class="p">(</span><span class="n">node</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">&lt;</span> <span class="n">node</span><span class="o">[</span><span class="n">i</span><span class="o">-</span><span class="n">d</span><span class="o">]</span><span class="p">)</span>
+</span><span class='line'>      <span class="n">j</span> <span class="o">=</span> <span class="n">i</span> <span class="o">-</span> <span class="n">d</span>
+</span><span class='line'>      <span class="n">node</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span> <span class="o">=</span> <span class="n">node</span><span class="o">[</span><span class="n">i</span><span class="o">]</span>
+</span><span class='line'>      <span class="k">while</span><span class="p">(</span><span class="n">j</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">node</span><span class="o">[</span><span class="n">j</span><span class="o">]</span> <span class="o">&gt;</span> <span class="n">node</span><span class="o">[</span><span class="n">i</span><span class="o">]</span><span class="p">)</span>
+</span><span class='line'>          <span class="n">node</span><span class="o">[</span><span class="n">j</span><span class="o">+</span><span class="n">d</span><span class="o">]</span> <span class="o">=</span> <span class="n">node</span><span class="o">[</span><span class="n">j</span><span class="o">]</span>
+</span><span class='line'>          <span class="n">j</span> <span class="o">=</span> <span class="n">j</span> <span class="o">-</span> <span class="n">d</span>
+</span><span class='line'>      <span class="k">end</span>
+</span><span class='line'>      <span class="n">node</span><span class="o">[</span><span class="n">j</span><span class="o">]</span> <span class="o">=</span> <span class="n">node</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>交换排序</h3>
+
+<p>冒泡排序</p>
+
+<p>原理：将序列划分为无序和有序区，不断通过交换较大元素至无序区尾完成排序</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="kt">void</span> <span class="nf">bubble_sort</span><span class="p">(</span><span class="n">Node</span> <span class="n">L</span><span class="p">[])</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="kt">int</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">;</span>
+</span><span class='line'>  <span class="n">Bool</span> <span class="n">isChanged</span><span class="p">;</span>
+</span><span class='line'>  <span class="k">for</span><span class="p">(</span><span class="n">j</span> <span class="o">=</span> <span class="n">L</span><span class="p">.</span><span class="n">length</span><span class="p">;</span> <span class="n">j</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">--</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">{</span>
+</span><span class='line'>      <span class="n">isChanged</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
+</span><span class='line'>      <span class="k">for</span><span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">j</span><span class="p">;</span> <span class="n">i</span> <span class="o">++</span><span class="p">)</span>
+</span><span class='line'>      <span class="p">{</span>
+</span><span class='line'>        <span class="k">if</span><span class="p">(</span><span class="n">L</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">L</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">])</span>
+</span><span class='line'>        <span class="p">{</span>
+</span><span class='line'>          <span class="kt">int</span> <span class="n">temp</span> <span class="o">=</span> <span class="n">L</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+</span><span class='line'>          <span class="n">L</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">L</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">];</span>
+</span><span class='line'>          <span class="n">L</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">temp</span><span class="p">;</span>
+</span><span class='line'>          <span class="n">isChanged</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>      <span class="p">}</span>
+</span><span class='line'>      <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">isChanged</span><span class="p">)</span><span class="k">break</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>选择排序</h3>
+
+<p>直接选择排序</p>
+
+<p>原理：将序列分为无序和有序区，寻找无序区中最小值和无序区的首元素交换，有序区扩大一个，循环最终完成排序</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="kt">void</span> <span class="nf">SelectSort</span><span class="p">(</span><span class="n">Node</span> <span class="n">L</span><span class="p">[])</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="kt">int</span> <span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">,</span><span class="n">k</span><span class="p">;</span>
+</span><span class='line'>  <span class="k">for</span><span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">L</span><span class="p">.</span><span class="n">length</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">{</span>
+</span><span class='line'>      <span class="n">k</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span>
+</span><span class='line'>      <span class="k">for</span><span class="p">(</span><span class="n">j</span><span class="o">=</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span><span class="n">j</span><span class="o">&lt;</span><span class="n">L</span><span class="p">.</span><span class="n">length</span><span class="p">;</span><span class="n">j</span><span class="o">++</span><span class="p">)</span>
+</span><span class='line'>      <span class="p">{</span>
+</span><span class='line'>        <span class="k">if</span><span class="p">(</span><span class="n">L</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">L</span><span class="p">[</span><span class="n">k</span><span class="p">])</span> <span class="n">k</span> <span class="o">=</span> <span class="n">j</span><span class="p">;</span>
+</span><span class='line'>      <span class="p">}</span>
+</span><span class='line'>      <span class="k">if</span><span class="p">(</span><span class="n">k</span> <span class="o">!=</span> <span class="n">i</span><span class="p">)</span>
+</span><span class='line'>      <span class="p">{</span>
+</span><span class='line'>        <span class="kt">int</span> <span class="n">temp</span> <span class="o">=</span> <span class="n">L</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+</span><span class='line'>        <span class="n">L</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">L</span><span class="p">[</span><span class="n">k</span><span class="p">];</span>
+</span><span class='line'>        <span class="n">L</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">temp</span><span class="p">;</span>
+</span><span class='line'>      <span class="p">}</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/03/07/rosace-api/">Rosace API</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2014-03-07T00:04:23+08:00'><span class='date'><span class='date-month'>Mar</span> <span class='date-day'>7</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>12:04 am</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h1>syntax</h1>
+
+<hr />
+
+<h4>文本：</h4>
+
+<pre><code>1.   
+2. !
+3. ##
+4. \(任意字符）
+</code></pre>
+
+<p>属性：（可加 namespace 如 <elem rosace:if="expr">）</p>
+
+<pre><code>1. &lt;elem var.varname="expr"&gt;
+2. &lt;elem repeat.varname="expr"&gt;
+3. &lt;elem if="expr"&gt;
+4. &lt;elem if.attrname="expr"&gt;
+5. &lt;elem templ="text "&gt;
+6. &lt;elem macro="macroname(param,..)[optional (arg,...)]"&gt;
+7. &lt;elem require.renderername="src.html"&gt;
+</code></pre>
+
+<p>自动编译模板：（使用 rosace-page.js 时有效）</p>
+
+<pre><code>&lt;elem class="rosace"&gt;...&lt;/elem&gt;
+</code></pre>
+
+<p>自动渲染数据：（使用 rosace-page.js 时有效，优先级从高到低）</p>
+
+<pre><code>1. &lt;elem class="rosace"&gt;
+      &lt;script type="text/json" class="rosace-data"&gt;
+         { "items" : [1, 2, 3] }
+      &lt;/script&gt;
+      ...
+   &lt;/elem&gt;
+2. &lt;elem class="rosace"&gt;
+      &lt;script type="text/json" src="data.json" class="rosace-data"&gt;&lt;/script&gt;
+      ...
+   &lt;/elem&gt;
+3. &lt;elem class="rosace" [rosace:]data-obj="expr"&gt;
+4. &lt;elem class="rosace" [rosace:]data-src="src.json"&gt;
+</code></pre>
+
+<h1>api</h1>
+
+<hr />
+
+<ol>
+<li><p>创建（或取回已缓存的）模板</p>
+
+<pre><code> var renderer = $rosace('&lt;elem&gt;...&lt;/elem&gt;', [optional] opts, [optional]      callback(err, renderer));
+                     (element,
+                     ([element, ..],
+                     (element.childNodes,
+                     ($(selector),
+                     (url,
+
+ 当参数为 url 时，返回的 renderer 尚未初始化
+
+ 必须等到 callback(err, renderer) 被调用时才处在可用的状态
+</code></pre></li>
+<li><p>渲染模板与宏</p>
+
+<pre><code> 在模板外：
+ var html = renderer(data_object);
+        renderer.macroname(arg, arg2, ...);
+
+ 在模板内：
+
+ !
+ !
+ !
+ !
+</code></pre></li>
+<li><p>用 jQuery 一次性编译+渲染</p>
+
+<pre><code> var renderer = $(selector).rosace([optional] data_object, [optional] opts);
+</code></pre></li>
+<li><p>opts</p>
+
+<pre><code> (string)  id：指定模板根元素的 id。如果不指定，会自动生成。
+ (bool) cache：是否缓存已编译的模板
+
+ 默认值：{ id: undefined, cache: true })
+ 仅当用 html, url 或单个 elem 编译模板时有效。
+</code></pre></li>
+<li><p>第三方依赖</p>
+
+<pre><code> 使用 YAML 需引用：[js-yaml](http://nodeca.github.io/js-yaml/)
+</code></pre></li>
+</ol>
+
+
+<h1>samples</h1>
+
+<hr />
+
+<p>2-7: require</p>
+
+<p>inc-menu.html</p>
+
+<pre><code>&lt;ul macro="ul(items)(tree.items)"&gt;
+    &lt;li repeat="item in items"&gt;
+
+        !
+    &lt;/ li&gt;
+&lt;/ul&gt;
+</code></pre>
+
+<p>page.html</p>
+
+<pre><code>&lt;div class="rosace" data-src="tree.json" require.menu="inc-menu.html"&gt;
+    !
+    !
+&lt;/div&gt;
+</code></pre>
+
+<p>创建好的模板本身是一个形如 <code>function (data) { return str; }</code> 的函数
+例如：</p>
+
+<pre><code>var html = '&lt;span macro="hello(name)('World')"&gt;Hello, !&lt;/span&gt;' +
+           '';
+var f = $rosace(html);
+
+f({ user: 'World' })
+
+--&gt; 输出
+&lt;span&gt;Hello, World!&lt;/span&gt;
+&lt;span&gt;Hello, rosace!&lt;/span&gt;
+</code></pre>
+
+<p>创建好的模板里包含有所有子模板的引用。
+例如还是刚才的模板为例：</p>
+
+<pre><code>var html = '&lt;span macro="hello(name)('World')"&gt;Hello, !&lt;/span&gt;' +
+           '';
+var f = $rosace(html);
+
+f.hello('World')
+--&gt; 输出
+&lt;span&gt;Hello, World!&lt;/span&gt;
+
+&lt;elem id="temp"&gt;
+
+&lt;elem&gt;
+</code></pre>
+
+<p>调用 <code>$('#temp').rosace({ name: 'Kabbesy' });</code>
+则页面直接被修改为</p>
+
+<pre><code>&lt;elem id="temp&gt;
+   Kabbesy
+&lt;/elem&gt;
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/03/06/face-detection-based-on-androidsdk/">Face Detection Based on AndroidSDK</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2014-03-06T23:43:35+08:00'><span class='date'><span class='date-month'>Mar</span> <span class='date-day'>6</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>11:43 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h1>流程</h1>
+
+<ul>
+<li>读取一张图片生成Bitmap对象</li>
+<li>用FaceDetector分析Bitmap，获取图片中的人脸数组</li>
+<li>显示到图片上</li>
+</ul>
+
+
+<h4>第一步</h4>
+
+<p>从相册中选取一张照片：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">private</span> <span class="kt">void</span> <span class="nf">readPictureFromAlbum</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">Intent</span> <span class="n">i</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Intent</span><span class="o">(</span><span class="n">Intent</span><span class="o">.</span><span class="na">ACTION_PICK</span><span class="o">,</span>
+</span><span class='line'>    <span class="n">android</span><span class="o">.</span><span class="na">provider</span><span class="o">.</span><span class="na">MediaStore</span><span class="o">.</span><span class="na">Images</span><span class="o">.</span><span class="na">Media</span><span class="o">.</span><span class="na">EXTERNAL_CONTENT_URI</span><span class="o">);</span>
+</span><span class='line'>    <span class="n">startActivityForResult</span><span class="o">(</span><span class="n">i</span><span class="o">,</span> <span class="n">ALBUM_REQUEST_CODE</span><span class="o">);</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="nd">@Override</span>
+</span><span class='line'><span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onActivityResult</span><span class="o">(</span><span class="kt">int</span> <span class="n">requestCode</span><span class="o">,</span><span class="kt">int</span> <span class="n">resultCode</span><span class="o">,</span><span class="n">Intent</span> <span class="n">data</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>    <span class="kd">super</span><span class="o">.</span><span class="na">onActivityResult</span><span class="o">(</span><span class="n">requestCode</span><span class="o">,</span> <span class="n">resultCode</span><span class="o">,</span> <span class="n">data</span><span class="o">);</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">if</span> <span class="o">(</span><span class="n">requestCode</span> <span class="o">==</span> <span class="n">ALBUM_REQUEST_CODE</span> <span class="o">&amp;&amp;</span> <span class="n">resultCode</span> <span class="o">==</span> <span class="n">RESULT_OK</span> <span class="o">&amp;&amp;</span> <span class="kc">null</span> <span class="o">!=</span> <span class="n">data</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">Uri</span> <span class="n">selectedImage</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="na">getData</span><span class="o">();</span>
+</span><span class='line'>        <span class="n">String</span><span class="o">[]</span> <span class="n">filePathColumn</span> <span class="o">=</span> <span class="o">{</span> <span class="n">MediaStore</span><span class="o">.</span><span class="na">Images</span><span class="o">.</span><span class="na">Media</span><span class="o">.</span><span class="na">DATA</span> <span class="o">};</span>
+</span><span class='line'>        <span class="n">Cursor</span> <span class="n">cursor</span> <span class="o">=</span> <span class="n">getContentResolver</span><span class="o">().</span><span class="na">query</span><span class="o">(</span><span class="n">selectedImage</span><span class="o">,</span>
+</span><span class='line'>        <span class="n">filePathColumn</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="kc">null</span><span class="o">);</span>
+</span><span class='line'>        <span class="n">cursor</span><span class="o">.</span><span class="na">moveToFirst</span><span class="o">();</span>
+</span><span class='line'>        <span class="kt">int</span> <span class="n">columnIndex</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="na">getColumnIndex</span><span class="o">(</span><span class="n">filePathColumn</span><span class="o">[</span><span class="mi">0</span><span class="o">]);</span>
+</span><span class='line'>        <span class="n">String</span> <span class="n">picturePath</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="na">getString</span><span class="o">(</span><span class="n">columnIndex</span><span class="o">);</span>
+</span><span class='line'>        <span class="n">cursor</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">Log</span><span class="o">.</span><span class="na">v</span><span class="o">(</span><span class="s">&quot;picturePath: &quot;</span><span class="o">,</span> <span class="n">picturePath</span> <span class="o">+</span> <span class="s">&quot;&quot;</span><span class="o">);</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">BitmapFactory</span><span class="o">.</span><span class="na">Options</span> <span class="n">options</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BitmapFactory</span><span class="o">.</span><span class="na">Options</span><span class="o">();</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">options</span><span class="o">.</span><span class="na">inJustDecodeBounds</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">Bitmap</span> <span class="n">bm</span> <span class="o">=</span> <span class="n">BitmapFactory</span><span class="o">.</span><span class="na">decodeFile</span><span class="o">(</span><span class="n">picturePath</span><span class="o">,</span> <span class="n">options</span><span class="o">);</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">options</span><span class="o">.</span><span class="na">inSampleSize</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="na">outWidth</span> <span class="o">/</span> <span class="mi">400</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">options</span><span class="o">.</span><span class="na">inJustDecodeBounds</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">myBitMap</span> <span class="o">=</span> <span class="n">BitmapFactory</span><span class="o">.</span><span class="na">decodeFile</span><span class="o">(</span><span class="n">picturePath</span><span class="o">,</span> <span class="n">options</span><span class="o">);</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">Log</span><span class="o">.</span><span class="na">v</span><span class="o">(</span><span class="s">&quot;Size: &quot;</span><span class="o">,</span> <span class="n">options</span><span class="o">.</span><span class="na">inSampleSize</span> <span class="o">+</span> <span class="s">&quot; &quot;</span> <span class="o">+</span> <span class="n">options</span><span class="o">.</span><span class="na">outHeight</span> <span class="o">+</span> <span class="s">&quot; &quot;</span> <span class="o">+</span> <span class="n">options</span><span class="o">.</span><span class="na">outWidth</span><span class="o">);</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">imageView</span><span class="o">.</span><span class="na">setImageBitmap</span><span class="o">(</span><span class="n">myBitMap</span><span class="o">);</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">findMyFace</span><span class="o">();</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p></p>
+
+<p>在这个地方为了方便后面找到人脸，同时防止内存溢出，节约资源，需要对图像做一些压缩，用到了<code>options.inSampleSize</code>参数。但为了能比较好的显示图片，我们需要根据图片的实际大小来设置<code>options.inSampleSize</code>参数，这里用到了<code>options.inJustDecodeBounds = true</code>来获取一张空的Bitmap，因为用到的是Factory类，在decodeFile之后，optioins对象里面便会包含了这张照片的长和宽，我们拿着这个长和宽来设置<code>options.inSampleSize</code></p>
+
+<h4>第二步</h4>
+
+<p>进行人脸检测</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">private</span> <span class="kt">void</span> <span class="nf">findMyFace</span><span class="o">(){</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">Bitmap</span> <span class="n">bm</span> <span class="o">=</span> <span class="n">myBitMap</span><span class="o">.</span><span class="na">copy</span><span class="o">(</span><span class="n">Bitmap</span><span class="o">.</span><span class="na">Config</span><span class="o">.</span><span class="na">RGB_565</span><span class="o">,</span> <span class="kc">true</span><span class="o">);</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">FaceDetector</span> <span class="n">faceDet</span> <span class="o">=</span> <span class="k">new</span> <span class="n">FaceDetector</span><span class="o">(</span><span class="n">bm</span><span class="o">.</span><span class="na">getWidth</span><span class="o">(),</span> <span class="n">bm</span><span class="o">.</span><span class="na">getHeight</span><span class="o">(),</span> <span class="n">MAX_FACES</span><span class="o">);</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">FaceDetector</span><span class="o">.</span><span class="na">Face</span><span class="o">[]</span> <span class="n">faceList</span> <span class="o">=</span> <span class="k">new</span> <span class="n">FaceDetector</span><span class="o">.</span><span class="na">Face</span><span class="o">[</span><span class="n">MAX_FACES</span><span class="o">];</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">faceDet</span><span class="o">.</span><span class="na">findFaces</span><span class="o">(</span><span class="n">bm</span><span class="o">,</span> <span class="n">faceList</span><span class="o">);</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">faceList</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">FaceDetector</span><span class="o">.</span><span class="na">Face</span> <span class="n">face</span> <span class="o">=</span> <span class="n">faceList</span><span class="o">[</span><span class="n">i</span><span class="o">];</span>
+</span><span class='line'>        <span class="n">Log</span><span class="o">.</span><span class="na">d</span><span class="o">(</span><span class="s">&quot;FaceDet&quot;</span><span class="o">,</span> <span class="s">&quot;Face [&quot;</span><span class="o">+</span><span class="n">face</span><span class="o">+</span><span class="s">&quot;]&quot;</span><span class="o">);</span>
+</span><span class='line'>        <span class="k">if</span> <span class="o">(</span><span class="n">face</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>            <span class="n">Log</span><span class="o">.</span><span class="na">d</span><span class="o">(</span><span class="s">&quot;FaceDet&quot;</span><span class="o">,</span> <span class="s">&quot;Face [&quot;</span><span class="o">+</span><span class="n">i</span><span class="o">+</span><span class="s">&quot;] - Confidence [&quot;</span><span class="o">+</span><span class="n">face</span><span class="o">.</span><span class="na">confidence</span><span class="o">()+</span><span class="s">&quot;]&quot;</span><span class="o">);</span>
+</span><span class='line'>            <span class="n">tv</span><span class="o">.</span><span class="na">setText</span><span class="o">(</span><span class="s">&quot;人脸可信度 : &quot;</span> <span class="o">+</span> <span class="n">face</span><span class="o">.</span><span class="na">confidence</span><span class="o">());</span>
+</span><span class='line'>            <span class="n">PointF</span> <span class="n">pf</span> <span class="o">=</span> <span class="k">new</span> <span class="n">PointF</span><span class="o">();</span>
+</span><span class='line'>            <span class="c1">//getMidPoint(PointF point);</span>
+</span><span class='line'>            <span class="c1">//Sets the position of the mid-point between the eyes.</span>
+</span><span class='line'>            <span class="n">face</span><span class="o">.</span><span class="na">getMidPoint</span><span class="o">(</span><span class="n">pf</span><span class="o">);</span>
+</span><span class='line'>            <span class="n">RectF</span> <span class="n">r</span> <span class="o">=</span> <span class="k">new</span> <span class="n">RectF</span><span class="o">();</span>
+</span><span class='line'>            <span class="n">r</span><span class="o">.</span><span class="na">left</span> <span class="o">=</span> <span class="o">(</span><span class="kt">float</span><span class="o">)</span> <span class="o">(</span><span class="n">pf</span><span class="o">.</span><span class="na">x</span> <span class="o">-</span> <span class="n">face</span><span class="o">.</span><span class="na">eyesDistance</span><span class="o">()*</span><span class="mf">1.4</span><span class="o">);</span>
+</span><span class='line'>            <span class="n">r</span><span class="o">.</span><span class="na">right</span> <span class="o">=</span> <span class="o">(</span><span class="kt">float</span><span class="o">)</span> <span class="o">(</span><span class="n">pf</span><span class="o">.</span><span class="na">x</span> <span class="o">+</span> <span class="n">face</span><span class="o">.</span><span class="na">eyesDistance</span><span class="o">()*</span><span class="mf">1.4</span><span class="o">);</span>
+</span><span class='line'>            <span class="n">r</span><span class="o">.</span><span class="na">top</span> <span class="o">=</span> <span class="o">(</span><span class="kt">float</span><span class="o">)</span> <span class="o">(</span><span class="n">pf</span><span class="o">.</span><span class="na">y</span> <span class="o">-</span> <span class="n">face</span><span class="o">.</span><span class="na">eyesDistance</span><span class="o">()*</span><span class="mf">1.6</span><span class="o">);</span>
+</span><span class='line'>            <span class="n">r</span><span class="o">.</span><span class="na">bottom</span> <span class="o">=</span> <span class="o">(</span><span class="kt">float</span><span class="o">)</span> <span class="o">(</span><span class="n">pf</span><span class="o">.</span><span class="na">y</span> <span class="o">+</span> <span class="n">face</span><span class="o">.</span><span class="na">eyesDistance</span><span class="o">()*</span><span class="mf">1.7</span><span class="o">);</span>
+</span><span class='line'>
+</span><span class='line'>            <span class="n">imageView</span><span class="o">.</span><span class="na">setVisibility</span><span class="o">(</span><span class="n">View</span><span class="o">.</span><span class="na">GONE</span><span class="o">);</span>
+</span><span class='line'>            <span class="n">ll</span><span class="o">.</span><span class="na">removeAllViews</span><span class="o">();</span>
+</span><span class='line'>            <span class="n">FaceView</span> <span class="n">fv</span> <span class="o">=</span> <span class="k">new</span> <span class="n">FaceView</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="n">myBitMap</span><span class="o">,</span> <span class="n">r</span><span class="o">);</span>
+</span><span class='line'>            <span class="n">fv</span><span class="o">.</span><span class="na">invalidate</span><span class="o">();</span>
+</span><span class='line'>            <span class="n">ll</span><span class="o">.</span><span class="na">addView</span><span class="o">(</span><span class="n">fv</span><span class="o">);</span>
+</span><span class='line'>        <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+</span><span class='line'>            <span class="n">Toast</span><span class="o">.</span><span class="na">makeText</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="s">&quot;没有识别到人脸&quot;</span><span class="o">,</span> <span class="n">Toast</span><span class="o">.</span><span class="na">LENGTH_SHORT</span><span class="o">).</span><span class="na">show</span><span class="o">();</span>
+</span><span class='line'>        <span class="o">}</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p></p>
+
+<h4>显示到图片上</h4>
+
+<p>这里我们自己继承了一个View来把矩形画到图片里面</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">class</span> <span class="nc">FaceView</span> <span class="kd">extends</span> <span class="n">View</span> <span class="o">{</span>
+</span><span class='line'>    <span class="kd">private</span> <span class="n">RectF</span> <span class="n">rectF</span><span class="o">;</span>
+</span><span class='line'>    <span class="kd">private</span> <span class="n">Bitmap</span> <span class="n">bitmap</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">public</span> <span class="nf">FaceView</span><span class="o">(</span><span class="n">Context</span> <span class="n">context</span><span class="o">,</span> <span class="n">Bitmap</span> <span class="n">bitmap</span><span class="o">,</span> <span class="n">RectF</span> <span class="n">rectF</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="kd">super</span><span class="o">(</span><span class="n">context</span><span class="o">);</span>
+</span><span class='line'>        <span class="k">this</span><span class="o">.</span><span class="na">bitmap</span> <span class="o">=</span> <span class="n">bitmap</span><span class="o">;</span>
+</span><span class='line'>        <span class="k">this</span><span class="o">.</span><span class="na">rectF</span> <span class="o">=</span> <span class="n">rectF</span><span class="o">;</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nd">@Override</span>
+</span><span class='line'>    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onDraw</span><span class="o">(</span><span class="n">Canvas</span> <span class="n">canvas</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="kd">super</span><span class="o">.</span><span class="na">onDraw</span><span class="o">(</span><span class="n">canvas</span><span class="o">);</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">canvas</span><span class="o">.</span><span class="na">drawBitmap</span><span class="o">(</span><span class="n">bitmap</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="kc">null</span><span class="o">);</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">Paint</span> <span class="n">p</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Paint</span><span class="o">();</span>
+</span><span class='line'>        <span class="n">p</span><span class="o">.</span><span class="na">setColor</span><span class="o">(</span><span class="n">Color</span><span class="o">.</span><span class="na">RED</span><span class="o">);</span>
+</span><span class='line'>        <span class="n">p</span><span class="o">.</span><span class="na">setStyle</span><span class="o">(</span><span class="n">Paint</span><span class="o">.</span><span class="na">Style</span><span class="o">.</span><span class="na">STROKE</span><span class="o">);</span>
+</span><span class='line'>        <span class="n">canvas</span><span class="o">.</span><span class="na">drawRect</span><span class="o">(</span><span class="n">rectF</span><span class="o">,</span> <span class="n">p</span><span class="o">);</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/03/03/android-receive-message-from-ruby-china-org/">Android客户端接收来自Faye的消息推送</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2014-03-03T21:53:50+08:00'><span class='date'><span class='date-month'>Mar</span> <span class='date-day'>3</span><span class='date-suffix'>rd</span>, <span class='date-year'>2014</span></span> <span class='time'>9:53 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h3>基本原理</h3>
+
+<p>先看了railscasts的<a href="http://railscasts.com/episodes/260-messaging-with-faye">260 Messaging with Faye</a>部分，了解Faye的基本原理。</p>
+
+<p>按照其教程发现有一个关于thin的bug，谷歌之解决，后来发现rubychina应该也是遇到过类似的问题。</p>
+
+<p>解决的方法是加上<code>Faye::WebSocket.load_adapter('thin')</code></p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">require</span> <span class="s1">&#39;faye&#39;</span>
+</span><span class='line'><span class="ss">Faye</span><span class="p">:</span><span class="ss">:WebSocket</span><span class="o">.</span><span class="n">load_adapter</span><span class="p">(</span><span class="s1">&#39;thin&#39;</span><span class="p">)</span>
+</span><span class='line'><span class="n">faye_server</span> <span class="o">=</span> <span class="ss">Faye</span><span class="p">:</span><span class="ss">:RackAdapter</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="ss">:mount</span> <span class="o">=&gt;</span> <span class="s1">&#39;/faye&#39;</span><span class="p">,</span> <span class="ss">:timeout</span> <span class="o">=&gt;</span> <span class="mi">45</span><span class="p">)</span>
+</span><span class='line'><span class="n">run</span> <span class="n">faye_server</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>当然，理论上来说，Faye是支持各种web服务器的，这个地方因为和Rails比较紧密所以选用Faye，如果考虑到更高的并发的话，选择Node.js来跑也是不错的，faye也是有Node的版本的。</p>
+
+<h3>实现</h3>
+
+<p>在实现了web端之后，就考虑到移植到安卓客户端</p>
+
+<p>谷歌android faye，发现有人已经做了一个安卓端的fayeclient，根据websocket的协议来，实现一个并不困难。</p>
+
+<p>对比faye客户端的js代码</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">$</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>  <span class="kd">var</span> <span class="nx">faye</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Faye</span><span class="p">.</span><span class="nx">Client</span><span class="p">(</span><span class="s1">&#39;http://localhost:9292/faye&#39;</span><span class="p">);</span>
+</span><span class='line'>  <span class="nx">faye</span><span class="p">.</span><span class="nx">subscribe</span><span class="p">(</span><span class="s1">&#39;/messages/new&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">alert</span><span class="p">(</span><span class="nx">data</span><span class="p">);</span>
+</span><span class='line'>  <span class="p">});</span>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>和<a href="https://github.com/saulpower/Android-Faye-Client">Android-Faye-Client</a>的java代码</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="n">URI</span> <span class="n">uri</span> <span class="o">=</span> <span class="n">URI</span><span class="o">.</span><span class="na">create</span><span class="o">(</span><span class="n">String</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="s">&quot;ws://%s:443/events&quot;</span><span class="o">,</span> <span class="n">baseUrl</span><span class="o">));</span>
+</span><span class='line'><span class="n">String</span> <span class="n">channel</span> <span class="o">=</span> <span class="n">String</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="s">&quot;/%s/**&quot;</span><span class="o">,</span> <span class="n">User</span><span class="o">.</span><span class="na">getCurrentUser</span><span class="o">().</span><span class="na">getUserId</span><span class="o">());</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">mClient</span> <span class="o">=</span> <span class="k">new</span> <span class="n">FayeClient</span><span class="o">(</span><span class="n">uri</span><span class="o">,</span> <span class="n">channel</span><span class="o">);</span>
+</span><span class='line'><span class="n">mClient</span><span class="o">.</span><span class="na">setFayeListener</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
+</span><span class='line'><span class="n">mClient</span><span class="o">.</span><span class="na">connectToServer</span><span class="o">(</span><span class="kc">null</span><span class="o">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>  <br/>
+我们就知道大概了如何实现了，需要指出的是，js客户端直接用的http协议，而我们在java这边需要用的是ws协议(也即WebSocket，wss类似https，是ws的安全加强版)</p>
+
+<p>如果你使用的是Android Studio，在你的<code>build.gradle</code>里面添加如下依赖即可:</p>
+
+<pre><code>dependencies {
+    compile 'com.saulpower.fayeclient:library:1.0'
+}
+</code></pre>
+
+<p>因为这个应用是基于Ruby-China做得的，端口号可以查看<a href="view-source:http://ruby-china.org/">RubyChina首页</a>的源代码获取。而channel号也在首页源代码中可见，用的一个temp_access_token，这个token是专门用来做faye的channel号的，通过第一个版本的api可以获取到这个token。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span> <span class="na">data-turbolinks-eval=</span><span class="s">false</span><span class="nt">&gt;</span>
+</span><span class='line'>  <span class="nx">ROOT_URL</span> <span class="o">=</span> <span class="s2">&quot;http://ruby-china.org/&quot;</span><span class="p">;</span>
+</span><span class='line'>  <span class="nx">ASSET_URL</span> <span class="o">=</span> <span class="s2">&quot;http://l.ruby-china.org/&quot;</span><span class="p">;</span>
+</span><span class='line'>  <span class="nx">FAYE_SERVER_URL</span> <span class="o">=</span> <span class="s2">&quot;http://ruby-china.org:8080/faye&quot;</span><span class="p">;</span>
+</span><span class='line'>    <span class="nx">CURRENT_USER_ACCESS_TOKEN</span> <span class="o">=</span> <span class="s2">&quot;72a47853462c91db8f7ed8d3d8899d00&quot;</span><span class="p">;</span>
+</span><span class='line'>  <span class="k">if</span> <span class="p">(</span><span class="nx">FAYE_SERVER_URL</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">App</span><span class="p">.</span><span class="nx">initNotificationSubscribe</span><span class="p">();</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="nt">&lt;/script&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>
+在<a href="https://github.com/gonjay/rubychina4android">RubyChina4Android</a>中，用户登录的时候会获取一遍temp_access_token，并注册Serveice。接下来，如果有人在论坛里面@你，应该就能在手机上收到消息推送了。</p>
+
+<h2>Source Code</h2>
+
+<p>以上所有的代码都可以在<a href="https://github.com/gonjay/rubychina4android">RubyChina4Android</a>里面找到</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/02/25/rails-zi-ding-yi-ni-de-rake-task-lai-bei-fen-he-hui-fu-ni-de-shu-ju-ku/">Rails 自定义Rake Task 来备份和恢复数据库</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2014-02-25T13:00:35+08:00'><span class='date'><span class='date-month'>Feb</span> <span class='date-day'>25</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>1:00 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>打开Rakefile，添加</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">namespace</span> <span class="ss">:db</span> <span class="k">do</span>
+</span><span class='line'> <span class="n">task</span> <span class="ss">:backup</span> <span class="k">do</span>
+</span><span class='line'>   <span class="nb">system</span> <span class="s2">&quot;mysqldump --opt --user=root raiderboard &gt; backup.sql&quot;</span>
+</span><span class='line'> <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'> <span class="n">task</span> <span class="ss">:restore</span> <span class="k">do</span>
+</span><span class='line'>   <span class="nb">system</span> <span class="s2">&quot;mysql --user=root raiderboard &lt; backup.sql&quot;</span>
+</span><span class='line'> <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>然后在命令行输入<code>rake db:backup</code>就能获得一份sql备份文件，git/svn commit这份sql文件，到服务端git pull下来，然后输入<code>rake db:restore</code>便能恢复你本地的数据库到服务端的数据库了。</p>
+
+<h3>查看数据库大小</h3>
+
+<p>1 进去指定schema 数据库（存放了其他的数据库的信息）</p>
+
+<pre><code>mysql&gt; use information_schema;
+Database changed
+</code></pre>
+
+<p>2 查询所有数据的大小</p>
+
+<pre><code>mysql&gt; select concat(round(sum(DATA_LENGTH/1024/1024), 2), 'MB')
+-&gt; as data from TABLES;  
++-----------+
+| data      |
++-----------+
+| 6674.48MB |
++-----------+
+1 row in set (16.81 sec)
+</code></pre>
+
+<p>3 查看指定数据库实例的大小，比如说数据库 forexpert</p>
+
+<pre><code>mysql&gt; select concat(round(sum(DATA_LENGTH/1024/1024), 2), 'MB')
+-&gt; as data from TABLES where table_schema='forexpert';
++-----------+
+| data      |
++-----------+
+| 6542.30MB |
++-----------+
+1 row in set (7.47 sec)
+</code></pre>
+
+<p>4 查看指定数据库的表的大小，比如说数据库 forexpert 中的 member 表</p>
+
+<pre><code>mysql&gt; select concat(round(sum(DATA_LENGTH/1024/1024),2),'MB') as data
+-&gt; from TABLES where table_schema='forexpert'
+-&gt; and table_name='member';
++--------+
+| data   |
++--------+
+| 2.52MB |
++--------+
+1 row in set (1.88 sec)
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/02/24/rake-db-lie-biao-ji-gong-neng-gai-shu/">Rake Db 列表及功能概述</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2014-02-24T15:02:01+08:00'><span class='date'><span class='date-month'>Feb</span> <span class='date-day'>24</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>3:02 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><ul>
+<li>db:create creates the database for the current env</li>
+<li>db:create:all creates the databases for all envs</li>
+<li>db:drop drops the database for the current env</li>
+<li>db:drop:all drops the databases for all envs</li>
+<li>db:migrate runs migrations for the current env that have not run yet</li>
+<li>db:migrate:up runs one specific migration</li>
+<li>db:migrate:down rolls back one specific migration</li>
+<li>db:migrate:status shows current migration status</li>
+<li>db:migrate:rollback rolls back the last migration</li>
+<li>db:forward advances the current schema version to the next one</li>
+<li>db:seed (only) runs the db/seed.rb file</li>
+<li>db:schema:load loads the schema into the current env&rsquo;s database</li>
+<li><p>db:schema:dump dumps the current env&rsquo;s schema (and seems to create the db as well)</p></li>
+<li><p>db:setup runs db:schema:load, db:seed</p></li>
+<li><p>db:reset runs db:drop db:setup</p></li>
+<li>db:migrate:redo runs (db:migrate:down db:migrate:up) or (db:migrate:rollback db:migrate:migrate) depending on the specified migration</li>
+<li>db:migrate:reset runs db:drop db:create db:migrate</li>
+</ul>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  <div class="pagination">
+    
+      <a class="prev" href="/posts/3">&larr; Older</a>
+    
+    <a href="/blog/archives">Blog Archives</a>
+    
+    <a class="next" href="/index.html">Newer &rarr;</a>
+    
+  </div>
+</div>
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/10/14/androidyu-cocos2d-xkai-fa-zhong-de-huan-cun-chi/">Android与Cocos2d-x开发中的缓存池</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/10/12/vimtutor/">Vimtutor 简体中文</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/09/20/er-cha-shu-de-bian-li/">二叉树的遍历</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/09/19/rspeczhong-shi-yong-database-cleaner/">Rspec中使用database_cleaner</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/09/17/ruby-zhong-de-xiao-yu-fa/">Ruby 中的&#8217;小语法&#8217;</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - GonJay -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'gonjay';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+</body>
+</html>

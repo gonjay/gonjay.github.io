@@ -1,0 +1,277 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Markdown的纯前端解决方案 - 博客</title>
+  <meta name="author" content="GonJay">
+
+  
+  <meta name="description" content="更新 这个解决方案应该是我目前遇到的最完美的方案了： http://jbt.github.io/markdown-editor/ Stuff used to make this: marked for Markdown parsing
+CodeMirror for the awesome &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://gonjay.github.io/blog/2014/07/11/markdownde-chun-qian-duan-jie-jue-fang-an">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="博客" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/libs/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-40130853-2']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">博客</a></h1>
+  
+    <h2>群星，我的归宿</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:gonjay.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Markdown的纯前端解决方案</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2014-07-11T11:28:33+08:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>11</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>11:28 am</span></time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><h2>更新</h2>
+
+<p>这个解决方案应该是我目前遇到的最完美的方案了：</p>
+
+<p><a href="http://jbt.github.io/markdown-editor/">http://jbt.github.io/markdown-editor/</a></p>
+
+<h3>Stuff used to make this:</h3>
+
+<ul>
+<li><a href="https://github.com/chjj">marked</a> for Markdown parsing</li>
+<li><a href="http://codemirror.net/">CodeMirror</a> for the awesome syntax-highlighted editor</li>
+<li><a href="http://softwaremaniacs.org/soft/highlight/en/">highlight.js</a> for syntax highlighting in output code blocks</li>
+<li><a href="https://github.com/dankogai/js-deflate">js-deflate</a> for gzipping of data to make it fit in URLs</li>
+</ul>
+
+
+<!--more-->
+
+
+<h2>Old</h2>
+
+<p>前阵子在维护一个Node.js的项目，是用来做git仓库管理的，类似 <code>github</code> <code>gitlab</code> 之类的内部项目。</p>
+
+<p>整个项目的Markdown以及包括代码高亮等的操作，全部放在后端来渲染，因为人家Node.js本来就是<code>Javascript</code>嘛，所以各种js的库也是用得顺手。不像许多Node项目是由前端出身的人转做后端，这个项目给人的感觉就是一个纯后端做出来的东西，整个前端部分在我看来很多都可以剥离出来的。</p>
+
+<p>其实不仅仅像这种项目，许多web应用都是，它作为一个web app来使用的时候，不是什么事情都交给后端就好了，后端很强大能实现很多东西，但是后端毕竟不是万能的，该用前端优化的时候就应该应前端来做，典型的例子就是Markdown文本的渲染了。</p>
+
+<p>其实像我知道的github、ruby-china等，Markdown的渲染都是交由后端来实现的，不是特别理解这个事情，因为在github上面经常会因为网络不通常导致，一个markdown的文本预览不到，很是恼火，ruby-china因为是在国内，所以感觉不出来。</p>
+
+<p>而且放到后端渲染还有一个比较痛苦的问题就是升级和维护这个模块，用起来不觉得，一旦要升级下markdwon渲染引擎的版本可着实一件苦逼的事情。</p>
+
+<p>所有在有了showdown.js这样的神器之后，果断将整个项目的Markdwon放到到了前端，配合着highlight.js非常的容易就能实现Markdown文本的渲染，最关键的是，因为jQuery的便利性，这货和后端结合的时候完全是无缝的啊有木有。</p>
+
+<p>这里有一个 <a href="http://gonjay.github.io/editor/">传送门</a>，是我测试用的在线Markdown在线编辑器，可以查看一下源代码，非常简单就能完成设置。</p>
+
+<div><script src='https://gist.github.com/9a2d7b4e97f6e483c475.js?file=index.js'></script>
+<noscript><pre><code>var converter = new Showdown.converter({
+    &#39;github_flavouring&#39;: true,
+    &#39;tables&#39;: true
+});
+
+    // var md = isFromAndroid.getContentBody();
+
+    $(&#39;.btn&#39;).click(function(){
+        var html = converter.makeHtml($(&#39;#origin&#39;).val());
+        $(&#39;#display&#39;).html(html);
+        $(&#39;code&#39;).each(function(i, e) {hljs.highlightBlock(e)});
+    });</code></pre></noscript></div>
+
+
+<p>步骤是：</p>
+
+<ul>
+<li>showdown.js渲染出对应的html</li>
+<li>highlight.js渲染对应的语言的语法高亮</li>
+</ul>
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">GonJay</span></span>
+
+      
+
+
+
+
+<time class='entry-date' datetime='2014-07-11T11:28:33+08:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>11</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>11:28 am</span></time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/markdown/'>markdown</a>, <a class='category' href='/blog/categories/projects/'>projects</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2014/07/11/ji-chong-gcde-fang-shi-xiao-jie/" title="Previous Post: 几种GC的方式小结">&laquo; 几种GC的方式小结</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2014/07/11/android-studio-kai-fa-zhong-de-tips/" title="Next Post: Android Studio 开发中的Tips">Android Studio 开发中的Tips &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/10/14/androidyu-cocos2d-xkai-fa-zhong-de-huan-cun-chi/">Android与Cocos2d-x开发中的缓存池</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/10/12/vimtutor/">Vimtutor 简体中文</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/09/20/er-cha-shu-de-bian-li/">二叉树的遍历</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/09/19/rspeczhong-shi-yong-database-cleaner/">Rspec中使用database_cleaner</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/09/17/ruby-zhong-de-xiao-yu-fa/">Ruby 中的&#8217;小语法&#8217;</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - GonJay -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'gonjay';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://gonjay.github.io/blog/2014/07/11/markdownde-chun-qian-duan-jie-jue-fang-an/';
+        var disqus_url = 'http://gonjay.github.io/blog/2014/07/11/markdownde-chun-qian-duan-jie-jue-fang-an/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+</body>
+</html>

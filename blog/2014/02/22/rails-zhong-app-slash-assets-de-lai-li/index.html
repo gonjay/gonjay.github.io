@@ -1,0 +1,340 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Rails中app/assets的来历 - 博客</title>
+  <meta name="author" content="GonJay">
+
+  
+  <meta name="description" content="引用更多 在过去的rails和传统应用中，所有的css和js文件全部都是静态的，写好了放在public，需要的时候就引用。 但是，随着项目不断发展，这些文件会变得越来越多，在一个网站的首页你经常看见这样的壮观场景： 1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17 &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://gonjay.github.io/blog/2014/02/22/rails-zhong-app-slash-assets-de-lai-li">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="博客" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/libs/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-40130853-2']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">博客</a></h1>
+  
+    <h2>群星，我的归宿</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:gonjay.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Rails中app/assets的来历</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2014-02-22T00:46:31+08:00'><span class='date'><span class='date-month'>Feb</span> <span class='date-day'>22</span><span class='date-suffix'>nd</span>, <span class='date-year'>2014</span></span> <span class='time'>12:46 am</span></time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><h2>引用更多</h2>
+
+<p>在过去的rails和传统应用中，所有的css和js文件全部都是静态的，写好了放在public，需要的时候就引用。</p>
+
+<p>但是，随着项目不断发展，这些文件会变得越来越多，在一个网站的首页你经常看见这样的壮观场景：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>
+</span><span class='line'>    &lt;link rel="stylesheet" type="text/css" href="libs/jquery-ui-1.10.3/themes/base/jquery-ui.css" /&gt;
+</span><span class='line'>    &lt;link rel="stylesheet" type="text/css" href="libs/bootstrap-2.3.2/css/bootstrap.min.css" /&gt;
+</span><span class='line'>    &lt;link rel="stylesheet" type="text/css" href="libs/fotorama-4.4.8/fotorama.css" /&gt;
+</span><span class='line'>    &lt;link rel="stylesheet" type="text/css" href="libs/wp-pagenavi-2.50/pagenavi-css" /&gt;
+</span><span class='line'>    &lt;link rel="stylesheet" type="text/css" href="libs/prettyPhoto/prettyPhoto.css" /&gt;
+</span><span class='line'>    &lt;link rel="stylesheet" type="text/css" href="libs/anthology/styles/superfish.css" /&gt;
+</span><span class='line'>    &lt;link rel="stylesheet" type="text/css" href="libs/anthology/plugins/fonts/fonts.css" /&gt;
+</span><span class='line'>    &lt;link rel="stylesheet" type="text/css" href="styles/style.css" /&gt;
+</span><span class='line'>    &lt;link rel="stylesheet" type="text/css" href="styles/model-jewellery.css" /&gt;
+</span><span class='line'>    &lt;link rel="stylesheet" type="text/css" href="styles/model-diamond.css" /&gt;
+</span><span class='line'>    &lt;script type="text/javascript" src="libs/jquery-1.9.1/jquery-1.9.1.min.js"&gt;&lt;/script&gt;
+</span><span class='line'>    &lt;script type="text/javascript" src="libs/jquery-ui-1.10.3/ui/jquery-ui.min.js"&gt;&lt;/script&gt;
+</span><span class='line'>    &lt;script type="text/javascript" src="libs/jquery-ui-touch-punch-0.2.2/jquery.ui.touch-punch.min.js"&gt;&lt;/script&gt;
+</span><span class='line'>    &lt;script type="text/javascript" src="libs/jQuery.jPlayer.2.5.0/jquery.jplayer.min.js"&gt;&lt;/script&gt;
+</span><span class='line'>    &lt;script type="text/javascript" src="libs/angular-1.2.6/angular.js"&gt;&lt;/script&gt;
+</span><span class='line'>    &lt;script type="text/javascript" src="libs/angular-1.2.6/angular-resource.min.js"&gt;&lt;/script&gt;
+</span><span class='line'>    &lt;script type="text/javascript" src="libs/angular-1.2.6/angular-route.min.js"&gt;&lt;/script&gt;
+</span><span class='line'>    &lt;script type="text/javascript" src="libs/angular-1.2.6/angular-cookies.min.js"&gt;&lt;/script&gt;
+</span><span class='line'>    &lt;script type="text/javascript" src="libs/angular-1.2.6/angular-sanitize.min.js"&gt;&lt;/script&gt;
+</span><span class='line'>    &lt;script type="text/javascript" src="libs/angular-1.2.6/angular-touch.min.js"&gt;&lt;/script&gt;
+</span><span class='line'>    &lt;script type="text/javascript" src="libs/angular-1.2.6/angular-animate.min.js"&gt;&lt;/script&gt;
+</span><span class='line'>    &lt;script type="text/javascript" src="libs/angular-ui-bootstrap-0.7.0/ui-bootstrap-tpls-0.7.0.min.js"&gt;&lt;/script&gt;
+</span><span class='line'>    &lt;script type="text/javascript" src="libs/fotorama-4.4.8/fotorama.js"&gt;&lt;/script&gt;
+</span><span class='line'>    &lt;script type="text/javascript" src="libsx/jquery-ui-slider-namearray.js"&gt;&lt;/script&gt;
+</span><span class='line'>    &lt;script type="text/javascript" src="libsx/touch-tricks.js"&gt;&lt;/script&gt;
+</span><span class='line'>
+</span><span class='line'>    &lt;link rel="stylesheet" type="text/css" href="styles/fix-anthlogy-style.css" /&gt;
+</span><span class='line'>    &lt;link rel="stylesheet" type="text/css" href="styles/fix-4c-screen.css" /&gt;
+</span><span class='line'>    &lt;link rel="stylesheet" type="text/css" href="styles/model-common.css" /&gt;
+</span><span class='line'>
+</span><span class='line'>    &lt;script src="scripts/mvc/model-common.js"&gt;&lt;/script&gt;
+</span><span class='line'>    &lt;script src="scripts/mvc/model-filter.js"&gt;&lt;/script&gt;
+</span><span class='line'>    &lt;script src="scripts/mvc/model-diamond.js"&gt;&lt;/script&gt;
+</span><span class='line'>    &lt;script src="scripts/mvc/model-jewellery.js"&gt;&lt;/script&gt;
+</span><span class='line'>    &lt;script src="scripts/mvc/model-4c.js"&gt;&lt;/script&gt;
+</span><span class='line'>    &lt;script src="scripts/mvc/model-misc.js"&gt;&lt;/script&gt;
+</span><span class='line'>    &lt;script src="scripts/mvc/model-wishcar.js"&gt;&lt;/script&gt;
+</span><span class='line'>    &lt;script src="scripts/mvc/app-main.js"&gt;&lt;/script&gt;
+</span><span class='line'>
+</span><span class='line'>    &lt;script src="scripts/env.js"&gt;&lt;/script&gt;
+</span><span class='line'>    &lt;script src="scripts/config.js"&gt;&lt;/script&gt;
+</span><span class='line'>    &lt;script src="scripts/main.js"&gt;&lt;/script&gt;
+</span><span class='line'>    </span></code></pre></td></tr></table></div></figure>
+
+
+<h3>害怕了？😨</h3>
+
+<p>我也怕了，不仅是我们怕了，浏览器也怕了。浏览器为了照顾设备的感受，一般情况下是会限制同一时间的发送网络请求的次数的，所以这必然造成了网站的访问速度下降。So，玩Ruby的那群人做了些gem <code>Sprockets</code> <code>Jammit</code>来当做连接css和js并压缩它们的框架，后来发现确实好用，Rails3.2也就自带了。于是便有了统一管理这些css和js的资源目录，框架会自己去相应的目录里面寻找这些文件然后生产一份大文件，随后就有了Rails应用的标志HTML</p>
+
+<pre><code>&lt;link href="/assets/application-1e0b7b6177f955c71f083db518841bbf.css" media="all" rel="stylesheet" type="text/css" /&gt;
+&lt;script src="/assets/application-ef900b6062fe4b543f09c78ba9062141.js" type="text/javascript"&gt;&lt;/script&gt;
+</code></pre>
+
+<p>这样子，世界一下清净了很多呢，这便是<code>assets pipline</code>概念的由来。当然，我所在的那个项目因为是基于本地html做的，所以加载这么多次资源文件压力会很小，如果是在线的应用按照assets pipline的思路来是最好的选择。</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">GonJay</span></span>
+
+      
+
+
+
+
+<time class='entry-date' datetime='2014-02-22T00:46:31+08:00'><span class='date'><span class='date-month'>Feb</span> <span class='date-day'>22</span><span class='date-suffix'>nd</span>, <span class='date-year'>2014</span></span> <span class='time'>12:46 am</span></time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/assets-pipline/'>assets pipline</a>, <a class='category' href='/blog/categories/rails/'>rails</a>, <a class='category' href='/blog/categories/qian-duan/'>前端</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2014/02/19/bootstrap-hou-tai-mo-ban-tui-jian/" title="Previous Post: Bootstrap 后台模板推荐">&laquo; Bootstrap 后台模板推荐</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2014/02/23/mac-xia-yong-terminal-wan-mysql/" title="Next Post: Mac下用Terminal玩mysql">Mac下用Terminal玩mysql &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/10/14/androidyu-cocos2d-xkai-fa-zhong-de-huan-cun-chi/">Android与Cocos2d-x开发中的缓存池</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/10/12/vimtutor/">Vimtutor 简体中文</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/09/20/er-cha-shu-de-bian-li/">二叉树的遍历</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/09/19/rspeczhong-shi-yong-database-cleaner/">Rspec中使用database_cleaner</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/09/17/ruby-zhong-de-xiao-yu-fa/">Ruby 中的&#8217;小语法&#8217;</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - GonJay -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'gonjay';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://gonjay.github.io/blog/2014/02/22/rails-zhong-app-slash-assets-de-lai-li/';
+        var disqus_url = 'http://gonjay.github.io/blog/2014/02/22/rails-zhong-app-slash-assets-de-lai-li/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+</body>
+</html>

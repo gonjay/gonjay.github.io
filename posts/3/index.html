@@ -1,0 +1,668 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>博客</title>
+  <meta name="author" content="GonJay">
+
+  
+  <meta name="description" content="安装 brew install mysql 启动 mysql.server start 然后再输入 mysql 不然会出现 ERROR 2002 (HY000): Can't connect to local MySQL server through socket '/tmp/mysql.sock &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://gonjay.github.io/posts/3">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="博客" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/libs/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-40130853-2']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">博客</a></h1>
+  
+    <h2>群星，我的归宿</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:gonjay.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">
+  
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/02/23/mac-xia-yong-terminal-wan-mysql/">Mac下用Terminal玩mysql</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2014-02-23T19:28:08+08:00'><span class='date'><span class='date-month'>Feb</span> <span class='date-day'>23</span><span class='date-suffix'>rd</span>, <span class='date-year'>2014</span></span> <span class='time'>7:28 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h3>安装</h3>
+
+<pre><code>brew install mysql
+</code></pre>
+
+<h3>启动</h3>
+
+<pre><code>mysql.server start
+</code></pre>
+
+<p>然后再输入</p>
+
+<pre><code>mysql
+</code></pre>
+
+<p>不然会出现</p>
+
+<pre><code>ERROR 2002 (HY000): Can't connect to local MySQL server through socket '/tmp/mysql.sock' (2)
+</code></pre>
+
+<p>的错误。屡试不爽！</p>
+
+<h3>基本命令</h3>
+
+<p>在输入<code>mysql</code>之后，就连到MySQL了。</p>
+
+<ul>
+<li><p>使用SHOW语句找出在服务器上当前存在什么数据库：</p>
+
+<p>  mysql> <code>SHOW DATABASES;</code></p></li>
+<li><p>创建一个数据库MYSQLDATA</p>
+
+<p>  mysql> <code>CREATE DATABASE MYSQLDATA;</code></p></li>
+<li><p>选择你所创建的数据库</p>
+
+<p>  mysql> <code>USE MYSQLDATA;</code> (按回车键出现Database changed 时说明操作成功！)</p></li>
+<li><p>查看现在的数据库中存在什么表</p>
+
+<p>  mysql> <code>SHOW TABLES;</code></p></li>
+<li><p>创建一个数据库表</p>
+
+<p>  mysql> <code>CREATE TABLE MYTABLE (name VARCHAR(20), sex CHAR(1));</code></p></li>
+<li><p>显示表的结构：</p>
+
+<p>  mysql> <code>DESCRIBE MYTABLE;</code></p></li>
+<li><p>往表中加入记录</p>
+
+<p>  mysql> <code>insert into MYTABLE values (”hyq”,”M”);</code></p></li>
+<li><p>用文本方式将数据装入数据库表中（例如D:/mysql.txt）</p>
+
+<p>  mysql> <code>LOAD DATA LOCAL INFILE “D:/mysql.txt” INTO TABLE MYTABLE;</code></p></li>
+<li><p>导入.sql文件命令（例如D:/mysql.sql）</p>
+
+<p>  mysql><code>use database;</code></p>
+
+<p>  mysql><code>source d:/mysql.sql;</code></p></li>
+<li><p>删除表</p>
+
+<p>  mysql><code>drop TABLE MYTABLE;</code></p></li>
+<li><p>清空表</p>
+
+<p>  mysql><code>delete from MYTABLE;</code></p></li>
+<li><p>更新表中数据</p>
+
+<p>  mysql><code>update MYTABLE set sex=”f” where name=’hyq’;</code></p></li>
+<li><p>新建一个名为houston的用户，拥有houston数据库下的权限</p>
+
+<p>  mysql><code>grant create,select,insert,update,delete on houston.* to houston@localhost Identified by "";</code></p></li>
+</ul>
+
+
+<h3>如何支持中文</h3>
+
+<p>我不明白MySQL为何不默认utf-8，也许是等着被一众NoSql干掉吧</p>
+
+<pre><code>CREATE DATABASE `test`
+CHARACTER SET 'utf8'
+COLLATE 'utf8_general_ci';
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/02/22/rails-zhong-app-slash-assets-de-lai-li/">Rails中app/assets的来历</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2014-02-22T00:46:31+08:00'><span class='date'><span class='date-month'>Feb</span> <span class='date-day'>22</span><span class='date-suffix'>nd</span>, <span class='date-year'>2014</span></span> <span class='time'>12:46 am</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2>引用更多</h2>
+
+<p>在过去的rails和传统应用中，所有的css和js文件全部都是静态的，写好了放在public，需要的时候就引用。</p>
+
+<p>但是，随着项目不断发展，这些文件会变得越来越多，在一个网站的首页你经常看见这样的壮观场景：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>
+</span><span class='line'>    &lt;link rel="stylesheet" type="text/css" href="libs/jquery-ui-1.10.3/themes/base/jquery-ui.css" /&gt;
+</span><span class='line'>    &lt;link rel="stylesheet" type="text/css" href="libs/bootstrap-2.3.2/css/bootstrap.min.css" /&gt;
+</span><span class='line'>    &lt;link rel="stylesheet" type="text/css" href="libs/fotorama-4.4.8/fotorama.css" /&gt;
+</span><span class='line'>    &lt;link rel="stylesheet" type="text/css" href="libs/wp-pagenavi-2.50/pagenavi-css" /&gt;
+</span><span class='line'>    &lt;link rel="stylesheet" type="text/css" href="libs/prettyPhoto/prettyPhoto.css" /&gt;
+</span><span class='line'>    &lt;link rel="stylesheet" type="text/css" href="libs/anthology/styles/superfish.css" /&gt;
+</span><span class='line'>    &lt;link rel="stylesheet" type="text/css" href="libs/anthology/plugins/fonts/fonts.css" /&gt;
+</span><span class='line'>    &lt;link rel="stylesheet" type="text/css" href="styles/style.css" /&gt;
+</span><span class='line'>    &lt;link rel="stylesheet" type="text/css" href="styles/model-jewellery.css" /&gt;
+</span><span class='line'>    &lt;link rel="stylesheet" type="text/css" href="styles/model-diamond.css" /&gt;
+</span><span class='line'>    &lt;script type="text/javascript" src="libs/jquery-1.9.1/jquery-1.9.1.min.js"&gt;&lt;/script&gt;
+</span><span class='line'>    &lt;script type="text/javascript" src="libs/jquery-ui-1.10.3/ui/jquery-ui.min.js"&gt;&lt;/script&gt;
+</span><span class='line'>    &lt;script type="text/javascript" src="libs/jquery-ui-touch-punch-0.2.2/jquery.ui.touch-punch.min.js"&gt;&lt;/script&gt;
+</span><span class='line'>    &lt;script type="text/javascript" src="libs/jQuery.jPlayer.2.5.0/jquery.jplayer.min.js"&gt;&lt;/script&gt;
+</span><span class='line'>    &lt;script type="text/javascript" src="libs/angular-1.2.6/angular.js"&gt;&lt;/script&gt;
+</span><span class='line'>    &lt;script type="text/javascript" src="libs/angular-1.2.6/angular-resource.min.js"&gt;&lt;/script&gt;
+</span><span class='line'>    &lt;script type="text/javascript" src="libs/angular-1.2.6/angular-route.min.js"&gt;&lt;/script&gt;
+</span><span class='line'>    &lt;script type="text/javascript" src="libs/angular-1.2.6/angular-cookies.min.js"&gt;&lt;/script&gt;
+</span><span class='line'>    &lt;script type="text/javascript" src="libs/angular-1.2.6/angular-sanitize.min.js"&gt;&lt;/script&gt;
+</span><span class='line'>    &lt;script type="text/javascript" src="libs/angular-1.2.6/angular-touch.min.js"&gt;&lt;/script&gt;
+</span><span class='line'>    &lt;script type="text/javascript" src="libs/angular-1.2.6/angular-animate.min.js"&gt;&lt;/script&gt;
+</span><span class='line'>    &lt;script type="text/javascript" src="libs/angular-ui-bootstrap-0.7.0/ui-bootstrap-tpls-0.7.0.min.js"&gt;&lt;/script&gt;
+</span><span class='line'>    &lt;script type="text/javascript" src="libs/fotorama-4.4.8/fotorama.js"&gt;&lt;/script&gt;
+</span><span class='line'>    &lt;script type="text/javascript" src="libsx/jquery-ui-slider-namearray.js"&gt;&lt;/script&gt;
+</span><span class='line'>    &lt;script type="text/javascript" src="libsx/touch-tricks.js"&gt;&lt;/script&gt;
+</span><span class='line'>
+</span><span class='line'>    &lt;link rel="stylesheet" type="text/css" href="styles/fix-anthlogy-style.css" /&gt;
+</span><span class='line'>    &lt;link rel="stylesheet" type="text/css" href="styles/fix-4c-screen.css" /&gt;
+</span><span class='line'>    &lt;link rel="stylesheet" type="text/css" href="styles/model-common.css" /&gt;
+</span><span class='line'>
+</span><span class='line'>    &lt;script src="scripts/mvc/model-common.js"&gt;&lt;/script&gt;
+</span><span class='line'>    &lt;script src="scripts/mvc/model-filter.js"&gt;&lt;/script&gt;
+</span><span class='line'>    &lt;script src="scripts/mvc/model-diamond.js"&gt;&lt;/script&gt;
+</span><span class='line'>    &lt;script src="scripts/mvc/model-jewellery.js"&gt;&lt;/script&gt;
+</span><span class='line'>    &lt;script src="scripts/mvc/model-4c.js"&gt;&lt;/script&gt;
+</span><span class='line'>    &lt;script src="scripts/mvc/model-misc.js"&gt;&lt;/script&gt;
+</span><span class='line'>    &lt;script src="scripts/mvc/model-wishcar.js"&gt;&lt;/script&gt;
+</span><span class='line'>    &lt;script src="scripts/mvc/app-main.js"&gt;&lt;/script&gt;
+</span><span class='line'>
+</span><span class='line'>    &lt;script src="scripts/env.js"&gt;&lt;/script&gt;
+</span><span class='line'>    &lt;script src="scripts/config.js"&gt;&lt;/script&gt;
+</span><span class='line'>    &lt;script src="scripts/main.js"&gt;&lt;/script&gt;
+</span><span class='line'>    </span></code></pre></td></tr></table></div></figure>
+
+
+<h3>害怕了？😨</h3>
+
+<p>我也怕了，不仅是我们怕了，浏览器也怕了。浏览器为了照顾设备的感受，一般情况下是会限制同一时间的发送网络请求的次数的，所以这必然造成了网站的访问速度下降。So，玩Ruby的那群人做了些gem <code>Sprockets</code> <code>Jammit</code>来当做连接css和js并压缩它们的框架，后来发现确实好用，Rails3.2也就自带了。于是便有了统一管理这些css和js的资源目录，框架会自己去相应的目录里面寻找这些文件然后生产一份大文件，随后就有了Rails应用的标志HTML</p>
+
+<pre><code>&lt;link href="/assets/application-1e0b7b6177f955c71f083db518841bbf.css" media="all" rel="stylesheet" type="text/css" /&gt;
+&lt;script src="/assets/application-ef900b6062fe4b543f09c78ba9062141.js" type="text/javascript"&gt;&lt;/script&gt;
+</code></pre>
+
+<p>这样子，世界一下清净了很多呢，这便是<code>assets pipline</code>概念的由来。当然，我所在的那个项目因为是基于本地html做的，所以加载这么多次资源文件压力会很小，如果是在线的应用按照assets pipline的思路来是最好的选择。</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/02/19/bootstrap-hou-tai-mo-ban-tui-jian/">Bootstrap 后台模板推荐</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2014-02-19T01:01:39+08:00'><span class='date'><span class='date-month'>Feb</span> <span class='date-day'>19</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>1:01 am</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h3>Aquincum - 纯的相应式后台模板:</h3>
+
+<p>推荐指数：8/10</p>
+
+<p><img src="http://gonjay.github.io/images/demo/7cf92825-ba44-47f0-8988-045f3ac749c7.png" alt="" /></p>
+
+<p><a href="http://demo.kopyov.com/?theme=aquincum">在线网址</a></p>
+
+<p>Aquincum
+35个以及更多插件和灵活的内容结构
+3列的结构、3级导航、2级工具栏
+兼容iPad和iPhone</p>
+
+<h3>Supr</h3>
+
+<p>推荐指数：9/10</p>
+
+<p><img src="http://gonjay.github.io/images/demo/30bb36e2-6d24-4da4-8402-e9b5c0817c30.png" alt="" /></p>
+
+<p><a href="http://themes.suggeelson.com/?theme=supr">在线网址</a>
+（可在线查看PC版、Pad版横屏竖屏、Phone版横屏竖屏）</p>
+
+<p>可在线查看PC版、Pad及Phone版的横屏与竖屏</p>
+
+<h3>MWS Admin</h3>
+
+<p>推荐指数：9/10</p>
+
+<p><img src="http://gonjay.github.io/images/demo/6b7edd3e-25f0-4730-9e34-9c0646cff8ae.png" alt="" /></p>
+
+<p><a href="http://www.youxithemes.com/themes/mws-admin">在线网站</a></p>
+
+<ul>
+<li>配色偏向商务风格</li>
+<li>面包屑导航看起来不错</li>
+<li>拟物化的设计倾向</li>
+</ul>
+
+
+<h3>Start - Metro风格的模板:</h3>
+
+<p>推荐指数：9/10</p>
+
+<p><img src="http://gonjay.github.io/images/demo/67e8dd1b-d520-4f0e-a2ea-72f65b36d5ac.png" alt="" /></p>
+
+<p><a href="http://themeforest.net/item/start-metro-ui-responsive-admin-template/full_screen_preview/3408505">在线网址</a></p>
+
+<p>Start 整体风格比较现代化</p>
+
+<h3>FLAT - 扁平化的风格</h3>
+
+<p>推荐指数：8/10</p>
+
+<p><img src="http://gonjay.github.io/images/demo/4069e3eb-1986-453f-aea0-b1206a2c1b16.png" alt="" /></p>
+
+<p><a href="http://theme.eakroko.de/flat">在线网址</a></p>
+
+<ul>
+<li>FLAT 扁平化，很简洁</li>
+<li>消息提示的弹出窗口设计的很不错</li>
+<li>有一个抽象化的世界地图很棒</li>
+<li>完成度很高</li>
+</ul>
+
+
+<h3>MoonCake</h3>
+
+<p>推荐指数：8/10</p>
+
+<p><img src="http://gonjay.github.io/images/demo/a57ed507-edb7-4e7b-b655-4207e30ed974.png" alt="" /></p>
+
+<p><a href="http://www.youxithemes.com/themes/mooncake">在线网址</a></p>
+
+<ul>
+<li>有一个漂亮的登陆界面</li>
+<li>相应式布局</li>
+<li>背景有拟物化的倾向，图标、数据表格偏向扁平化</li>
+</ul>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/02/19/android-sutio-shi-yong-zhi-nan/">Android Sutio 使用指南&#8211;像Gemfile一样使用gradle</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2014-02-19T00:04:26+08:00'><span class='date'><span class='date-month'>Feb</span> <span class='date-day'>19</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>12:04 am</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h1>像Gemfile一样使用gradle</h1>
+
+<p>随着项目越来越大，为了更多特性，我们不得不使用越来越多的开源库。按照Eclipse等传统的方式，我们一般会这样做：</p>
+
+<ol>
+<li>下载jar包，并添加到项目的build path里面</li>
+<li>下载library，将整个文件夹导入到workspace里面，然后在自己的项目里面添加依赖</li>
+</ol>
+
+
+<p>这种方式很有效，但你可以搜索一下Ruby的gem，node.js的npm，iOS的cocoapods，还有过去java项目中的maven依赖。</p>
+
+<p>对比你就发现了，原来这些包管理工具让使用者都不用自己从网上下载，Android依赖管理不是那么优秀，于是Google在最新的Android开发工具便使用gradle来管理项目。那么想比起传统的maven，gradle有哪些优势呢？</p>
+
+<h3>选择Gradle的五个优势</h3>
+
+<ol>
+<li>已经被证明能够处理大型的项目规模&ndash;LinkedIn, Netflix, Orbitz这些大公司都使用它来管理项目</li>
+<li>gradle提供了对于多语言、多平台最自然的处理方式&ndash;Scala, Groovy, C/C++这些项目都能用gradle来管理</li>
+<li>gradle专注build效率</li>
+<li>gradle的发布周期很短</li>
+<li>社区支持很棒</li>
+</ol>
+
+
+<p><a href="http://www.gradleware.com/resources/tech/java/maven">链接</a></p>
+
+<h3>如何引用Maven？</h3>
+
+<p>之前我们是这样引用</p>
+
+<pre><code>&lt;dependency&gt;
+    &lt;groupId&gt;com.nhaarman.listviewanimations&lt;/groupId&gt;
+    &lt;artifactId&gt;library&lt;/artifactId&gt;
+    &lt;version&gt;2.5.2&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre>
+
+<p>现在我们是这样</p>
+
+<pre><code>repositories {
+    mavenCentral()
+}
+
+dependencies{
+    compile 'com.nhaarman.listviewanimations:library:2.5.2'
+}
+</code></pre>
+
+<p>你看最新的依赖管理方式让你再也不用去github上面下载jar包了或者导入整个library</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/01/04/ruby-china-for-android/">Ruby-china 的 Android 客户端</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2014-01-04T23:23:09+08:00'><span class='date'><span class='date-month'>Jan</span> <span class='date-day'>4</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>11:23 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2>开源地址</h2>
+
+<p>  <a href="https://github.com/gonjay/rubychina4android">https://github.com/gonjay/rubychina4android</a></p>
+
+<h2>下载</h2>
+
+<p>  <a href="https://play.google.com/store/apps/details?id=org.rubychina.app">Google Play下载</a></p>
+
+<p>  <a href="https://github.com/gonjay/rubychina4android/blob/master/app/build/apk/app-debug-unaligned.apk?raw=true">开发版下载 1.0.5</a>
+  <img src="https://raw.github.com/gonjay/rubychina4android/master/shots/unsigned-apk.png" alt="" /></p>
+
+<p>  <a href="https://github.com/gonjay/rubychina4android/blob/master/app/build/apk/app-debug-unaligned.apk?raw=true">发布版下载 1.0.5</a>
+  <img src="https://raw.github.com/gonjay/rubychina4android/master/shots/signed-apk.png" alt="" /></p>
+
+<h2>特性：</h2>
+
+<ul>
+<li>整合Ruby-China的faye实现消息实时推送功能【新！！！】</li>
+<li>安卓原生的侧滑抽屉</li>
+<li>下拉刷新</li>
+<li>主页帖子列表下滑到头后自动获取新的内容</li>
+<li>浏览帖子详情并支持Markdown，左右侧滑分别展示帖子内容、回复列表、回复编辑（预览）</li>
+<li>登录、退出功能</li>
+<li>注册</li>
+</ul>
+
+
+<h2>为什么要开发安卓版本</h2>
+
+<ul>
+<li>热爱Ruby-China社区</li>
+<li>我希望用自己掌握的技术在安卓上面提供优秀的体验</li>
+<li>探索HTML5与native的结合</li>
+<li>一套更快更好的与Rails结合的移动端开发技术</li>
+</ul>
+
+
+<h2>预览</h2>
+
+<p><img src="http://rubychina.qiniudn.com/Screenshot_2014-02-12-12-33-06.png?imageView2/1/w/300/h/550" alt="" /></p>
+
+<p><img src="http://rubychina.qiniudn.com/media-20140204%20(1" alt="" />.png?imageView2/1/w/300/h/550) <img src="http://rubychina.qiniudn.com/device-2014-02-10-232412.png?imageView2/1/w/300/h/550" alt="" /></p>
+
+<p><img src="http://rubychina.qiniudn.com/media-20140204.png?imageView2/1/w/300/h/550" alt="" /> <img src="http://rubychina.qiniudn.com/device-2014-02-07-135606.png?imageView2/1/w/300/h/550" alt="" /></p>
+
+<p><img src="http://rubychina.qiniudn.com/media-20140204%20(2" alt="" />.png?imageView2/1/w/300/h/550) <img src="http://rubychina.qiniudn.com/media-20140204%20(3" alt="" />.png?imageView2/1/w/300/h/550)</p>
+
+<h2>Tips</h2>
+
+<p> 练习之作，所以客户端还不是很完善。关于如何让iOS支持Markdown，我觉得完全可以使用一个UIWebView来实现，可以参考这个<a href="https://github.com/gonjay/rubychina4android/blob/master/app/src/main/assets/index.html">index.html</a>
+ 然后这么调用</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>NSString body_html = Topic.body_html;
+</span><span class='line'>[self.webView stringByEvaluatingJavaScriptFromString:(@\"$('#display').html(%@);\", body_html)];</span></code></pre></td></tr></table></div></figure>
+
+
+<p> 当然也欢迎会Android的朋友贡献代码咯，不过你得学会使用AndroidStudio，从Eclipse过来的童鞋可能得花点时间适应一下，不过确实是很有效率的开发工具</p>
+
+<h2>开发</h2>
+
+<p>  fork和like是最能证明这个开源APP的价值了，所以对<a href="https://github.com/gonjay/rubychina4android">repo</a>fork或者是like吧，越多我越有动力把这个app完善好!当然也期待你的contribute</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  <div class="pagination">
+    
+    <a href="/blog/archives">Blog Archives</a>
+    
+    <a class="next" href="/posts/2">Newer &rarr;</a>
+    
+  </div>
+</div>
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/10/14/androidyu-cocos2d-xkai-fa-zhong-de-huan-cun-chi/">Android与Cocos2d-x开发中的缓存池</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/10/12/vimtutor/">Vimtutor 简体中文</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/09/20/er-cha-shu-de-bian-li/">二叉树的遍历</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/09/19/rspeczhong-shi-yong-database-cleaner/">Rspec中使用database_cleaner</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/09/17/ruby-zhong-de-xiao-yu-fa/">Ruby 中的&#8217;小语法&#8217;</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - GonJay -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'gonjay';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+</body>
+</html>

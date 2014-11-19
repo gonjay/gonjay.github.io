@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Rails | 博客]]></title>
+  <link href="http://gonjay.github.io/blog/categories/rails/atom.xml" rel="self"/>
+  <link href="http://gonjay.github.io/"/>
+  <updated>2014-11-18T23:04:08+08:00</updated>
+  <id>http://gonjay.github.io/</id>
+  <author>
+    <name><![CDATA[GonJay]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Rspec中使用database_cleaner]]></title>
+    <link href="http://gonjay.github.io/blog/2014/09/19/rspeczhong-shi-yong-database-cleaner/"/>
+    <updated>2014-09-19T16:56:50+08:00</updated>
+    <id>http://gonjay.github.io/blog/2014/09/19/rspeczhong-shi-yong-database-cleaner</id>
+    <content type="html"><![CDATA[<p>这两天重新写Rspec测试，参考了 ruby-china 的测试用例和配置方法。</p>
+
+<p>在使用Rspec的过程中因为有使用 FactoryGirl ，发现在一些用例中使用user的时候会发生</p>
+
+<pre><code>Validation failed: Email has already been taken (ActiveRecord::RecordInvalid)
+</code></pre>
+
+<p>因为在生成user的时候没有使用单例模式，所有每次向 FactoryGirl 要 user 的时候都会重新生成新的数据，所以就和之前发生冲突了。</p>
+
+<p>参考 ruby-china 的测试代码，发现是使用了 database_cleaner 使得每个测试用例之后清扫了测试数据库，就不会引发冲突了。</p>
+
+<pre><code class="ruby">  config.before(:each) do
+    DatabaseCleaner.orm = :mongoid
+    DatabaseCleaner.strategy = :truncation
+    DatabaseCleaner.clean
+    Rails.cache.clear
+  end
+</code></pre>
+
+<p>但是当我把 database_cleaner 配置好并加到我项目 rspec 中的时候，却遇到了</p>
+
+<pre><code>/gems/database_cleaner-0.8.0/lib/database_cleaner/active_record/truncation.rb:62:in `&lt;module:ConnectionAdapters&gt;': superclass mismatch for class SQLite3Adapter (TypeError)
+</code></pre>
+
+<p>网上搜索一堆无效之后，转而使用另外一个解决方案</p>
+
+<pre><code class="ruby">  config.after(:each) do
+    ActiveRecord::Base.subclasses.each(&amp;:delete_all)
+  end
+</code></pre>
+
+<p>也就是在跑完每个测试用例之后，删除掉数据库中所有的 Model 数据</p>
+
+<p>由于这样一段代码，接下来我遇到了一个更加头疼的问题。因为我使用 Devise 的 <code>sign_in user</code> 在每个测试用例中来模拟登陆后的用户，结果发现，前后两个测试用例，总是出现第一个用例能通过，第二个用例死活通过不了。</p>
+
+<pre><code class="ruby">class TeamsController &lt; ApplicationController
+  before_action :authenticate_user!
+end
+
+# 第一个 examples 能通过，第二个 examples 无法通过
+describe TeamsController, :type =&gt; :controller do
+  user = FactoryGirl.create(:user)
+
+  describe ":index" do
+    it "should show list of teams" do
+      sign_in user
+      get :index
+      expect(response).to be_success
+    end
+  end
+
+  describe ":new" do
+    it "should allow access from authenticated user" do
+      sign_in user
+      get :new
+      expect(response).to be_success
+    end
+  end
+
+end
+</code></pre>
+
+<p>将第二个 examples 的 response.body 打印出来，发现</p>
+
+<pre><code>&lt;html&gt;&lt;body&gt;You are being &lt;a href="http://test.host/users/sign_in"&gt;redirected&lt;/a&gt;.&lt;/body&gt;&lt;/html&gt;
+</code></pre>
+
+<p>无解，然后分别打印两个用例的 controller.current_user，发现后一个是 nil</p>
+
+<p>最终我将 database_cleaner 升级到了 1.3.0 重新bundle了一下，解决了 <code>superclass mismatch for class SQLite3Adapter</code> 的问题，移除了那段删除所有 Model 数据的 trick 代码所有的问题全部解决了。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Flask and Rails Part 1]]></title>
+    <link href="http://gonjay.github.io/blog/2014/07/10/flask-and-rails/"/>
+    <updated>2014-07-10T17:41:11+08:00</updated>
+    <id>http://gonjay.github.io/blog/2014/07/10/flask-and-rails</id>
+    <content type="html"><![CDATA[<p>I have written flask recently,with a little project that I can study python.</p>
+
+<p>I used to write Ruby on Rails, which is a very famous web framework and the most popular web framework all over the world.Rails is really really fast to develop most web products,MVC with RESTful design makes very thing easy. Based on meta-programming, the ActiveRecord makes data handles fly in the air.</p>
+
+<p>But flask is also an awesome web framework after a few days since I write my project.It’s more like sinatra,which is a light ruby web framework.</p>
+
+<h3>Request handle</h3>
+
+<p>With rails,you need to handle a request URL at <code>routes.rb</code>
+<code>ruby
+get ‘blogs’ =&gt; ‘blogs#index’
+</code>
+This code will handle <code>/blogs</code> GET method  to a controller named <code>blogs_controller.rb</code> in <code>app/controller/</code>,and pass the params to function named <code>index</code>. After process the request,rails will render a view named <code>index.html.erb</code> in <code>app/views/blogs/</code>.</p>
+
+<p>With flask,you need to handle a request URL at <code>app.py</code>
+<code>python
+@app.route(‘/blogs’)
+def index():
+    return render_template(‘index')
+</code></p>
+
+<h3>ORM</h3>
+
+<p>In my own words,ActiveRecord is much better than SQLAlchemy.</p>
+
+<p>The Types of Associations in Rails:</p>
+
+<ul>
+<li>belongs_to</li>
+<li>has_one</li>
+<li>has_many</li>
+<li>has_many :through</li>
+<li>has_one :through</li>
+<li>has_and_belongs_to_many</li>
+</ul>
+
+
+<p>Here are some data relationship implements of two ORM:</p>
+
+<h4>One to Many</h4>
+
+<p>With Rails:</p>
+
+<pre><code class="ruby     ">class Customer &lt; ActiveRecord::Base
+  has_many :orders, dependent: :destroy
+end
+
+class Order &lt; ActiveRecord::Base
+  belongs_to :customer
+end
+</code></pre>
+
+<p> Now you can get a customer’s orders by:
+<code>ruby
+          @order = @customer.order.all()
+</code>
+Get an order’s customer by:
+<code>ruby
+          @customer = @order.customer
+</code></p>
+
+<p>With SQLAchemy:</p>
+
+<pre><code class="python">class App(db.Model):
+     __tablename__  = 'apps'
+     owner_id       = db.Column(db.Integer, db.ForeignKey(‘users.id'))
+     owner          = db.relationship('User', backref=db.backref('apps’))
+
+class User(db.Model):
+      __tablename__  =  'users'
+       id            =  db.Column('id', db.Integer, primary_key=True)
+</code></pre>
+
+<p>Now you can get a user’s apps by:</p>
+
+<pre><code class="python">          app = user.apps
+</code></pre>
+
+<p>Get an app’s owner by:
+<code>python
+          user = app.owner
+</code></p>
+
+<h4>Many to Many</h4>
+
+<p>Although you need migration files in rails,since Flask and SQLAlchemy just configure data structure within model.The benefit of migration files comes out when you want to change your data structure of model.And now I finally known why my teacher ask me to design data structure at first,because other web framework have no ideas about what if our data structure changed.</p>
+
+<p>With migration files in rails, you can change you data structure so easy that you can develop really really align.All details about the program becomes more and more clear after you start coding.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Rails 自定义Rake Task 来备份和恢复数据库]]></title>
+    <link href="http://gonjay.github.io/blog/2014/02/25/rails-zi-ding-yi-ni-de-rake-task-lai-bei-fen-he-hui-fu-ni-de-shu-ju-ku/"/>
+    <updated>2014-02-25T13:00:35+08:00</updated>
+    <id>http://gonjay.github.io/blog/2014/02/25/rails-zi-ding-yi-ni-de-rake-task-lai-bei-fen-he-hui-fu-ni-de-shu-ju-ku</id>
+    <content type="html"><![CDATA[<p>打开Rakefile，添加</p>
+
+<pre><code class="ruby">namespace :db do
+ task :backup do
+   system "mysqldump --opt --user=root raiderboard &gt; backup.sql"
+ end
+
+
+ task :restore do
+   system "mysql --user=root raiderboard &lt; backup.sql"
+ end
+
+end
+</code></pre>
+
+<p>然后在命令行输入<code>rake db:backup</code>就能获得一份sql备份文件，git/svn commit这份sql文件，到服务端git pull下来，然后输入<code>rake db:restore</code>便能恢复你本地的数据库到服务端的数据库了。</p>
+
+<h3>查看数据库大小</h3>
+
+<p>1 进去指定schema 数据库（存放了其他的数据库的信息）</p>
+
+<pre><code>mysql&gt; use information_schema;
+Database changed
+</code></pre>
+
+<p>2 查询所有数据的大小</p>
+
+<pre><code>mysql&gt; select concat(round(sum(DATA_LENGTH/1024/1024), 2), 'MB')
+-&gt; as data from TABLES;  
++-----------+
+| data      |
++-----------+
+| 6674.48MB |
++-----------+
+1 row in set (16.81 sec)
+</code></pre>
+
+<p>3 查看指定数据库实例的大小，比如说数据库 forexpert</p>
+
+<pre><code>mysql&gt; select concat(round(sum(DATA_LENGTH/1024/1024), 2), 'MB')
+-&gt; as data from TABLES where table_schema='forexpert';
++-----------+
+| data      |
++-----------+
+| 6542.30MB |
++-----------+
+1 row in set (7.47 sec)
+</code></pre>
+
+<p>4 查看指定数据库的表的大小，比如说数据库 forexpert 中的 member 表</p>
+
+<pre><code>mysql&gt; select concat(round(sum(DATA_LENGTH/1024/1024),2),'MB') as data
+-&gt; from TABLES where table_schema='forexpert'
+-&gt; and table_name='member';
++--------+
+| data   |
++--------+
+| 2.52MB |
++--------+
+1 row in set (1.88 sec)
+</code></pre>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Rake Db 列表及功能概述]]></title>
+    <link href="http://gonjay.github.io/blog/2014/02/24/rake-db-lie-biao-ji-gong-neng-gai-shu/"/>
+    <updated>2014-02-24T15:02:01+08:00</updated>
+    <id>http://gonjay.github.io/blog/2014/02/24/rake-db-lie-biao-ji-gong-neng-gai-shu</id>
+    <content type="html"><![CDATA[<ul>
+<li>db:create creates the database for the current env</li>
+<li>db:create:all creates the databases for all envs</li>
+<li>db:drop drops the database for the current env</li>
+<li>db:drop:all drops the databases for all envs</li>
+<li>db:migrate runs migrations for the current env that have not run yet</li>
+<li>db:migrate:up runs one specific migration</li>
+<li>db:migrate:down rolls back one specific migration</li>
+<li>db:migrate:status shows current migration status</li>
+<li>db:migrate:rollback rolls back the last migration</li>
+<li>db:forward advances the current schema version to the next one</li>
+<li>db:seed (only) runs the db/seed.rb file</li>
+<li>db:schema:load loads the schema into the current env&rsquo;s database</li>
+<li><p>db:schema:dump dumps the current env&rsquo;s schema (and seems to create the db as well)</p></li>
+<li><p>db:setup runs db:schema:load, db:seed</p></li>
+<li><p>db:reset runs db:drop db:setup</p></li>
+<li>db:migrate:redo runs (db:migrate:down db:migrate:up) or (db:migrate:rollback db:migrate:migrate) depending on the specified migration</li>
+<li>db:migrate:reset runs db:drop db:create db:migrate</li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Rails中app/assets的来历]]></title>
+    <link href="http://gonjay.github.io/blog/2014/02/22/rails-zhong-app-slash-assets-de-lai-li/"/>
+    <updated>2014-02-22T00:46:31+08:00</updated>
+    <id>http://gonjay.github.io/blog/2014/02/22/rails-zhong-app-slash-assets-de-lai-li</id>
+    <content type="html"><![CDATA[<h2>引用更多</h2>
+
+<p>在过去的rails和传统应用中，所有的css和js文件全部都是静态的，写好了放在public，需要的时候就引用。</p>
+
+<p>但是，随着项目不断发展，这些文件会变得越来越多，在一个网站的首页你经常看见这样的壮观场景：</p>
+
+<pre><code>
+    &lt;link rel="stylesheet" type="text/css" href="libs/jquery-ui-1.10.3/themes/base/jquery-ui.css" /&gt;
+    &lt;link rel="stylesheet" type="text/css" href="libs/bootstrap-2.3.2/css/bootstrap.min.css" /&gt;
+    &lt;link rel="stylesheet" type="text/css" href="libs/fotorama-4.4.8/fotorama.css" /&gt;
+    &lt;link rel="stylesheet" type="text/css" href="libs/wp-pagenavi-2.50/pagenavi-css" /&gt;
+    &lt;link rel="stylesheet" type="text/css" href="libs/prettyPhoto/prettyPhoto.css" /&gt;
+    &lt;link rel="stylesheet" type="text/css" href="libs/anthology/styles/superfish.css" /&gt;
+    &lt;link rel="stylesheet" type="text/css" href="libs/anthology/plugins/fonts/fonts.css" /&gt;
+    &lt;link rel="stylesheet" type="text/css" href="styles/style.css" /&gt;
+    &lt;link rel="stylesheet" type="text/css" href="styles/model-jewellery.css" /&gt;
+    &lt;link rel="stylesheet" type="text/css" href="styles/model-diamond.css" /&gt;
+    &lt;script type="text/javascript" src="libs/jquery-1.9.1/jquery-1.9.1.min.js"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript" src="libs/jquery-ui-1.10.3/ui/jquery-ui.min.js"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript" src="libs/jquery-ui-touch-punch-0.2.2/jquery.ui.touch-punch.min.js"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript" src="libs/jQuery.jPlayer.2.5.0/jquery.jplayer.min.js"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript" src="libs/angular-1.2.6/angular.js"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript" src="libs/angular-1.2.6/angular-resource.min.js"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript" src="libs/angular-1.2.6/angular-route.min.js"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript" src="libs/angular-1.2.6/angular-cookies.min.js"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript" src="libs/angular-1.2.6/angular-sanitize.min.js"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript" src="libs/angular-1.2.6/angular-touch.min.js"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript" src="libs/angular-1.2.6/angular-animate.min.js"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript" src="libs/angular-ui-bootstrap-0.7.0/ui-bootstrap-tpls-0.7.0.min.js"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript" src="libs/fotorama-4.4.8/fotorama.js"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript" src="libsx/jquery-ui-slider-namearray.js"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript" src="libsx/touch-tricks.js"&gt;&lt;/script&gt;
+
+    &lt;link rel="stylesheet" type="text/css" href="styles/fix-anthlogy-style.css" /&gt;
+    &lt;link rel="stylesheet" type="text/css" href="styles/fix-4c-screen.css" /&gt;
+    &lt;link rel="stylesheet" type="text/css" href="styles/model-common.css" /&gt;
+
+    &lt;script src="scripts/mvc/model-common.js"&gt;&lt;/script&gt;
+    &lt;script src="scripts/mvc/model-filter.js"&gt;&lt;/script&gt;
+    &lt;script src="scripts/mvc/model-diamond.js"&gt;&lt;/script&gt;
+    &lt;script src="scripts/mvc/model-jewellery.js"&gt;&lt;/script&gt;
+    &lt;script src="scripts/mvc/model-4c.js"&gt;&lt;/script&gt;
+    &lt;script src="scripts/mvc/model-misc.js"&gt;&lt;/script&gt;
+    &lt;script src="scripts/mvc/model-wishcar.js"&gt;&lt;/script&gt;
+    &lt;script src="scripts/mvc/app-main.js"&gt;&lt;/script&gt;
+
+    &lt;script src="scripts/env.js"&gt;&lt;/script&gt;
+    &lt;script src="scripts/config.js"&gt;&lt;/script&gt;
+    &lt;script src="scripts/main.js"&gt;&lt;/script&gt;
+</code></pre>
+
+<h3>害怕了？😨</h3>
+
+<p>我也怕了，不仅是我们怕了，浏览器也怕了。浏览器为了照顾设备的感受，一般情况下是会限制同一时间的发送网络请求的次数的，所以这必然造成了网站的访问速度下降。So，玩Ruby的那群人做了些gem <code>Sprockets</code> <code>Jammit</code>来当做连接css和js并压缩它们的框架，后来发现确实好用，Rails3.2也就自带了。于是便有了统一管理这些css和js的资源目录，框架会自己去相应的目录里面寻找这些文件然后生产一份大文件，随后就有了Rails应用的标志HTML</p>
+
+<pre><code>&lt;link href="http://gonjay.github.io/assets/application-1e0b7b6177f955c71f083db518841bbf.css" media="all" rel="stylesheet" type="text/css" /&gt;
+&lt;script src="http://gonjay.github.io/assets/application-ef900b6062fe4b543f09c78ba9062141.js" type="text/javascript"&gt;&lt;/script&gt;
+</code></pre>
+
+<p>这样子，世界一下清净了很多呢，这便是<code>assets pipline</code>概念的由来。当然，我所在的那个项目因为是基于本地html做的，所以加载这么多次资源文件压力会很小，如果是在线的应用按照assets pipline的思路来是最好的选择。</p>
+]]></content>
+  </entry>
+  
+</feed>
