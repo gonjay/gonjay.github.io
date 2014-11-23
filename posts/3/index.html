@@ -9,7 +9,9 @@
   <meta name="author" content="GonJay">
 
   
-  <meta name="description" content="安装 brew install mysql 启动 mysql.server start 然后再输入 mysql 不然会出现 ERROR 2002 (HY000): Can't connect to local MySQL server through socket '/tmp/mysql.sock &hellip;">
+  <meta name="description" content="db:create creates the database for the current env
+db:create:all creates the databases for all envs
+db:drop drops the database for the current env &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +78,54 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/02/24/rake-db-lie-biao-ji-gong-neng-gai-shu/">Rake Db 列表及功能概述</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2014-02-24T15:02:01+08:00'><span class='date'><span class='date-month'>Feb</span> <span class='date-day'>24</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>3:02 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><ul>
+<li>db:create creates the database for the current env</li>
+<li>db:create:all creates the databases for all envs</li>
+<li>db:drop drops the database for the current env</li>
+<li>db:drop:all drops the databases for all envs</li>
+<li>db:migrate runs migrations for the current env that have not run yet</li>
+<li>db:migrate:up runs one specific migration</li>
+<li>db:migrate:down rolls back one specific migration</li>
+<li>db:migrate:status shows current migration status</li>
+<li>db:migrate:rollback rolls back the last migration</li>
+<li>db:forward advances the current schema version to the next one</li>
+<li>db:seed (only) runs the db/seed.rb file</li>
+<li>db:schema:load loads the schema into the current env&rsquo;s database</li>
+<li><p>db:schema:dump dumps the current env&rsquo;s schema (and seems to create the db as well)</p></li>
+<li><p>db:setup runs db:schema:load, db:seed</p></li>
+<li><p>db:reset runs db:drop db:setup</p></li>
+<li>db:migrate:redo runs (db:migrate:down db:migrate:up) or (db:migrate:rollback db:migrate:migrate) depending on the specified migration</li>
+<li>db:migrate:reset runs db:drop db:create db:migrate</li>
+</ul>
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -608,6 +658,10 @@ dependencies{
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/11/23/gitche-xiao-zui-jin-%5B%3F%5D-ci-commit/">Git撤销最近一次Commit</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/10/14/androidyu-cocos2d-xkai-fa-zhong-de-huan-cun-chi/">Android与Cocos2d-x开发中的缓存池</a>
       </li>
     
@@ -621,10 +675,6 @@ dependencies{
     
       <li class="post">
         <a href="/blog/2014/09/19/rspeczhong-shi-yong-database-cleaner/">Rspec中使用database_cleaner</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/09/17/ruby-zhong-de-xiao-yu-fa/">Ruby 中的&#8217;小语法&#8217;</a>
       </li>
     
   </ul>

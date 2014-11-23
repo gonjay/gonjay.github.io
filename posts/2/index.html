@@ -9,7 +9,8 @@
   <meta name="author" content="GonJay">
 
   
-  <meta name="description" content="标记清除方式 从根开始将可能被引用的对象用递归的方式进行标记，没有被标记的就当垃圾回收掉。 复制收集方式 因为标记清楚方式中有一个弊病就是在一次清除中，如果只有一小部分存活，消耗的时间会很多，所以复制收集方式应运而生。 引用计数方式 熟悉Objective-C开发iOS或者一些C++ &hellip;">
+  <meta name="description" content="更新 这个解决方案应该是我目前遇到的最完美的方案了： http://jbt.github.io/markdown-editor/ Stuff used to make this: marked for Markdown parsing
+CodeMirror for the awesome &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +77,54 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/07/11/markdownde-chun-qian-duan-jie-jue-fang-an/">Markdown的纯前端解决方案</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2014-07-11T11:28:33+08:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>11</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>11:28 am</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2>更新</h2>
+
+<p>这个解决方案应该是我目前遇到的最完美的方案了：</p>
+
+<p><a href="http://jbt.github.io/markdown-editor/">http://jbt.github.io/markdown-editor/</a></p>
+
+<h3>Stuff used to make this:</h3>
+
+<ul>
+<li><a href="https://github.com/chjj">marked</a> for Markdown parsing</li>
+<li><a href="http://codemirror.net/">CodeMirror</a> for the awesome syntax-highlighted editor</li>
+<li><a href="http://softwaremaniacs.org/soft/highlight/en/">highlight.js</a> for syntax highlighting in output code blocks</li>
+<li><a href="https://github.com/dankogai/js-deflate">js-deflate</a> for gzipping of data to make it fit in URLs</li>
+</ul>
+
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2014/07/11/markdownde-chun-qian-duan-jie-jue-fang-an/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -1389,54 +1438,6 @@ Database changed
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/02/24/rake-db-lie-biao-ji-gong-neng-gai-shu/">Rake Db 列表及功能概述</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2014-02-24T15:02:01+08:00'><span class='date'><span class='date-month'>Feb</span> <span class='date-day'>24</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>3:02 pm</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><ul>
-<li>db:create creates the database for the current env</li>
-<li>db:create:all creates the databases for all envs</li>
-<li>db:drop drops the database for the current env</li>
-<li>db:drop:all drops the databases for all envs</li>
-<li>db:migrate runs migrations for the current env that have not run yet</li>
-<li>db:migrate:up runs one specific migration</li>
-<li>db:migrate:down rolls back one specific migration</li>
-<li>db:migrate:status shows current migration status</li>
-<li>db:migrate:rollback rolls back the last migration</li>
-<li>db:forward advances the current schema version to the next one</li>
-<li>db:seed (only) runs the db/seed.rb file</li>
-<li>db:schema:load loads the schema into the current env&rsquo;s database</li>
-<li><p>db:schema:dump dumps the current env&rsquo;s schema (and seems to create the db as well)</p></li>
-<li><p>db:setup runs db:schema:load, db:seed</p></li>
-<li><p>db:reset runs db:drop db:setup</p></li>
-<li>db:migrate:redo runs (db:migrate:down db:migrate:up) or (db:migrate:rollback db:migrate:migrate) depending on the specified migration</li>
-<li>db:migrate:reset runs db:drop db:create db:migrate</li>
-</ul>
-
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/posts/3">&larr; Older</a>
@@ -1454,6 +1455,10 @@ Database changed
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/11/23/gitche-xiao-zui-jin-%5B%3F%5D-ci-commit/">Git撤销最近一次Commit</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/10/14/androidyu-cocos2d-xkai-fa-zhong-de-huan-cun-chi/">Android与Cocos2d-x开发中的缓存池</a>
       </li>
     
@@ -1467,10 +1472,6 @@ Database changed
     
       <li class="post">
         <a href="/blog/2014/09/19/rspeczhong-shi-yong-database-cleaner/">Rspec中使用database_cleaner</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/09/17/ruby-zhong-de-xiao-yu-fa/">Ruby 中的&#8217;小语法&#8217;</a>
       </li>
     
   </ul>

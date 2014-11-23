@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Git | 博客]]></title>
+  <link href="http://gonjay.github.io/blog/categories/git/atom.xml" rel="self"/>
+  <link href="http://gonjay.github.io/"/>
+  <updated>2014-11-23T11:20:22+08:00</updated>
+  <id>http://gonjay.github.io/</id>
+  <author>
+    <name><![CDATA[GonJay]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Git撤销最近一次Commit]]></title>
+    <link href="http://gonjay.github.io/blog/2014/11/23/gitche-xiao-zui-jin-%5B%3F%5D-ci-commit/"/>
+    <updated>2014-11-23T00:32:05+08:00</updated>
+    <id>http://gonjay.github.io/blog/2014/11/23/gitche-xiao-zui-jin-[?]-ci-commit</id>
+    <content type="html"><![CDATA[<p>有时候会发现commit错了，需要重新commit，但是又不想为了一个小的修改多一次修复的commit。</p>
+
+<!--more-->
+
+
+<p>$ git commit &hellip; (1)
+$ git reset &ndash;soft &lsquo;HEAD^&rsquo; (2)
+$ edit (3)
+$ git add &hellip;. (4)
+$ git commit -c ORIG_HEAD (5)</p>
+]]></content>
+  </entry>
+  
+</feed>

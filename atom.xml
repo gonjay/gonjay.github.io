@@ -4,7 +4,7 @@
   <title><![CDATA[博客]]></title>
   <link href="http://gonjay.github.io/atom.xml" rel="self"/>
   <link href="http://gonjay.github.io/"/>
-  <updated>2014-11-18T23:04:08+08:00</updated>
+  <updated>2014-11-23T11:20:22+08:00</updated>
   <id>http://gonjay.github.io/</id>
   <author>
     <name><![CDATA[GonJay]]></name>
@@ -12,6 +12,24 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Git撤销最近一次Commit]]></title>
+    <link href="http://gonjay.github.io/blog/2014/11/23/gitche-xiao-zui-jin-%5B%3F%5D-ci-commit/"/>
+    <updated>2014-11-23T00:32:05+08:00</updated>
+    <id>http://gonjay.github.io/blog/2014/11/23/gitche-xiao-zui-jin-[?]-ci-commit</id>
+    <content type="html"><![CDATA[<p>有时候会发现commit错了，需要重新commit，但是又不想为了一个小的修改多一次修复的commit。</p>
+
+<!--more-->
+
+
+<p>$ git commit &hellip; (1)
+$ git reset &ndash;soft &lsquo;HEAD^&rsquo; (2)
+$ edit (3)
+$ git add &hellip;. (4)
+$ git commit -c ORIG_HEAD (5)</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Android与Cocos2d-x开发中的缓存池]]></title>
@@ -2373,34 +2391,6 @@ Database changed
 +--------+
 1 row in set (1.88 sec)
 </code></pre>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Rake Db 列表及功能概述]]></title>
-    <link href="http://gonjay.github.io/blog/2014/02/24/rake-db-lie-biao-ji-gong-neng-gai-shu/"/>
-    <updated>2014-02-24T15:02:01+08:00</updated>
-    <id>http://gonjay.github.io/blog/2014/02/24/rake-db-lie-biao-ji-gong-neng-gai-shu</id>
-    <content type="html"><![CDATA[<ul>
-<li>db:create creates the database for the current env</li>
-<li>db:create:all creates the databases for all envs</li>
-<li>db:drop drops the database for the current env</li>
-<li>db:drop:all drops the databases for all envs</li>
-<li>db:migrate runs migrations for the current env that have not run yet</li>
-<li>db:migrate:up runs one specific migration</li>
-<li>db:migrate:down rolls back one specific migration</li>
-<li>db:migrate:status shows current migration status</li>
-<li>db:migrate:rollback rolls back the last migration</li>
-<li>db:forward advances the current schema version to the next one</li>
-<li>db:seed (only) runs the db/seed.rb file</li>
-<li>db:schema:load loads the schema into the current env&rsquo;s database</li>
-<li><p>db:schema:dump dumps the current env&rsquo;s schema (and seems to create the db as well)</p></li>
-<li><p>db:setup runs db:schema:load, db:seed</p></li>
-<li><p>db:reset runs db:drop db:setup</p></li>
-<li>db:migrate:redo runs (db:migrate:down db:migrate:up) or (db:migrate:rollback db:migrate:migrate) depending on the specified migration</li>
-<li>db:migrate:reset runs db:drop db:create db:migrate</li>
-</ul>
-
 ]]></content>
   </entry>
   
