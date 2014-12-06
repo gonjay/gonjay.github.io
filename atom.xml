@@ -4,7 +4,7 @@
   <title><![CDATA[博客]]></title>
   <link href="http://gonjay.github.io/atom.xml" rel="self"/>
   <link href="http://gonjay.github.io/"/>
-  <updated>2014-11-23T11:20:22+08:00</updated>
+  <updated>2014-12-06T10:56:48+08:00</updated>
   <id>http://gonjay.github.io/</id>
   <author>
     <name><![CDATA[GonJay]]></name>
@@ -14,20 +14,88 @@
 
   
   <entry>
+    <title type="html"><![CDATA[文档目录]]></title>
+    <link href="http://gonjay.github.io/blog/2014/12/06/wen-dang-mu-lu/"/>
+    <updated>2014-12-06T10:54:28+08:00</updated>
+    <id>http://gonjay.github.io/blog/2014/12/06/wen-dang-mu-lu</id>
+    <content type="html"><![CDATA[<p>一些文档目录</p>
+
+<!--more-->
+
+
+<p><a href="http://gonjay.github.io/doc/%E6%97%A5%E6%9C%AC%E4%BC%81%E4%B8%9A%E6%96%87%E5%8C%96%E5%92%8C%E5%AE%97%E6%95%99%E4%BF%A1%E4%BB%B0.doc">日本企业文化和宗教信仰.doc</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[介绍两款 Mac 下的原型工具]]></title>
+    <link href="http://gonjay.github.io/blog/2014/11/28/jie-shao-liang-kuan-mac-xia-de-yuan-xing-gong-ju/"/>
+    <updated>2014-11-28T19:58:16+08:00</updated>
+    <id>http://gonjay.github.io/blog/2014/11/28/jie-shao-liang-kuan-mac-xia-de-yuan-xing-gong-ju</id>
+    <content type="html"><![CDATA[<p>介绍两款 Mac 下非常酷的带交互设计功能的原型工具。一个叫 Framer，另一个叫 avocado。</p>
+
+<!--more-->
+
+
+<h3>Framer</h3>
+
+<p><a href="https://github.com/koenbok/Framer">https://github.com/koenbok/Framer</a></p>
+
+<h3>avocade</h3>
+
+<p><a href="https://github.com/ideo/avocado">https://github.com/ideo/avocado</a></p>
+
+<p><img src="https://github.com/trive/avocado/raw/master/Other/GIFs/Keyboard.gif" alt="" />
+<img src="https://github.com/trive/avocado/raw/master/Other/GIFs/Delay.gif" alt="" /></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[使用 Ffmpeg 每隔 1s 截取 1 张图片]]></title>
+    <link href="http://gonjay.github.io/blog/2014/11/27/shi-yong-ffmpeg-mei-ge-1s-jie-qu-yi-zhang-tu-pian/"/>
+    <updated>2014-11-27T19:11:15+08:00</updated>
+    <id>http://gonjay.github.io/blog/2014/11/27/shi-yong-ffmpeg-mei-ge-1s-jie-qu-yi-zhang-tu-pian</id>
+    <content type="html"><![CDATA[<p>ffmpeg 是一很强大的软件，不过没有 GUI ，基本用法一旦掌握就能用来做很多事情了。</p>
+
+<!--more-->
+
+
+<p>每隔一秒钟截取一帧，输出为一个 gif</p>
+
+<pre><code>ffmpeg -i vid.avi -y -f gif -vf fps=fps=1 a.gif
+</code></pre>
+
+<p>每隔一秒截取一帧，输出为 foo-%03d.jpeg 的多张图片</p>
+
+<pre><code>ffmpeg -i vid.avi -y -f image2 -vf fps=fps=1 foo-%03d.jpeg
+</code></pre>
+
+<p><a href="http://wenku.baidu.com/view/296eefcaf90f76c661371af1.html">http://wenku.baidu.com/view/296eefcaf90f76c661371af1.html</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
     <title type="html"><![CDATA[Git撤销最近一次Commit]]></title>
-    <link href="http://gonjay.github.io/blog/2014/11/23/gitche-xiao-zui-jin-%5B%3F%5D-ci-commit/"/>
+    <link href="http://gonjay.github.io/blog/2014/11/23/gitche-xiao-zui-jin-yi-ci-commit/"/>
     <updated>2014-11-23T00:32:05+08:00</updated>
-    <id>http://gonjay.github.io/blog/2014/11/23/gitche-xiao-zui-jin-[?]-ci-commit</id>
+    <id>http://gonjay.github.io/blog/2014/11/23/gitche-xiao-zui-jin-yi-ci-commit</id>
     <content type="html"><![CDATA[<p>有时候会发现commit错了，需要重新commit，但是又不想为了一个小的修改多一次修复的commit。</p>
 
 <!--more-->
 
 
-<p>$ git commit &hellip; (1)
-$ git reset &ndash;soft &lsquo;HEAD^&rsquo; (2)
-$ edit (3)
-$ git add &hellip;. (4)
-$ git commit -c ORIG_HEAD (5)</p>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span>git commit ... <span class="o">(</span>1<span class="o">)</span>
+</span><span class='line'><span class="nv">$ </span>git reset --soft <span class="s1">&#39;HEAD^&#39;</span> <span class="o">(</span>2<span class="o">)</span>
+</span><span class='line'><span class="nv">$ </span>edit <span class="o">(</span>3<span class="o">)</span>
+</span><span class='line'><span class="nv">$ </span>git add .... <span class="o">(</span>4<span class="o">)</span>
+</span><span class='line'><span class="nv">$ </span>git commit -c ORIG_HEAD <span class="o">(</span>5<span class="o">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
 ]]></content>
   </entry>
   
@@ -1474,9 +1542,9 @@ org.gradle.parallel=true
   
   <entry>
     <title type="html"><![CDATA[一些简单算法的Ruby实现]]></title>
-    <link href="http://gonjay.github.io/blog/2014/03/16/%5B%3F%5D-xie-jian-dan-suan-fa-de-rubyshi-xian/"/>
+    <link href="http://gonjay.github.io/blog/2014/03/16/yi-xie-jian-dan-suan-fa-de-rubyshi-xian/"/>
     <updated>2014-03-16T10:32:51+08:00</updated>
-    <id>http://gonjay.github.io/blog/2014/03/16/[?]-xie-jian-dan-suan-fa-de-rubyshi-xian</id>
+    <id>http://gonjay.github.io/blog/2014/03/16/yi-xie-jian-dan-suan-fa-de-rubyshi-xian</id>
     <content type="html"><![CDATA[<h2>堆排序</h2>
 
 <p>原理：利用大根堆或小根堆思想，首先建立堆，然后将堆首与堆尾交换，堆尾之后为有序区。</p>
@@ -1956,440 +2024,6 @@ f.hello('World')
 <pre><code>&lt;elem id="temp&gt;
    Kabbesy
 &lt;/elem&gt;
-</code></pre>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Face Detection Based on AndroidSDK]]></title>
-    <link href="http://gonjay.github.io/blog/2014/03/06/face-detection-based-on-androidsdk/"/>
-    <updated>2014-03-06T23:43:35+08:00</updated>
-    <id>http://gonjay.github.io/blog/2014/03/06/face-detection-based-on-androidsdk</id>
-    <content type="html"><![CDATA[<h1>流程</h1>
-
-<ul>
-<li>读取一张图片生成Bitmap对象</li>
-<li>用FaceDetector分析Bitmap，获取图片中的人脸数组</li>
-<li>显示到图片上</li>
-</ul>
-
-
-<h4>第一步</h4>
-
-<p>从相册中选取一张照片：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-<span class='line-number'>34</span>
-<span class='line-number'>35</span>
-<span class='line-number'>36</span>
-<span class='line-number'>37</span>
-<span class='line-number'>38</span>
-<span class='line-number'>39</span>
-<span class='line-number'>40</span>
-<span class='line-number'>41</span>
-<span class='line-number'>42</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">private</span> <span class="kt">void</span> <span class="nf">readPictureFromAlbum</span><span class="o">()</span> <span class="o">{</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="n">Intent</span> <span class="n">i</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Intent</span><span class="o">(</span><span class="n">Intent</span><span class="o">.</span><span class="na">ACTION_PICK</span><span class="o">,</span>
-</span><span class='line'>    <span class="n">android</span><span class="o">.</span><span class="na">provider</span><span class="o">.</span><span class="na">MediaStore</span><span class="o">.</span><span class="na">Images</span><span class="o">.</span><span class="na">Media</span><span class="o">.</span><span class="na">EXTERNAL_CONTENT_URI</span><span class="o">);</span>
-</span><span class='line'>    <span class="n">startActivityForResult</span><span class="o">(</span><span class="n">i</span><span class="o">,</span> <span class="n">ALBUM_REQUEST_CODE</span><span class="o">);</span>
-</span><span class='line'><span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="nd">@Override</span>
-</span><span class='line'><span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onActivityResult</span><span class="o">(</span><span class="kt">int</span> <span class="n">requestCode</span><span class="o">,</span><span class="kt">int</span> <span class="n">resultCode</span><span class="o">,</span><span class="n">Intent</span> <span class="n">data</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>    <span class="kd">super</span><span class="o">.</span><span class="na">onActivityResult</span><span class="o">(</span><span class="n">requestCode</span><span class="o">,</span> <span class="n">resultCode</span><span class="o">,</span> <span class="n">data</span><span class="o">);</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="k">if</span> <span class="o">(</span><span class="n">requestCode</span> <span class="o">==</span> <span class="n">ALBUM_REQUEST_CODE</span> <span class="o">&amp;&amp;</span> <span class="n">resultCode</span> <span class="o">==</span> <span class="n">RESULT_OK</span> <span class="o">&amp;&amp;</span> <span class="kc">null</span> <span class="o">!=</span> <span class="n">data</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>        <span class="n">Uri</span> <span class="n">selectedImage</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="na">getData</span><span class="o">();</span>
-</span><span class='line'>        <span class="n">String</span><span class="o">[]</span> <span class="n">filePathColumn</span> <span class="o">=</span> <span class="o">{</span> <span class="n">MediaStore</span><span class="o">.</span><span class="na">Images</span><span class="o">.</span><span class="na">Media</span><span class="o">.</span><span class="na">DATA</span> <span class="o">};</span>
-</span><span class='line'>        <span class="n">Cursor</span> <span class="n">cursor</span> <span class="o">=</span> <span class="n">getContentResolver</span><span class="o">().</span><span class="na">query</span><span class="o">(</span><span class="n">selectedImage</span><span class="o">,</span>
-</span><span class='line'>        <span class="n">filePathColumn</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="kc">null</span><span class="o">);</span>
-</span><span class='line'>        <span class="n">cursor</span><span class="o">.</span><span class="na">moveToFirst</span><span class="o">();</span>
-</span><span class='line'>        <span class="kt">int</span> <span class="n">columnIndex</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="na">getColumnIndex</span><span class="o">(</span><span class="n">filePathColumn</span><span class="o">[</span><span class="mi">0</span><span class="o">]);</span>
-</span><span class='line'>        <span class="n">String</span> <span class="n">picturePath</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="na">getString</span><span class="o">(</span><span class="n">columnIndex</span><span class="o">);</span>
-</span><span class='line'>        <span class="n">cursor</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="n">Log</span><span class="o">.</span><span class="na">v</span><span class="o">(</span><span class="s">&quot;picturePath: &quot;</span><span class="o">,</span> <span class="n">picturePath</span> <span class="o">+</span> <span class="s">&quot;&quot;</span><span class="o">);</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="n">BitmapFactory</span><span class="o">.</span><span class="na">Options</span> <span class="n">options</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BitmapFactory</span><span class="o">.</span><span class="na">Options</span><span class="o">();</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="n">options</span><span class="o">.</span><span class="na">inJustDecodeBounds</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="n">Bitmap</span> <span class="n">bm</span> <span class="o">=</span> <span class="n">BitmapFactory</span><span class="o">.</span><span class="na">decodeFile</span><span class="o">(</span><span class="n">picturePath</span><span class="o">,</span> <span class="n">options</span><span class="o">);</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="n">options</span><span class="o">.</span><span class="na">inSampleSize</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="na">outWidth</span> <span class="o">/</span> <span class="mi">400</span><span class="o">;</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="n">options</span><span class="o">.</span><span class="na">inJustDecodeBounds</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="n">myBitMap</span> <span class="o">=</span> <span class="n">BitmapFactory</span><span class="o">.</span><span class="na">decodeFile</span><span class="o">(</span><span class="n">picturePath</span><span class="o">,</span> <span class="n">options</span><span class="o">);</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="n">Log</span><span class="o">.</span><span class="na">v</span><span class="o">(</span><span class="s">&quot;Size: &quot;</span><span class="o">,</span> <span class="n">options</span><span class="o">.</span><span class="na">inSampleSize</span> <span class="o">+</span> <span class="s">&quot; &quot;</span> <span class="o">+</span> <span class="n">options</span><span class="o">.</span><span class="na">outHeight</span> <span class="o">+</span> <span class="s">&quot; &quot;</span> <span class="o">+</span> <span class="n">options</span><span class="o">.</span><span class="na">outWidth</span><span class="o">);</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="n">imageView</span><span class="o">.</span><span class="na">setImageBitmap</span><span class="o">(</span><span class="n">myBitMap</span><span class="o">);</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="n">findMyFace</span><span class="o">();</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p></p>
-
-<p>在这个地方为了方便后面找到人脸，同时防止内存溢出，节约资源，需要对图像做一些压缩，用到了<code>options.inSampleSize</code>参数。但为了能比较好的显示图片，我们需要根据图片的实际大小来设置<code>options.inSampleSize</code>参数，这里用到了<code>options.inJustDecodeBounds = true</code>来获取一张空的Bitmap，因为用到的是Factory类，在decodeFile之后，optioins对象里面便会包含了这张照片的长和宽，我们拿着这个长和宽来设置<code>options.inSampleSize</code></p>
-
-<h4>第二步</h4>
-
-<p>进行人脸检测</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-<span class='line-number'>34</span>
-<span class='line-number'>35</span>
-<span class='line-number'>36</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">private</span> <span class="kt">void</span> <span class="nf">findMyFace</span><span class="o">(){</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="n">Bitmap</span> <span class="n">bm</span> <span class="o">=</span> <span class="n">myBitMap</span><span class="o">.</span><span class="na">copy</span><span class="o">(</span><span class="n">Bitmap</span><span class="o">.</span><span class="na">Config</span><span class="o">.</span><span class="na">RGB_565</span><span class="o">,</span> <span class="kc">true</span><span class="o">);</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="n">FaceDetector</span> <span class="n">faceDet</span> <span class="o">=</span> <span class="k">new</span> <span class="n">FaceDetector</span><span class="o">(</span><span class="n">bm</span><span class="o">.</span><span class="na">getWidth</span><span class="o">(),</span> <span class="n">bm</span><span class="o">.</span><span class="na">getHeight</span><span class="o">(),</span> <span class="n">MAX_FACES</span><span class="o">);</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="n">FaceDetector</span><span class="o">.</span><span class="na">Face</span><span class="o">[]</span> <span class="n">faceList</span> <span class="o">=</span> <span class="k">new</span> <span class="n">FaceDetector</span><span class="o">.</span><span class="na">Face</span><span class="o">[</span><span class="n">MAX_FACES</span><span class="o">];</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="n">faceDet</span><span class="o">.</span><span class="na">findFaces</span><span class="o">(</span><span class="n">bm</span><span class="o">,</span> <span class="n">faceList</span><span class="o">);</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">faceList</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
-</span><span class='line'>        <span class="n">FaceDetector</span><span class="o">.</span><span class="na">Face</span> <span class="n">face</span> <span class="o">=</span> <span class="n">faceList</span><span class="o">[</span><span class="n">i</span><span class="o">];</span>
-</span><span class='line'>        <span class="n">Log</span><span class="o">.</span><span class="na">d</span><span class="o">(</span><span class="s">&quot;FaceDet&quot;</span><span class="o">,</span> <span class="s">&quot;Face [&quot;</span><span class="o">+</span><span class="n">face</span><span class="o">+</span><span class="s">&quot;]&quot;</span><span class="o">);</span>
-</span><span class='line'>        <span class="k">if</span> <span class="o">(</span><span class="n">face</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>            <span class="n">Log</span><span class="o">.</span><span class="na">d</span><span class="o">(</span><span class="s">&quot;FaceDet&quot;</span><span class="o">,</span> <span class="s">&quot;Face [&quot;</span><span class="o">+</span><span class="n">i</span><span class="o">+</span><span class="s">&quot;] - Confidence [&quot;</span><span class="o">+</span><span class="n">face</span><span class="o">.</span><span class="na">confidence</span><span class="o">()+</span><span class="s">&quot;]&quot;</span><span class="o">);</span>
-</span><span class='line'>            <span class="n">tv</span><span class="o">.</span><span class="na">setText</span><span class="o">(</span><span class="s">&quot;人脸可信度 : &quot;</span> <span class="o">+</span> <span class="n">face</span><span class="o">.</span><span class="na">confidence</span><span class="o">());</span>
-</span><span class='line'>            <span class="n">PointF</span> <span class="n">pf</span> <span class="o">=</span> <span class="k">new</span> <span class="n">PointF</span><span class="o">();</span>
-</span><span class='line'>            <span class="c1">//getMidPoint(PointF point);</span>
-</span><span class='line'>            <span class="c1">//Sets the position of the mid-point between the eyes.</span>
-</span><span class='line'>            <span class="n">face</span><span class="o">.</span><span class="na">getMidPoint</span><span class="o">(</span><span class="n">pf</span><span class="o">);</span>
-</span><span class='line'>            <span class="n">RectF</span> <span class="n">r</span> <span class="o">=</span> <span class="k">new</span> <span class="n">RectF</span><span class="o">();</span>
-</span><span class='line'>            <span class="n">r</span><span class="o">.</span><span class="na">left</span> <span class="o">=</span> <span class="o">(</span><span class="kt">float</span><span class="o">)</span> <span class="o">(</span><span class="n">pf</span><span class="o">.</span><span class="na">x</span> <span class="o">-</span> <span class="n">face</span><span class="o">.</span><span class="na">eyesDistance</span><span class="o">()*</span><span class="mf">1.4</span><span class="o">);</span>
-</span><span class='line'>            <span class="n">r</span><span class="o">.</span><span class="na">right</span> <span class="o">=</span> <span class="o">(</span><span class="kt">float</span><span class="o">)</span> <span class="o">(</span><span class="n">pf</span><span class="o">.</span><span class="na">x</span> <span class="o">+</span> <span class="n">face</span><span class="o">.</span><span class="na">eyesDistance</span><span class="o">()*</span><span class="mf">1.4</span><span class="o">);</span>
-</span><span class='line'>            <span class="n">r</span><span class="o">.</span><span class="na">top</span> <span class="o">=</span> <span class="o">(</span><span class="kt">float</span><span class="o">)</span> <span class="o">(</span><span class="n">pf</span><span class="o">.</span><span class="na">y</span> <span class="o">-</span> <span class="n">face</span><span class="o">.</span><span class="na">eyesDistance</span><span class="o">()*</span><span class="mf">1.6</span><span class="o">);</span>
-</span><span class='line'>            <span class="n">r</span><span class="o">.</span><span class="na">bottom</span> <span class="o">=</span> <span class="o">(</span><span class="kt">float</span><span class="o">)</span> <span class="o">(</span><span class="n">pf</span><span class="o">.</span><span class="na">y</span> <span class="o">+</span> <span class="n">face</span><span class="o">.</span><span class="na">eyesDistance</span><span class="o">()*</span><span class="mf">1.7</span><span class="o">);</span>
-</span><span class='line'>
-</span><span class='line'>            <span class="n">imageView</span><span class="o">.</span><span class="na">setVisibility</span><span class="o">(</span><span class="n">View</span><span class="o">.</span><span class="na">GONE</span><span class="o">);</span>
-</span><span class='line'>            <span class="n">ll</span><span class="o">.</span><span class="na">removeAllViews</span><span class="o">();</span>
-</span><span class='line'>            <span class="n">FaceView</span> <span class="n">fv</span> <span class="o">=</span> <span class="k">new</span> <span class="n">FaceView</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="n">myBitMap</span><span class="o">,</span> <span class="n">r</span><span class="o">);</span>
-</span><span class='line'>            <span class="n">fv</span><span class="o">.</span><span class="na">invalidate</span><span class="o">();</span>
-</span><span class='line'>            <span class="n">ll</span><span class="o">.</span><span class="na">addView</span><span class="o">(</span><span class="n">fv</span><span class="o">);</span>
-</span><span class='line'>        <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
-</span><span class='line'>            <span class="n">Toast</span><span class="o">.</span><span class="na">makeText</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="s">&quot;没有识别到人脸&quot;</span><span class="o">,</span> <span class="n">Toast</span><span class="o">.</span><span class="na">LENGTH_SHORT</span><span class="o">).</span><span class="na">show</span><span class="o">();</span>
-</span><span class='line'>        <span class="o">}</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p></p>
-
-<h4>显示到图片上</h4>
-
-<p>这里我们自己继承了一个View来把矩形画到图片里面</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">class</span> <span class="nc">FaceView</span> <span class="kd">extends</span> <span class="n">View</span> <span class="o">{</span>
-</span><span class='line'>    <span class="kd">private</span> <span class="n">RectF</span> <span class="n">rectF</span><span class="o">;</span>
-</span><span class='line'>    <span class="kd">private</span> <span class="n">Bitmap</span> <span class="n">bitmap</span><span class="o">;</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="kd">public</span> <span class="nf">FaceView</span><span class="o">(</span><span class="n">Context</span> <span class="n">context</span><span class="o">,</span> <span class="n">Bitmap</span> <span class="n">bitmap</span><span class="o">,</span> <span class="n">RectF</span> <span class="n">rectF</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>        <span class="kd">super</span><span class="o">(</span><span class="n">context</span><span class="o">);</span>
-</span><span class='line'>        <span class="k">this</span><span class="o">.</span><span class="na">bitmap</span> <span class="o">=</span> <span class="n">bitmap</span><span class="o">;</span>
-</span><span class='line'>        <span class="k">this</span><span class="o">.</span><span class="na">rectF</span> <span class="o">=</span> <span class="n">rectF</span><span class="o">;</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="nd">@Override</span>
-</span><span class='line'>    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onDraw</span><span class="o">(</span><span class="n">Canvas</span> <span class="n">canvas</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>        <span class="kd">super</span><span class="o">.</span><span class="na">onDraw</span><span class="o">(</span><span class="n">canvas</span><span class="o">);</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="n">canvas</span><span class="o">.</span><span class="na">drawBitmap</span><span class="o">(</span><span class="n">bitmap</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="kc">null</span><span class="o">);</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="n">Paint</span> <span class="n">p</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Paint</span><span class="o">();</span>
-</span><span class='line'>        <span class="n">p</span><span class="o">.</span><span class="na">setColor</span><span class="o">(</span><span class="n">Color</span><span class="o">.</span><span class="na">RED</span><span class="o">);</span>
-</span><span class='line'>        <span class="n">p</span><span class="o">.</span><span class="na">setStyle</span><span class="o">(</span><span class="n">Paint</span><span class="o">.</span><span class="na">Style</span><span class="o">.</span><span class="na">STROKE</span><span class="o">);</span>
-</span><span class='line'>        <span class="n">canvas</span><span class="o">.</span><span class="na">drawRect</span><span class="o">(</span><span class="n">rectF</span><span class="o">,</span> <span class="n">p</span><span class="o">);</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Android客户端接收来自Faye的消息推送]]></title>
-    <link href="http://gonjay.github.io/blog/2014/03/03/android-receive-message-from-ruby-china-org/"/>
-    <updated>2014-03-03T21:53:50+08:00</updated>
-    <id>http://gonjay.github.io/blog/2014/03/03/android-receive-message-from-ruby-china-org</id>
-    <content type="html"><![CDATA[<h3>基本原理</h3>
-
-<p>先看了railscasts的<a href="http://railscasts.com/episodes/260-messaging-with-faye">260 Messaging with Faye</a>部分，了解Faye的基本原理。</p>
-
-<p>按照其教程发现有一个关于thin的bug，谷歌之解决，后来发现rubychina应该也是遇到过类似的问题。</p>
-
-<p>解决的方法是加上<code>Faye::WebSocket.load_adapter('thin')</code></p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">require</span> <span class="s1">&#39;faye&#39;</span>
-</span><span class='line'><span class="ss">Faye</span><span class="p">:</span><span class="ss">:WebSocket</span><span class="o">.</span><span class="n">load_adapter</span><span class="p">(</span><span class="s1">&#39;thin&#39;</span><span class="p">)</span>
-</span><span class='line'><span class="n">faye_server</span> <span class="o">=</span> <span class="ss">Faye</span><span class="p">:</span><span class="ss">:RackAdapter</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="ss">:mount</span> <span class="o">=&gt;</span> <span class="s1">&#39;/faye&#39;</span><span class="p">,</span> <span class="ss">:timeout</span> <span class="o">=&gt;</span> <span class="mi">45</span><span class="p">)</span>
-</span><span class='line'><span class="n">run</span> <span class="n">faye_server</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>当然，理论上来说，Faye是支持各种web服务器的，这个地方因为和Rails比较紧密所以选用Faye，如果考虑到更高的并发的话，选择Node.js来跑也是不错的，faye也是有Node的版本的。</p>
-
-<h3>实现</h3>
-
-<p>在实现了web端之后，就考虑到移植到安卓客户端</p>
-
-<p>谷歌android faye，发现有人已经做了一个安卓端的fayeclient，根据websocket的协议来，实现一个并不困难。</p>
-
-<p>对比faye客户端的js代码</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">$</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-</span><span class='line'>  <span class="kd">var</span> <span class="nx">faye</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Faye</span><span class="p">.</span><span class="nx">Client</span><span class="p">(</span><span class="s1">&#39;http://localhost:9292/faye&#39;</span><span class="p">);</span>
-</span><span class='line'>  <span class="nx">faye</span><span class="p">.</span><span class="nx">subscribe</span><span class="p">(</span><span class="s1">&#39;/messages/new&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>  <span class="nx">alert</span><span class="p">(</span><span class="nx">data</span><span class="p">);</span>
-</span><span class='line'>  <span class="p">});</span>
-</span><span class='line'><span class="p">});</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>和<a href="https://github.com/saulpower/Android-Faye-Client">Android-Faye-Client</a>的java代码</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="n">URI</span> <span class="n">uri</span> <span class="o">=</span> <span class="n">URI</span><span class="o">.</span><span class="na">create</span><span class="o">(</span><span class="n">String</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="s">&quot;ws://%s:443/events&quot;</span><span class="o">,</span> <span class="n">baseUrl</span><span class="o">));</span>
-</span><span class='line'><span class="n">String</span> <span class="n">channel</span> <span class="o">=</span> <span class="n">String</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="s">&quot;/%s/**&quot;</span><span class="o">,</span> <span class="n">User</span><span class="o">.</span><span class="na">getCurrentUser</span><span class="o">().</span><span class="na">getUserId</span><span class="o">());</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">mClient</span> <span class="o">=</span> <span class="k">new</span> <span class="n">FayeClient</span><span class="o">(</span><span class="n">uri</span><span class="o">,</span> <span class="n">channel</span><span class="o">);</span>
-</span><span class='line'><span class="n">mClient</span><span class="o">.</span><span class="na">setFayeListener</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
-</span><span class='line'><span class="n">mClient</span><span class="o">.</span><span class="na">connectToServer</span><span class="o">(</span><span class="kc">null</span><span class="o">);</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>  <br/>
-我们就知道大概了如何实现了，需要指出的是，js客户端直接用的http协议，而我们在java这边需要用的是ws协议(也即WebSocket，wss类似https，是ws的安全加强版)</p>
-
-<p>如果你使用的是Android Studio，在你的<code>build.gradle</code>里面添加如下依赖即可:</p>
-
-<pre><code>dependencies {
-    compile 'com.saulpower.fayeclient:library:1.0'
-}
-</code></pre>
-
-<p>因为这个应用是基于Ruby-China做得的，端口号可以查看<a href="view-source:http://ruby-china.org/">RubyChina首页</a>的源代码获取。而channel号也在首页源代码中可见，用的一个temp_access_token，这个token是专门用来做faye的channel号的，通过第一个版本的api可以获取到这个token。</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span> <span class="na">data-turbolinks-eval=</span><span class="s">false</span><span class="nt">&gt;</span>
-</span><span class='line'>  <span class="nx">ROOT_URL</span> <span class="o">=</span> <span class="s2">&quot;http://ruby-china.org/&quot;</span><span class="p">;</span>
-</span><span class='line'>  <span class="nx">ASSET_URL</span> <span class="o">=</span> <span class="s2">&quot;http://l.ruby-china.org/&quot;</span><span class="p">;</span>
-</span><span class='line'>  <span class="nx">FAYE_SERVER_URL</span> <span class="o">=</span> <span class="s2">&quot;http://ruby-china.org:8080/faye&quot;</span><span class="p">;</span>
-</span><span class='line'>    <span class="nx">CURRENT_USER_ACCESS_TOKEN</span> <span class="o">=</span> <span class="s2">&quot;72a47853462c91db8f7ed8d3d8899d00&quot;</span><span class="p">;</span>
-</span><span class='line'>  <span class="k">if</span> <span class="p">(</span><span class="nx">FAYE_SERVER_URL</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>    <span class="nx">App</span><span class="p">.</span><span class="nx">initNotificationSubscribe</span><span class="p">();</span>
-</span><span class='line'>  <span class="p">}</span>
-</span><span class='line'><span class="nt">&lt;/script&gt;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>
-在<a href="https://github.com/gonjay/rubychina4android">RubyChina4Android</a>中，用户登录的时候会获取一遍temp_access_token，并注册Serveice。接下来，如果有人在论坛里面@你，应该就能在手机上收到消息推送了。</p>
-
-<h2>Source Code</h2>
-
-<p>以上所有的代码都可以在<a href="https://github.com/gonjay/rubychina4android">RubyChina4Android</a>里面找到</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Rails 自定义Rake Task 来备份和恢复数据库]]></title>
-    <link href="http://gonjay.github.io/blog/2014/02/25/rails-zi-ding-yi-ni-de-rake-task-lai-bei-fen-he-hui-fu-ni-de-shu-ju-ku/"/>
-    <updated>2014-02-25T13:00:35+08:00</updated>
-    <id>http://gonjay.github.io/blog/2014/02/25/rails-zi-ding-yi-ni-de-rake-task-lai-bei-fen-he-hui-fu-ni-de-shu-ju-ku</id>
-    <content type="html"><![CDATA[<p>打开Rakefile，添加</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">namespace</span> <span class="ss">:db</span> <span class="k">do</span>
-</span><span class='line'> <span class="n">task</span> <span class="ss">:backup</span> <span class="k">do</span>
-</span><span class='line'>   <span class="nb">system</span> <span class="s2">&quot;mysqldump --opt --user=root raiderboard &gt; backup.sql&quot;</span>
-</span><span class='line'> <span class="k">end</span>
-</span><span class='line'>
-</span><span class='line'>
-</span><span class='line'> <span class="n">task</span> <span class="ss">:restore</span> <span class="k">do</span>
-</span><span class='line'>   <span class="nb">system</span> <span class="s2">&quot;mysql --user=root raiderboard &lt; backup.sql&quot;</span>
-</span><span class='line'> <span class="k">end</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">end</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>然后在命令行输入<code>rake db:backup</code>就能获得一份sql备份文件，git/svn commit这份sql文件，到服务端git pull下来，然后输入<code>rake db:restore</code>便能恢复你本地的数据库到服务端的数据库了。</p>
-
-<h3>查看数据库大小</h3>
-
-<p>1 进去指定schema 数据库（存放了其他的数据库的信息）</p>
-
-<pre><code>mysql&gt; use information_schema;
-Database changed
-</code></pre>
-
-<p>2 查询所有数据的大小</p>
-
-<pre><code>mysql&gt; select concat(round(sum(DATA_LENGTH/1024/1024), 2), 'MB')
--&gt; as data from TABLES;  
-+-----------+
-| data      |
-+-----------+
-| 6674.48MB |
-+-----------+
-1 row in set (16.81 sec)
-</code></pre>
-
-<p>3 查看指定数据库实例的大小，比如说数据库 forexpert</p>
-
-<pre><code>mysql&gt; select concat(round(sum(DATA_LENGTH/1024/1024), 2), 'MB')
--&gt; as data from TABLES where table_schema='forexpert';
-+-----------+
-| data      |
-+-----------+
-| 6542.30MB |
-+-----------+
-1 row in set (7.47 sec)
-</code></pre>
-
-<p>4 查看指定数据库的表的大小，比如说数据库 forexpert 中的 member 表</p>
-
-<pre><code>mysql&gt; select concat(round(sum(DATA_LENGTH/1024/1024),2),'MB') as data
--&gt; from TABLES where table_schema='forexpert'
--&gt; and table_name='member';
-+--------+
-| data   |
-+--------+
-| 2.52MB |
-+--------+
-1 row in set (1.88 sec)
 </code></pre>
 ]]></content>
   </entry>

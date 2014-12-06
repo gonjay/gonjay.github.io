@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Git | 博客]]></title>
   <link href="http://gonjay.github.io/blog/categories/git/atom.xml" rel="self"/>
   <link href="http://gonjay.github.io/"/>
-  <updated>2014-11-23T11:20:22+08:00</updated>
+  <updated>2014-12-06T10:56:48+08:00</updated>
   <id>http://gonjay.github.io/</id>
   <author>
     <name><![CDATA[GonJay]]></name>
@@ -15,19 +15,20 @@
   
   <entry>
     <title type="html"><![CDATA[Git撤销最近一次Commit]]></title>
-    <link href="http://gonjay.github.io/blog/2014/11/23/gitche-xiao-zui-jin-%5B%3F%5D-ci-commit/"/>
+    <link href="http://gonjay.github.io/blog/2014/11/23/gitche-xiao-zui-jin-yi-ci-commit/"/>
     <updated>2014-11-23T00:32:05+08:00</updated>
-    <id>http://gonjay.github.io/blog/2014/11/23/gitche-xiao-zui-jin-[?]-ci-commit</id>
+    <id>http://gonjay.github.io/blog/2014/11/23/gitche-xiao-zui-jin-yi-ci-commit</id>
     <content type="html"><![CDATA[<p>有时候会发现commit错了，需要重新commit，但是又不想为了一个小的修改多一次修复的commit。</p>
 
 <!--more-->
 
 
-<p>$ git commit &hellip; (1)
-$ git reset &ndash;soft &lsquo;HEAD^&rsquo; (2)
+<pre><code class="sh">$ git commit ... (1)
+$ git reset --soft 'HEAD^' (2)
 $ edit (3)
-$ git add &hellip;. (4)
-$ git commit -c ORIG_HEAD (5)</p>
+$ git add .... (4)
+$ git commit -c ORIG_HEAD (5)
+</code></pre>
 ]]></content>
   </entry>
   

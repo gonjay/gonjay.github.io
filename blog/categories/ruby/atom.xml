@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Ruby | 博客]]></title>
   <link href="http://gonjay.github.io/blog/categories/ruby/atom.xml" rel="self"/>
   <link href="http://gonjay.github.io/"/>
-  <updated>2014-11-23T11:20:22+08:00</updated>
+  <updated>2014-12-06T10:56:48+08:00</updated>
   <id>http://gonjay.github.io/</id>
   <author>
     <name><![CDATA[GonJay]]></name>
@@ -206,9 +206,9 @@ class User(db.Model):
   
   <entry>
     <title type="html"><![CDATA[一些简单算法的Ruby实现]]></title>
-    <link href="http://gonjay.github.io/blog/2014/03/16/%5B%3F%5D-xie-jian-dan-suan-fa-de-rubyshi-xian/"/>
+    <link href="http://gonjay.github.io/blog/2014/03/16/yi-xie-jian-dan-suan-fa-de-rubyshi-xian/"/>
     <updated>2014-03-16T10:32:51+08:00</updated>
-    <id>http://gonjay.github.io/blog/2014/03/16/[?]-xie-jian-dan-suan-fa-de-rubyshi-xian</id>
+    <id>http://gonjay.github.io/blog/2014/03/16/yi-xie-jian-dan-suan-fa-de-rubyshi-xian</id>
     <content type="html"><![CDATA[<h2>堆排序</h2>
 
 <p>原理：利用大根堆或小根堆思想，首先建立堆，然后将堆首与堆尾交换，堆尾之后为有序区。</p>
