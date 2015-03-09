@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Ffmpeg | 博客]]></title>
+  <link href="http://gonjay.github.io/blog/categories/ffmpeg/atom.xml" rel="self"/>
+  <link href="http://gonjay.github.io/"/>
+  <updated>2015-03-09T15:01:57+08:00</updated>
+  <id>http://gonjay.github.io/</id>
+  <author>
+    <name><![CDATA[GonJay]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[使用 Ffmpeg 每隔 1s 截取 1 张图片]]></title>
+    <link href="http://gonjay.github.io/blog/2014/11/27/shi-yong-ffmpeg-mei-ge-1s-jie-qu-yi-zhang-tu-pian/"/>
+    <updated>2014-11-27T19:11:15+08:00</updated>
+    <id>http://gonjay.github.io/blog/2014/11/27/shi-yong-ffmpeg-mei-ge-1s-jie-qu-yi-zhang-tu-pian</id>
+    <content type="html"><![CDATA[<p>ffmpeg 是一很强大的软件，不过没有 GUI ，基本用法一旦掌握就能用来做很多事情了。</p>
+
+<!--more-->
+
+
+<p>每隔一秒钟截取一帧，输出为一个 gif</p>
+
+<pre><code>ffmpeg -i vid.avi -y -f gif -vf fps=fps=1 a.gif
+</code></pre>
+
+<p>每隔一秒截取一帧，输出为 foo-%03d.jpeg 的多张图片</p>
+
+<pre><code>ffmpeg -i vid.avi -y -f image2 -vf fps=fps=1 foo-%03d.jpeg
+</code></pre>
+
+<p><a href="http://wenku.baidu.com/view/296eefcaf90f76c661371af1.html">http://wenku.baidu.com/view/296eefcaf90f76c661371af1.html</a></p>
+]]></content>
+  </entry>
+  
+</feed>

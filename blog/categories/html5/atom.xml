@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Html5 | 博客]]></title>
+  <link href="http://gonjay.github.io/blog/categories/html5/atom.xml" rel="self"/>
+  <link href="http://gonjay.github.io/"/>
+  <updated>2015-03-09T15:01:57+08:00</updated>
+  <id>http://gonjay.github.io/</id>
+  <author>
+    <name><![CDATA[GonJay]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[HTML5 移动端框架汇总]]></title>
+    <link href="http://gonjay.github.io/blog/2015/01/06/html5-yi-dong-duan-kuang-jia-hui-zong/"/>
+    <updated>2015-01-06T12:08:26+08:00</updated>
+    <id>http://gonjay.github.io/blog/2015/01/06/html5-yi-dong-duan-kuang-jia-hui-zong</id>
+    <content type="html"><![CDATA[<p>开发过几年 Android， 玩过一段时间的 Rails，做过一些 Web App，最近因为一些低成本开发跨平台服务的需求，关注了一些 HTML5 的前端框架，有 Ionic 这样的纯技术向的优雅框架，也有国内比较接地气的 APICloud，下面以开发者视角介绍一些这些移动端框架。</p>
+
+<!--more-->
+
+
+<h1>Ionic</h1>
+
+<h1>APICloud</h1>
+
+<h1>Bootstrap</h1>
+
+<h1>HTML5+</h1>
+
+<h1>Semantic-UI</h1>
+
+<h1>AppCan</h1>
+
+<h1>PhoneGap</h1>
+]]></content>
+  </entry>
+  
+</feed>

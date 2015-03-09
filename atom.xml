@@ -4,7 +4,7 @@
   <title><![CDATA[博客]]></title>
   <link href="http://gonjay.github.io/atom.xml" rel="self"/>
   <link href="http://gonjay.github.io/"/>
-  <updated>2015-01-03T23:27:40+08:00</updated>
+  <updated>2015-03-09T15:01:57+08:00</updated>
   <id>http://gonjay.github.io/</id>
   <author>
     <name><![CDATA[GonJay]]></name>
@@ -12,6 +12,32 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[HTML5 移动端框架汇总]]></title>
+    <link href="http://gonjay.github.io/blog/2015/01/06/html5-yi-dong-duan-kuang-jia-hui-zong/"/>
+    <updated>2015-01-06T12:08:26+08:00</updated>
+    <id>http://gonjay.github.io/blog/2015/01/06/html5-yi-dong-duan-kuang-jia-hui-zong</id>
+    <content type="html"><![CDATA[<p>开发过几年 Android， 玩过一段时间的 Rails，做过一些 Web App，最近因为一些低成本开发跨平台服务的需求，关注了一些 HTML5 的前端框架，有 Ionic 这样的纯技术向的优雅框架，也有国内比较接地气的 APICloud，下面以开发者视角介绍一些这些移动端框架。</p>
+
+<!--more-->
+
+
+<h1>Ionic</h1>
+
+<h1>APICloud</h1>
+
+<h1>Bootstrap</h1>
+
+<h1>HTML5+</h1>
+
+<h1>Semantic-UI</h1>
+
+<h1>AppCan</h1>
+
+<h1>PhoneGap</h1>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[LeetCode 小结]]></title>
@@ -113,7 +139,9 @@ abcd
 <!--more-->
 
 
-<p><a href="http://gonjay.github.io/doc/%E6%97%A5%E6%9C%AC%E4%BC%81%E4%B8%9A%E6%96%87%E5%8C%96%E5%92%8C%E5%AE%97%E6%95%99%E4%BF%A1%E4%BB%B0.doc">日本企业文化和宗教信仰.doc</a></p>
+<p><a href="http://gonjay.github.io/doc/%E6%97%A5%E6%9C%AC%E4%BC%81%E4%B8%9A%E6%96%87%E5%8C%96%E5%92%8C%E5%AE%97%E6%95%99%E4%BF%A1%E4%BB%B0.doc">日本企业文化和宗教信仰.doc</a>
+<a href="http://gonjay.github.io/doc/%E5%AF%92%E5%81%87%E7%A4%BE%E4%BC%9A%E5%AE%9E%E8%B7%B5%E6%80%BB%E7%BB%93-%E9%BE%9A%E6%9D%B0-11%E7%94%B5%E4%BF%A11-1111112115.docx">寒假社会实践总结-龚杰-11电信1-1111112115.docx</a>
+<a href="http://gonjay.github.io/doc/%E5%AF%92%E5%81%87%E7%A4%BE%E4%BC%9A%E5%AE%9E%E8%B7%B5.pptx">寒假社会实践.pptx</a></p>
 ]]></content>
   </entry>
   
@@ -1627,331 +1655,6 @@ org.gradle.parallel=true
 <p>随着富有创造力的那批人不断改进计算机、软件、算法、机器人进而取代那些重复性劳动，很多领域都会被计算机所替代，举些例子：<a href="http://www.fdrobot.com/news_show_28.aspx">富士康机器人上岗 生产线由30人减至5人</a>；高速路上的ETC通道几乎没什么车而人工收费的通道队排得老长；电召打车和移动终端上的打车软件；</p>
 
 <p>社会差距会不会因此变得越来越大？这是一个严肃的社会问题。。。</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[一些简单算法的Ruby实现]]></title>
-    <link href="http://gonjay.github.io/blog/2014/03/16/yi-xie-jian-dan-suan-fa-de-rubyshi-xian/"/>
-    <updated>2014-03-16T10:32:51+08:00</updated>
-    <id>http://gonjay.github.io/blog/2014/03/16/yi-xie-jian-dan-suan-fa-de-rubyshi-xian</id>
-    <content type="html"><![CDATA[<h2>堆排序</h2>
-
-<p>原理：利用大根堆或小根堆思想，首先建立堆，然后将堆首与堆尾交换，堆尾之后为有序区。</p>
-
-<p>这里有一张原理图</p>
-
-<p><img src="http://upload.wikimedia.org/wikipedia/commons/4/4d/Heapsort-example.gif" alt="" /></p>
-
-<p>有这样一道笔试题</p>
-
-<pre><code>初始顺序为：1 8 6 2 5 4 7 3 一组数采用堆排序，当建堆（小根堆）完毕
-时，堆所对应的二叉树中序遍历顺序是什么。
-</code></pre>
-
-<p>上图给出的例子是建大根堆的情况，这个题目要求的是建小堆，但是原理类似：按照构建<code>满二叉树</code>的方法，将一个数组依次填入树中的相应位置，但是要保证根节点小于子节点，如果不小于子节点则将根节点与这个节点交换。</p>
-
-<h2>插入排序</h2>
-
-<p>直接插入排序</p>
-
-<p>原理：将数组分为无序和有序两个区，然后不断将无序区的第一个元素按大小顺序插入到有序区中，最终将所有无序区元素都移动到无序区完成排序。</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="kt">void</span> <span class="nf">InsertSort</span><span class="p">(</span><span class="n">Node</span> <span class="n">L</span><span class="p">[],</span><span class="kt">int</span> <span class="n">length</span><span class="p">)</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>  <span class="kt">int</span> <span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">;</span>
-</span><span class='line'>  <span class="k">for</span><span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">length</span><span class="p">;</span> <span class="n">i</span> <span class="o">++</span><span class="p">)</span>
-</span><span class='line'>  <span class="p">{</span>
-</span><span class='line'>      <span class="n">j</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
-</span><span class='line'>      <span class="k">if</span><span class="p">(</span><span class="n">L</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">L</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
-</span><span class='line'>      <span class="p">{</span>
-</span><span class='line'>          <span class="n">L</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">L</span><span class="p">[</span><span class="n">j</span><span class="p">];</span>
-</span><span class='line'>          <span class="c1">//当L[0]小于有序区的最后一个元素的时候，最后一个元素扩大，再和有序区倒数第二个比较</span>
-</span><span class='line'>          <span class="k">while</span><span class="p">(</span><span class="n">L</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">L</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
-</span><span class='line'>          <span class="p">{</span>
-</span><span class='line'>              <span class="n">L</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">L</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
-</span><span class='line'>              <span class="n">i</span> <span class="o">--</span><span class="p">;</span>
-</span><span class='line'>          <span class="p">}</span>
-</span><span class='line'>          <span class="n">L</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">L</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
-</span><span class='line'>      <span class="p">}</span>
-</span><span class='line'>      <span class="n">i</span> <span class="o">=</span> <span class="n">j</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span>
-</span><span class='line'>  <span class="p">}</span>        
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">def</span> <span class="nf">insert_sort</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
-</span><span class='line'>  <span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="o">=</span><span class="mi">0</span>
-</span><span class='line'>  <span class="k">for</span> <span class="n">i</span> <span class="k">in</span> <span class="mi">0</span><span class="o">.</span><span class="n">.</span><span class="o">.</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">length</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
-</span><span class='line'>    <span class="c1"># puts i</span>
-</span><span class='line'>    <span class="n">j</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span>
-</span><span class='line'>    <span class="k">if</span> <span class="n">node</span><span class="o">[</span><span class="n">j</span><span class="o">]</span> <span class="o">&lt;</span> <span class="n">node</span><span class="o">[</span><span class="n">i</span><span class="o">]</span>
-</span><span class='line'>      <span class="k">break</span> <span class="k">if</span> <span class="n">node</span><span class="o">[</span><span class="n">j</span><span class="o">].</span><span class="n">nil?</span>
-</span><span class='line'>      <span class="n">n</span> <span class="o">=</span> <span class="n">node</span><span class="o">[</span><span class="n">j</span><span class="o">]</span>
-</span><span class='line'>      <span class="k">while</span> <span class="n">n</span> <span class="o">&lt;</span> <span class="n">node</span><span class="o">[</span><span class="n">i</span><span class="o">]</span>
-</span><span class='line'>        <span class="n">node</span><span class="o">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="o">]</span> <span class="o">=</span> <span class="n">node</span><span class="o">[</span><span class="n">i</span><span class="o">]</span>
-</span><span class='line'>        <span class="n">i</span> <span class="o">-=</span> <span class="mi">1</span>
-</span><span class='line'>      <span class="k">end</span>
-</span><span class='line'>      <span class="n">node</span><span class="o">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="o">]</span> <span class="o">=</span> <span class="n">n</span>
-</span><span class='line'>    <span class="k">end</span>
-</span><span class='line'>    <span class="n">i</span> <span class="o">=</span> <span class="n">j</span> <span class="o">-</span> <span class="mi">1</span>
-</span><span class='line'>  <span class="k">end</span>
-</span><span class='line'>  <span class="n">node</span>
-</span><span class='line'><span class="k">end</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">node</span> <span class="o">=</span> <span class="o">[</span><span class="mi">7</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">13</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="o">]</span>
-</span><span class='line'>
-</span><span class='line'><span class="nb">puts</span> <span class="n">insert_sort</span> <span class="n">node</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>希尔算法</p>
-
-<p>原理：又称增量缩小排序。先将序列按增量划分为元素个数相同的若干组，使用直接插入排序法进行排序，然后不断缩小增量直至1，最后使用直接插入排序完成排序。</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="kt">void</span> <span class="nf">ShellSort</span><span class="p">(</span><span class="n">Node</span> <span class="n">L</span><span class="p">[],</span> <span class="kt">int</span> <span class="n">d</span><span class="p">)</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>  <span class="k">while</span><span class="p">(</span><span class="n">d</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="p">)</span>
-</span><span class='line'>  <span class="p">{</span>
-</span><span class='line'>      <span class="n">Shell</span><span class="p">(</span><span class="n">L</span><span class="p">,</span><span class="n">d</span><span class="p">);</span>
-</span><span class='line'>      <span class="n">d</span> <span class="o">=</span> <span class="n">d</span><span class="o">/</span><span class="mi">2</span><span class="p">;</span>
-</span><span class='line'>  <span class="p">}</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="kt">void</span> <span class="nf">Shell</span><span class="p">(</span><span class="n">Node</span> <span class="n">L</span><span class="p">[],</span> <span class="kt">int</span> <span class="n">d</span><span class="p">)</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>  <span class="kt">int</span> <span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">;</span>
-</span><span class='line'>  <span class="k">for</span><span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="n">d</span> <span class="o">+</span> <span class="mi">1</span> <span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">length</span><span class="p">;</span> <span class="n">i</span> <span class="o">++</span><span class="p">)</span>
-</span><span class='line'>  <span class="p">{</span>
-</span><span class='line'>      <span class="k">if</span><span class="p">(</span><span class="n">L</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">L</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="n">d</span><span class="p">])</span>
-</span><span class='line'>      <span class="p">{</span>
-</span><span class='line'>      <span class="n">L</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">L</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
-</span><span class='line'>      <span class="n">j</span> <span class="o">=</span> <span class="n">i</span> <span class="o">-</span> <span class="n">d</span><span class="p">;</span>
-</span><span class='line'>      <span class="k">while</span><span class="p">(</span><span class="n">j</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">L</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">L</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-</span><span class='line'>      <span class="p">{</span>
-</span><span class='line'>          <span class="n">L</span><span class="p">[</span><span class="n">j</span><span class="o">+</span><span class="n">d</span><span class="p">]</span> <span class="o">=</span> <span class="n">L</span><span class="p">[</span><span class="n">j</span><span class="p">];</span>
-</span><span class='line'>          <span class="n">j</span> <span class="o">=</span> <span class="n">j</span> <span class="o">-</span> <span class="n">d</span><span class="p">;</span>
-</span><span class='line'>      <span class="p">}</span>
-</span><span class='line'>      <span class="n">L</span><span class="p">[</span><span class="n">j</span><span class="o">+</span><span class="n">d</span><span class="p">]</span> <span class="o">=</span> <span class="n">L</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
-</span><span class='line'>      <span class="p">}</span>
-</span><span class='line'>  <span class="p">}</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">def</span> <span class="nf">shell_sort</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span>
-</span><span class='line'>  <span class="k">while</span><span class="p">(</span><span class="n">d</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
-</span><span class='line'>  <span class="n">shell</span> <span class="n">node</span><span class="p">,</span> <span class="n">d</span>
-</span><span class='line'>  <span class="n">d</span> <span class="o">=</span> <span class="n">d</span> <span class="o">/</span> <span class="mi">2</span>
-</span><span class='line'>  <span class="k">end</span>
-</span><span class='line'><span class="k">end</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">def</span> <span class="nf">shell</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span>
-</span><span class='line'>  <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span>
-</span><span class='line'>  <span class="n">i</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="n">d</span>
-</span><span class='line'>  <span class="k">for</span> <span class="n">i</span> <span class="k">in</span> <span class="mi">1</span><span class="o">.</span><span class="n">.</span><span class="o">.</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">length</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="k">do</span>
-</span><span class='line'>    <span class="k">if</span><span class="p">(</span><span class="n">node</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">&lt;</span> <span class="n">node</span><span class="o">[</span><span class="n">i</span><span class="o">-</span><span class="n">d</span><span class="o">]</span><span class="p">)</span>
-</span><span class='line'>      <span class="n">j</span> <span class="o">=</span> <span class="n">i</span> <span class="o">-</span> <span class="n">d</span>
-</span><span class='line'>      <span class="n">node</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span> <span class="o">=</span> <span class="n">node</span><span class="o">[</span><span class="n">i</span><span class="o">]</span>
-</span><span class='line'>      <span class="k">while</span><span class="p">(</span><span class="n">j</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">node</span><span class="o">[</span><span class="n">j</span><span class="o">]</span> <span class="o">&gt;</span> <span class="n">node</span><span class="o">[</span><span class="n">i</span><span class="o">]</span><span class="p">)</span>
-</span><span class='line'>          <span class="n">node</span><span class="o">[</span><span class="n">j</span><span class="o">+</span><span class="n">d</span><span class="o">]</span> <span class="o">=</span> <span class="n">node</span><span class="o">[</span><span class="n">j</span><span class="o">]</span>
-</span><span class='line'>          <span class="n">j</span> <span class="o">=</span> <span class="n">j</span> <span class="o">-</span> <span class="n">d</span>
-</span><span class='line'>      <span class="k">end</span>
-</span><span class='line'>      <span class="n">node</span><span class="o">[</span><span class="n">j</span><span class="o">]</span> <span class="o">=</span> <span class="n">node</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span>
-</span><span class='line'>    <span class="k">end</span>
-</span><span class='line'>  <span class="k">end</span>
-</span><span class='line'><span class="k">end</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>交换排序</h3>
-
-<p>冒泡排序</p>
-
-<p>原理：将序列划分为无序和有序区，不断通过交换较大元素至无序区尾完成排序</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="kt">void</span> <span class="nf">bubble_sort</span><span class="p">(</span><span class="n">Node</span> <span class="n">L</span><span class="p">[])</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>  <span class="kt">int</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">;</span>
-</span><span class='line'>  <span class="n">Bool</span> <span class="n">isChanged</span><span class="p">;</span>
-</span><span class='line'>  <span class="k">for</span><span class="p">(</span><span class="n">j</span> <span class="o">=</span> <span class="n">L</span><span class="p">.</span><span class="n">length</span><span class="p">;</span> <span class="n">j</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">--</span><span class="p">)</span>
-</span><span class='line'>  <span class="p">{</span>
-</span><span class='line'>      <span class="n">isChanged</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
-</span><span class='line'>      <span class="k">for</span><span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">j</span><span class="p">;</span> <span class="n">i</span> <span class="o">++</span><span class="p">)</span>
-</span><span class='line'>      <span class="p">{</span>
-</span><span class='line'>        <span class="k">if</span><span class="p">(</span><span class="n">L</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">L</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">])</span>
-</span><span class='line'>        <span class="p">{</span>
-</span><span class='line'>          <span class="kt">int</span> <span class="n">temp</span> <span class="o">=</span> <span class="n">L</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
-</span><span class='line'>          <span class="n">L</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">L</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">];</span>
-</span><span class='line'>          <span class="n">L</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">temp</span><span class="p">;</span>
-</span><span class='line'>          <span class="n">isChanged</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
-</span><span class='line'>        <span class="p">}</span>
-</span><span class='line'>      <span class="p">}</span>
-</span><span class='line'>      <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">isChanged</span><span class="p">)</span><span class="k">break</span><span class="p">;</span>
-</span><span class='line'>  <span class="p">}</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>选择排序</h3>
-
-<p>直接选择排序</p>
-
-<p>原理：将序列分为无序和有序区，寻找无序区中最小值和无序区的首元素交换，有序区扩大一个，循环最终完成排序</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="kt">void</span> <span class="nf">SelectSort</span><span class="p">(</span><span class="n">Node</span> <span class="n">L</span><span class="p">[])</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>  <span class="kt">int</span> <span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">,</span><span class="n">k</span><span class="p">;</span>
-</span><span class='line'>  <span class="k">for</span><span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">L</span><span class="p">.</span><span class="n">length</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
-</span><span class='line'>  <span class="p">{</span>
-</span><span class='line'>      <span class="n">k</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span>
-</span><span class='line'>      <span class="k">for</span><span class="p">(</span><span class="n">j</span><span class="o">=</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span><span class="n">j</span><span class="o">&lt;</span><span class="n">L</span><span class="p">.</span><span class="n">length</span><span class="p">;</span><span class="n">j</span><span class="o">++</span><span class="p">)</span>
-</span><span class='line'>      <span class="p">{</span>
-</span><span class='line'>        <span class="k">if</span><span class="p">(</span><span class="n">L</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">L</span><span class="p">[</span><span class="n">k</span><span class="p">])</span> <span class="n">k</span> <span class="o">=</span> <span class="n">j</span><span class="p">;</span>
-</span><span class='line'>      <span class="p">}</span>
-</span><span class='line'>      <span class="k">if</span><span class="p">(</span><span class="n">k</span> <span class="o">!=</span> <span class="n">i</span><span class="p">)</span>
-</span><span class='line'>      <span class="p">{</span>
-</span><span class='line'>        <span class="kt">int</span> <span class="n">temp</span> <span class="o">=</span> <span class="n">L</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
-</span><span class='line'>        <span class="n">L</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">L</span><span class="p">[</span><span class="n">k</span><span class="p">];</span>
-</span><span class='line'>        <span class="n">L</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">temp</span><span class="p">;</span>
-</span><span class='line'>      <span class="p">}</span>
-</span><span class='line'>  <span class="p">}</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
 ]]></content>
   </entry>
   
