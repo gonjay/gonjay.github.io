@@ -4,7 +4,7 @@
   <title><![CDATA[博客]]></title>
   <link href="http://gonjay.github.io/atom.xml" rel="self"/>
   <link href="http://gonjay.github.io/"/>
-  <updated>2015-03-09T15:01:57+08:00</updated>
+  <updated>2015-05-15T16:25:21+08:00</updated>
   <id>http://gonjay.github.io/</id>
   <author>
     <name><![CDATA[GonJay]]></name>
@@ -12,6 +12,150 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[PostGIS 查询附近的人]]></title>
+    <link href="http://gonjay.github.io/blog/2015/05/15/postgis-cha-xun-fu-jin-de-ren/"/>
+    <updated>2015-05-15T16:03:50+08:00</updated>
+    <id>http://gonjay.github.io/blog/2015/05/15/postgis-cha-xun-fu-jin-de-ren</id>
+    <content type="html"><![CDATA[<h1>关于 PostGIS</h1>
+
+<p><img src="http://postgis.net/images/postgis-logo.png" alt="" /></p>
+
+<p>PostGIS 是 PostGreSQL 关系型数据库中一个特别的数据库组件。增加了对地理位置对象的支持，并允许用 SQL 对位置信息的查询。</p>
+
+<p>笔者因为要开发一个约炮软件，遇到了这个需求，发现 MySQL 中巨坑爹的用矩形来把不同地理位置信息进行划分，不能忍就换了 PostGIS，蛮好的满足了我的约炮软件需求。</p>
+
+<!--more-->
+
+
+<h2>可能遇到的问题</h2>
+
+<p>在 <code>CREATE EXTENSION postgis;</code> 的时候遇到了</p>
+
+<pre><code>ERROR:  could not open extension control file "/usr/share/postgresql/9.1/extension/postgis.control": No such file or directory
+</code></pre>
+
+<p>谷歌找到了解决办法 <a href="http://stackoverflow.com/questions/18696078/postgresql-error-when-trying-to-create-an-extension">stackoverflow</a></p>
+
+<p>运行：</p>
+
+<pre><code>apt-get install postgresql-9.1-postgis-scripts
+</code></pre>
+
+<h2>创建合适的数据结构</h2>
+
+<p>然后重新连上postgres，并连上database，运行：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="k">CREATE</span> <span class="n">EXTENSION</span> <span class="n">postgis</span><span class="p">;</span>
+</span><span class='line'><span class="k">CREATE</span> <span class="n">EXTENSION</span> <span class="n">postgis_topology</span><span class="p">;</span>
+</span><span class='line'><span class="k">CREATE</span> <span class="n">EXTENSION</span> <span class="n">postgis_tiger_geocoder</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>此时 SELECT POSTGIS_VERSION(); 应该可以显示当前的GIS版本，我们来创建一个users表，再往里面塞一些数据：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">users</span> <span class="p">(</span> <span class="n">id</span> <span class="n">int4</span><span class="p">,</span> <span class="n">name</span> <span class="nb">varchar</span><span class="p">(</span><span class="mi">50</span><span class="p">),</span> <span class="n">the_geom</span> <span class="n">geometry</span><span class="p">(</span><span class="n">Point</span><span class="p">,</span> <span class="mi">4326</span><span class="p">)</span> <span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">users</span> <span class="p">(</span><span class="n">id</span><span class="p">,</span> <span class="n">the_geom</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span> <span class="k">VALUES</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">ST_GeomFromText</span><span class="p">(</span><span class="s1">&#39;POINT(114.316559 30.48828)&#39;</span><span class="p">,</span><span class="mi">4326</span><span class="p">),</span><span class="s1">&#39;小吴&#39;</span><span class="p">);</span>
+</span><span class='line'><span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">users</span> <span class="p">(</span><span class="n">id</span><span class="p">,</span> <span class="n">the_geom</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span> <span class="k">VALUES</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">ST_GeomFromText</span><span class="p">(</span><span class="s1">&#39;POINT(114.314008 30.486568)&#39;</span><span class="p">,</span><span class="mi">4326</span><span class="p">),</span><span class="s1">&#39;小是&#39;</span><span class="p">);</span>
+</span><span class='line'><span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">users</span> <span class="p">(</span><span class="n">id</span><span class="p">,</span> <span class="n">the_geom</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span> <span class="k">VALUES</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">ST_GeomFromText</span><span class="p">(</span><span class="s1">&#39;POINT(114.313685 30.479379)&#39;</span><span class="p">,</span><span class="mi">4326</span><span class="p">),</span><span class="s1">&#39;小傻&#39;</span><span class="p">);</span>
+</span><span class='line'><span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">users</span> <span class="p">(</span><span class="n">id</span><span class="p">,</span> <span class="n">the_geom</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span> <span class="k">VALUES</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">ST_GeomFromText</span><span class="p">(</span><span class="s1">&#39;POINT(114.317853 30.479799)&#39;</span><span class="p">,</span><span class="mi">4326</span><span class="p">),</span><span class="s1">&#39;小笔&#39;</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>其中Point GPS 数据来源于 <a href="http://api.map.baidu.com/lbsapi/getpoint/">http://api.map.baidu.com/lbsapi/getpoint/</a></p>
+
+<h2>查找附近的人</h2>
+
+<p>把小吴Point(114.316559, 30.48828)附近的人按照距离排序</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="k">select</span> <span class="n">id</span><span class="p">,</span> <span class="n">ST_AsText</span><span class="p">(</span><span class="n">the_geom</span><span class="p">)</span> <span class="k">from</span> <span class="n">users</span> <span class="k">order</span> <span class="k">by</span> <span class="n">the_geom</span> <span class="o">&lt;-&gt;</span> <span class="s1">&#39;SRID=4326;POINT(114.316559 30.48828)&#39;</span><span class="p">::</span><span class="n">geometry</span> <span class="k">limit</span> <span class="mi">10</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>把小是Point(114.314008, 30.486568)附近的人按照距离排序</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="k">select</span> <span class="n">id</span><span class="p">,</span> <span class="n">ST_AsText</span><span class="p">(</span><span class="n">the_geom</span><span class="p">)</span> <span class="k">from</span> <span class="n">users</span> <span class="k">order</span> <span class="k">by</span> <span class="n">the_geom</span> <span class="o">&lt;-&gt;</span> <span class="s1">&#39;SRID=4326;POINT(114.314008 30.486568)&#39;</span><span class="p">::</span><span class="n">geometry</span> <span class="k">limit</span> <span class="mi">10</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>查找1000m以内的人</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="k">select</span> <span class="n">id</span><span class="p">,</span> <span class="n">ST_AsText</span><span class="p">(</span><span class="n">the_geom</span><span class="p">)</span> <span class="k">from</span> <span class="n">users</span> <span class="k">where</span> <span class="n">ST_DWithin</span><span class="p">(</span><span class="n">the_geom</span><span class="p">::</span><span class="n">geography</span><span class="p">,</span> <span class="n">ST_GeographyFromText</span><span class="p">(</span><span class="s1">&#39;POINT(114.316559 30.48828)&#39;</span><span class="p">),</span> <span class="mi">10</span><span class="p">.</span><span class="mi">0</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>并计算出距离</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="k">select</span> <span class="n">id</span><span class="p">,</span> <span class="n">ST_AsText</span><span class="p">(</span><span class="n">u</span><span class="p">.</span><span class="n">the_geom</span><span class="p">),</span> <span class="n">ST_Distance</span><span class="p">(</span><span class="n">ST_GeomFromText</span><span class="p">(</span><span class="s1">&#39;POINT(114.316559 30.48828)&#39;</span><span class="p">,</span><span class="mi">4326</span><span class="p">),</span> <span class="n">u</span><span class="p">.</span><span class="n">the_geom</span><span class="p">)</span> <span class="k">from</span> <span class="n">users</span> <span class="k">as</span> <span class="n">u</span>
+</span><span class='line'><span class="k">where</span> <span class="n">ST_DWithin</span><span class="p">(</span><span class="n">the_geom</span><span class="p">::</span><span class="n">geography</span><span class="p">,</span> <span class="n">ST_GeographyFromText</span><span class="p">(</span><span class="s1">&#39;POINT(114.316559 30.48828)&#39;</span><span class="p">),</span> <span class="mi">10000</span><span class="p">.</span><span class="mi">0</span><span class="p">)</span>
+</span><span class='line'><span class="k">order</span> <span class="k">by</span> <span class="n">the_geom</span> <span class="o">&lt;-&gt;</span> <span class="s1">&#39;SRID=4326;POINT(114.316559 30.48828)&#39;</span><span class="p">::</span><span class="n">geometry</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>输出:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="n">id</span> <span class="n">st_astext</span>
+</span><span class='line'><span class="n">st_distance</span><span class="p">(</span><span class="err">百公里</span><span class="p">)</span>
+</span><span class='line'><span class="mi">1</span> <span class="n">POINT</span><span class="p">(</span><span class="mi">114</span><span class="p">.</span><span class="mi">316559</span> <span class="mi">30</span><span class="p">.</span><span class="mi">48828</span><span class="p">)</span>
+</span><span class='line'><span class="mi">0</span>
+</span><span class='line'><span class="mi">1</span> <span class="n">POINT</span><span class="p">(</span><span class="mi">114</span><span class="p">.</span><span class="mi">314008</span> <span class="mi">30</span><span class="p">.</span><span class="mi">486568</span><span class="p">)</span>
+</span><span class='line'><span class="mi">0</span><span class="p">.</span><span class="mi">00307222150893915</span>
+</span><span class='line'><span class="mi">1</span> <span class="n">POINT</span><span class="p">(</span><span class="mi">114</span><span class="p">.</span><span class="mi">317853</span> <span class="mi">30</span><span class="p">.</span><span class="mi">479799</span><span class="p">)</span>
+</span><span class='line'><span class="mi">0</span><span class="p">.</span><span class="mi">00857914896711785</span>
+</span><span class='line'><span class="mi">1</span> <span class="n">POINT</span><span class="p">(</span><span class="mi">114</span><span class="p">.</span><span class="mi">313685</span> <span class="mi">30</span><span class="p">.</span><span class="mi">479379</span><span class="p">)</span>
+</span><span class='line'><span class="mi">0</span><span class="p">.</span><span class="mi">00935348475168029</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>另外一种按照距离排序的sql写法</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="c1">-- Closest street to Broad Street station is Wall St</span>
+</span><span class='line'><span class="k">SELECT</span> <span class="n">streets</span><span class="p">.</span><span class="n">gid</span><span class="p">,</span> <span class="n">streets</span><span class="p">.</span><span class="n">name</span>
+</span><span class='line'><span class="k">FROM</span>
+</span><span class='line'>  <span class="n">nyc_streets</span> <span class="n">streets</span><span class="p">,</span>
+</span><span class='line'>  <span class="n">nyc_subway_stations</span> <span class="n">subways</span>
+</span><span class='line'><span class="k">WHERE</span> <span class="n">subways</span><span class="p">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Broad St&#39;</span>
+</span><span class='line'><span class="k">ORDER</span> <span class="k">BY</span> <span class="n">ST_Distance</span><span class="p">(</span><span class="n">streets</span><span class="p">.</span><span class="n">geom</span><span class="p">,</span> <span class="n">subways</span><span class="p">.</span><span class="n">geom</span><span class="p">)</span> <span class="k">ASC</span>
+</span><span class='line'><span class="k">LIMIT</span> <span class="mi">1</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[HTML5 移动端框架汇总]]></title>
@@ -152,6 +296,8 @@ abcd
     <id>http://gonjay.github.io/blog/2014/11/28/jie-shao-liang-kuan-mac-xia-de-yuan-xing-gong-ju</id>
     <content type="html"><![CDATA[<p>介绍两款 Mac 下非常酷的带交互设计功能的原型工具。一个叫 Framer，另一个叫 avocado。</p>
 
+<p><img src="http://gonjay.github.io/images/avocado/animations.gif" alt="" /></p>
+
 <!--more-->
 
 
@@ -159,12 +305,17 @@ abcd
 
 <p><a href="https://github.com/koenbok/Framer">https://github.com/koenbok/Framer</a></p>
 
-<h3>avocade</h3>
+<h3>avocado</h3>
 
 <p><a href="https://github.com/ideo/avocado">https://github.com/ideo/avocado</a></p>
 
-<p><img src="https://github.com/trive/avocado/raw/master/Other/GIFs/Keyboard.gif" alt="" />
-<img src="https://github.com/trive/avocado/raw/master/Other/GIFs/Delay.gif" alt="" /></p>
+<p><img src="http://gonjay.github.io/images/avocado/animations.gif" alt="" />
+<img src="http://gonjay.github.io/images/avocado/bluetooth.gif" alt="" />
+<img src="http://gonjay.github.io/images/avocado/bluetooth2.gif" alt="" />
+<img src="http://gonjay.github.io/images/avocado/carousel.gif" alt="" />
+<img src="http://gonjay.github.io/images/avocado/dial.gif" alt="" />
+<img src="http://gonjay.github.io/images/avocado/draggable.gif" alt="" />
+<img src="http://gonjay.github.io/images/avocado/rolodex.gif" alt="" /></p>
 ]]></content>
   </entry>
   
@@ -1618,43 +1769,6 @@ org.gradle.parallel=true
 <p>这也就意味着，对于一个利用cocos开发的游戏要接入我们的SDK，我们应该不会去开发针对Lua或者JS的单独SDK，而是给出一个指导，即当游戏开发商生成了一个Android项目或者iOS项目之后，应该怎样接入我们的平台。这就涉及到Lua调用Java，Java调用Lua，又或者Objective-C调用Lua或者Lua调用Objective-C了，剩下的事情，就是纯粹SDK的一些操作。</p>
 
 <p>接下来尝试，将一个html5的cocos打包生成一个Android项目，尝试用js去调用java以及java调用js</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[关于跳跃式思维]]></title>
-    <link href="http://gonjay.github.io/blog/2014/03/20/guan-yu-tiao-yue-shi-si-wei/"/>
-    <updated>2014-03-20T21:50:39+08:00</updated>
-    <id>http://gonjay.github.io/blog/2014/03/20/guan-yu-tiao-yue-shi-si-wei</id>
-    <content type="html"><![CDATA[<p>我给堂姐大概提了下我被一家游戏公司录取实习后的待遇，显得非常吃惊，这个水平的报酬是她和姐夫在深圳打拼多少年后才有的，对我一番褒奖后又是感叹时代变化的剧烈。但是我也知道，如今再想达到他们在深圳现在的水平，真的是难上加难。</p>
-
-<p>他们本身也是供职一家上市公司，在这座城市里面过得还蛮体面的，不过却依然报名了一个英语补习班，利用晚饭后闲暇的时间给自己充电。晚上闲来无事，我便跟他们一起去上课了。</p>
-
-<p>讲台上的英文老师操着一口温文尔雅的英文口语，听着贼舒服。大多数情况下，我这个农村的孩子只能在电影里面才能听见这种口语，那种由胸腔发出的地道美式口语一直是我非常向往的能力。</p>
-
-<p>课不难，对我而言很是轻松，老师讲得仔细，恍惚之中我又回到了高中课堂，非常兴奋的听着老师的课，嘴巴跟着老师一句一句说着，试图模仿老师的发音，思维十分活跃。</p>
-
-<p>老师突然提了一个问题<code>Do you think cheap goods is bad in quality?Why?</code>。</p>
-
-<p>我立马说<code>Brand price!</code>,品牌溢价是立马想到的一个词，然后脑海里奔腾而过的是Apple、乔布斯、iPhone。。。。好吧，IT男的属性光环立马就出来了。</p>
-
-<p>老师听见安静的学员里面就我发出了声音，对我非常有兴趣，示意我大声说一遍，此时我的优越感立马暴涨，又大声重复了一遍，心里还为自己如此高端的答案自豪不已，然后。。然后老师失望的摇摇头，说<code>Because the origin price is wrong</code></p>
-
-<p>我了个擦擦擦。。。要不要问这种蛋疼的事情！！</p>
-
-<p>心里各种奔腾，但表面只好悻悻的笑了笑，坐了下来。我突然意识到这其实已经不是第一次了，早在小学、初中、高中，我就经常作出如此‘乌龙’的事情，班上思维最活跃的那个，最积极的那个，就是给不出老师一个满意的回答或者提问，那个时候因为这样的事情，每每对一门课堂感兴趣起来，用不了多久就会被老师失望的眼神变得对这门课程沉默、被动。就我个人而言，每当遇到一个问题，或者说无人解决的难题，我首先就会用各种非常规的思维方式去思考<code>或者说有点像在找bug，然后让这个问题出现栈溢出，再注入自己的思维方式去解决这个问题</code>。当然，实际效果而言，大多数中国老师都是不认同的，或者从另一个角度而言，他们意识不到原来解决一个问题还可以用这种方式？这种扩大问题的方式，最后难以把答案收缩到他们所理解的或者准备的那个狭小的区域，也就没有了标准答案，这个才是他们最害怕的。</p>
-
-<p>其实，这个也是正常人遇见一个陌生问题后非常平常的思维习惯，那种发散式的，漫无目的的思维本质上也是人类创造性思维的一部分，而很多学生时常因为发散性的思维而被老师冷眼对待而努力去压抑自己，慢慢的，面对陌生的问题，有的就只剩下沉默了。</p>
-
-<p>优秀的教育里面，应该是鼓励学生的这种思维方式的，但是从老师而言，这种思维方式会增加他们的授课成本，不利于整个教学进度。</p>
-
-<p>对于经济发达地区，因为家长愿意付出更多成本给老师，老师只用教授人数不多的学生，没有教学进度的压力，便能更好的应对学生的跳跃式思维，帮助学生去完善和引导学生的思维，并从这种跳跃式的、发散式的思维里面迸发出精彩的idea。最终，这些学生会非常富有创造力，长大后也更容易去从事高附加值和创造性的工作，不仅充满激情也能为社会创造巨大的价值。</p>
-
-<p>然后，问题又来了，那些穷人的孩子呢？为了实现更低成本的教学方式，他们不得不像工厂里的零件一样被批量的加工，从一个流水线送到另一个流水线上。。。</p>
-
-<p>随着富有创造力的那批人不断改进计算机、软件、算法、机器人进而取代那些重复性劳动，很多领域都会被计算机所替代，举些例子：<a href="http://www.fdrobot.com/news_show_28.aspx">富士康机器人上岗 生产线由30人减至5人</a>；高速路上的ETC通道几乎没什么车而人工收费的通道队排得老长；电召打车和移动终端上的打车软件；</p>
-
-<p>社会差距会不会因此变得越来越大？这是一个严肃的社会问题。。。</p>
 ]]></content>
   </entry>
   

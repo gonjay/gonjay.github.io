@@ -1,0 +1,347 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>PostGIS 查询附近的人 - 博客</title>
+  <meta name="author" content="GonJay">
+
+  
+  <meta name="description" content="关于 PostGIS PostGIS 是 PostGreSQL 关系型数据库中一个特别的数据库组件。增加了对地理位置对象的支持，并允许用 SQL 对位置信息的查询。 笔者因为要开发一个约炮软件，遇到了这个需求，发现 MySQL 中巨坑爹的用矩形来把不同地理位置信息进行划分，不能忍就换了 &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://gonjay.github.io/blog/2015/05/15/postgis-cha-xun-fu-jin-de-ren">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="博客" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/libs/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-40130853-2']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">博客</a></h1>
+  
+    <h2>群星，我的归宿</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://wen.lu/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:gonjay.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">PostGIS 查询附近的人</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2015-05-15T16:03:50+08:00'><span class='date'><span class='date-month'>May</span> <span class='date-day'>15</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>4:03 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><h1>关于 PostGIS</h1>
+
+<p><img src="http://postgis.net/images/postgis-logo.png" alt="" /></p>
+
+<p>PostGIS 是 PostGreSQL 关系型数据库中一个特别的数据库组件。增加了对地理位置对象的支持，并允许用 SQL 对位置信息的查询。</p>
+
+<p>笔者因为要开发一个约炮软件，遇到了这个需求，发现 MySQL 中巨坑爹的用矩形来把不同地理位置信息进行划分，不能忍就换了 PostGIS，蛮好的满足了我的约炮软件需求。</p>
+
+<!--more-->
+
+
+<h2>可能遇到的问题</h2>
+
+<p>在 <code>CREATE EXTENSION postgis;</code> 的时候遇到了</p>
+
+<pre><code>ERROR:  could not open extension control file "/usr/share/postgresql/9.1/extension/postgis.control": No such file or directory
+</code></pre>
+
+<p>谷歌找到了解决办法 <a href="http://stackoverflow.com/questions/18696078/postgresql-error-when-trying-to-create-an-extension">stackoverflow</a></p>
+
+<p>运行：</p>
+
+<pre><code>apt-get install postgresql-9.1-postgis-scripts
+</code></pre>
+
+<h2>创建合适的数据结构</h2>
+
+<p>然后重新连上postgres，并连上database，运行：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="k">CREATE</span> <span class="n">EXTENSION</span> <span class="n">postgis</span><span class="p">;</span>
+</span><span class='line'><span class="k">CREATE</span> <span class="n">EXTENSION</span> <span class="n">postgis_topology</span><span class="p">;</span>
+</span><span class='line'><span class="k">CREATE</span> <span class="n">EXTENSION</span> <span class="n">postgis_tiger_geocoder</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>此时 SELECT POSTGIS_VERSION(); 应该可以显示当前的GIS版本，我们来创建一个users表，再往里面塞一些数据：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">users</span> <span class="p">(</span> <span class="n">id</span> <span class="n">int4</span><span class="p">,</span> <span class="n">name</span> <span class="nb">varchar</span><span class="p">(</span><span class="mi">50</span><span class="p">),</span> <span class="n">the_geom</span> <span class="n">geometry</span><span class="p">(</span><span class="n">Point</span><span class="p">,</span> <span class="mi">4326</span><span class="p">)</span> <span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">users</span> <span class="p">(</span><span class="n">id</span><span class="p">,</span> <span class="n">the_geom</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span> <span class="k">VALUES</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">ST_GeomFromText</span><span class="p">(</span><span class="s1">&#39;POINT(114.316559 30.48828)&#39;</span><span class="p">,</span><span class="mi">4326</span><span class="p">),</span><span class="s1">&#39;小吴&#39;</span><span class="p">);</span>
+</span><span class='line'><span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">users</span> <span class="p">(</span><span class="n">id</span><span class="p">,</span> <span class="n">the_geom</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span> <span class="k">VALUES</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">ST_GeomFromText</span><span class="p">(</span><span class="s1">&#39;POINT(114.314008 30.486568)&#39;</span><span class="p">,</span><span class="mi">4326</span><span class="p">),</span><span class="s1">&#39;小是&#39;</span><span class="p">);</span>
+</span><span class='line'><span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">users</span> <span class="p">(</span><span class="n">id</span><span class="p">,</span> <span class="n">the_geom</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span> <span class="k">VALUES</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">ST_GeomFromText</span><span class="p">(</span><span class="s1">&#39;POINT(114.313685 30.479379)&#39;</span><span class="p">,</span><span class="mi">4326</span><span class="p">),</span><span class="s1">&#39;小傻&#39;</span><span class="p">);</span>
+</span><span class='line'><span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">users</span> <span class="p">(</span><span class="n">id</span><span class="p">,</span> <span class="n">the_geom</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span> <span class="k">VALUES</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">ST_GeomFromText</span><span class="p">(</span><span class="s1">&#39;POINT(114.317853 30.479799)&#39;</span><span class="p">,</span><span class="mi">4326</span><span class="p">),</span><span class="s1">&#39;小笔&#39;</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>其中Point GPS 数据来源于 <a href="http://api.map.baidu.com/lbsapi/getpoint/">http://api.map.baidu.com/lbsapi/getpoint/</a></p>
+
+<h2>查找附近的人</h2>
+
+<p>把小吴Point(114.316559, 30.48828)附近的人按照距离排序</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="k">select</span> <span class="n">id</span><span class="p">,</span> <span class="n">ST_AsText</span><span class="p">(</span><span class="n">the_geom</span><span class="p">)</span> <span class="k">from</span> <span class="n">users</span> <span class="k">order</span> <span class="k">by</span> <span class="n">the_geom</span> <span class="o">&lt;-&gt;</span> <span class="s1">&#39;SRID=4326;POINT(114.316559 30.48828)&#39;</span><span class="p">::</span><span class="n">geometry</span> <span class="k">limit</span> <span class="mi">10</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>把小是Point(114.314008, 30.486568)附近的人按照距离排序</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="k">select</span> <span class="n">id</span><span class="p">,</span> <span class="n">ST_AsText</span><span class="p">(</span><span class="n">the_geom</span><span class="p">)</span> <span class="k">from</span> <span class="n">users</span> <span class="k">order</span> <span class="k">by</span> <span class="n">the_geom</span> <span class="o">&lt;-&gt;</span> <span class="s1">&#39;SRID=4326;POINT(114.314008 30.486568)&#39;</span><span class="p">::</span><span class="n">geometry</span> <span class="k">limit</span> <span class="mi">10</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>查找1000m以内的人</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="k">select</span> <span class="n">id</span><span class="p">,</span> <span class="n">ST_AsText</span><span class="p">(</span><span class="n">the_geom</span><span class="p">)</span> <span class="k">from</span> <span class="n">users</span> <span class="k">where</span> <span class="n">ST_DWithin</span><span class="p">(</span><span class="n">the_geom</span><span class="p">::</span><span class="n">geography</span><span class="p">,</span> <span class="n">ST_GeographyFromText</span><span class="p">(</span><span class="s1">&#39;POINT(114.316559 30.48828)&#39;</span><span class="p">),</span> <span class="mi">10</span><span class="p">.</span><span class="mi">0</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>并计算出距离</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="k">select</span> <span class="n">id</span><span class="p">,</span> <span class="n">ST_AsText</span><span class="p">(</span><span class="n">u</span><span class="p">.</span><span class="n">the_geom</span><span class="p">),</span> <span class="n">ST_Distance</span><span class="p">(</span><span class="n">ST_GeomFromText</span><span class="p">(</span><span class="s1">&#39;POINT(114.316559 30.48828)&#39;</span><span class="p">,</span><span class="mi">4326</span><span class="p">),</span> <span class="n">u</span><span class="p">.</span><span class="n">the_geom</span><span class="p">)</span> <span class="k">from</span> <span class="n">users</span> <span class="k">as</span> <span class="n">u</span>
+</span><span class='line'><span class="k">where</span> <span class="n">ST_DWithin</span><span class="p">(</span><span class="n">the_geom</span><span class="p">::</span><span class="n">geography</span><span class="p">,</span> <span class="n">ST_GeographyFromText</span><span class="p">(</span><span class="s1">&#39;POINT(114.316559 30.48828)&#39;</span><span class="p">),</span> <span class="mi">10000</span><span class="p">.</span><span class="mi">0</span><span class="p">)</span>
+</span><span class='line'><span class="k">order</span> <span class="k">by</span> <span class="n">the_geom</span> <span class="o">&lt;-&gt;</span> <span class="s1">&#39;SRID=4326;POINT(114.316559 30.48828)&#39;</span><span class="p">::</span><span class="n">geometry</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>输出:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="n">id</span> <span class="n">st_astext</span>
+</span><span class='line'><span class="n">st_distance</span><span class="p">(</span><span class="err">百公里</span><span class="p">)</span>
+</span><span class='line'><span class="mi">1</span> <span class="n">POINT</span><span class="p">(</span><span class="mi">114</span><span class="p">.</span><span class="mi">316559</span> <span class="mi">30</span><span class="p">.</span><span class="mi">48828</span><span class="p">)</span>
+</span><span class='line'><span class="mi">0</span>
+</span><span class='line'><span class="mi">1</span> <span class="n">POINT</span><span class="p">(</span><span class="mi">114</span><span class="p">.</span><span class="mi">314008</span> <span class="mi">30</span><span class="p">.</span><span class="mi">486568</span><span class="p">)</span>
+</span><span class='line'><span class="mi">0</span><span class="p">.</span><span class="mi">00307222150893915</span>
+</span><span class='line'><span class="mi">1</span> <span class="n">POINT</span><span class="p">(</span><span class="mi">114</span><span class="p">.</span><span class="mi">317853</span> <span class="mi">30</span><span class="p">.</span><span class="mi">479799</span><span class="p">)</span>
+</span><span class='line'><span class="mi">0</span><span class="p">.</span><span class="mi">00857914896711785</span>
+</span><span class='line'><span class="mi">1</span> <span class="n">POINT</span><span class="p">(</span><span class="mi">114</span><span class="p">.</span><span class="mi">313685</span> <span class="mi">30</span><span class="p">.</span><span class="mi">479379</span><span class="p">)</span>
+</span><span class='line'><span class="mi">0</span><span class="p">.</span><span class="mi">00935348475168029</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>另外一种按照距离排序的sql写法</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="c1">-- Closest street to Broad Street station is Wall St</span>
+</span><span class='line'><span class="k">SELECT</span> <span class="n">streets</span><span class="p">.</span><span class="n">gid</span><span class="p">,</span> <span class="n">streets</span><span class="p">.</span><span class="n">name</span>
+</span><span class='line'><span class="k">FROM</span>
+</span><span class='line'>  <span class="n">nyc_streets</span> <span class="n">streets</span><span class="p">,</span>
+</span><span class='line'>  <span class="n">nyc_subway_stations</span> <span class="n">subways</span>
+</span><span class='line'><span class="k">WHERE</span> <span class="n">subways</span><span class="p">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Broad St&#39;</span>
+</span><span class='line'><span class="k">ORDER</span> <span class="k">BY</span> <span class="n">ST_Distance</span><span class="p">(</span><span class="n">streets</span><span class="p">.</span><span class="n">geom</span><span class="p">,</span> <span class="n">subways</span><span class="p">.</span><span class="n">geom</span><span class="p">)</span> <span class="k">ASC</span>
+</span><span class='line'><span class="k">LIMIT</span> <span class="mi">1</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">GonJay</span></span>
+
+      
+
+
+
+
+<time class='entry-date' datetime='2015-05-15T16:03:50+08:00'><span class='date'><span class='date-month'>May</span> <span class='date-day'>15</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>4:03 pm</span></time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2015/01/06/html5-yi-dong-duan-kuang-jia-hui-zong/" title="Previous Post: HTML5 移动端框架汇总">&laquo; HTML5 移动端框架汇总</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2015/05/15/postgis-cha-xun-fu-jin-de-ren/">PostGIS 查询附近的人</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/01/06/html5-yi-dong-duan-kuang-jia-hui-zong/">HTML5 移动端框架汇总</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/01/03/leetcode-xiao-jie/">LeetCode 小结</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/12/06/wen-dang-mu-lu/">文档目录</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/11/28/jie-shao-liang-kuan-mac-xia-de-yuan-xing-gong-ju/">介绍两款 Mac 下的原型工具</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2015 - GonJay -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'gonjay';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://gonjay.github.io/blog/2015/05/15/postgis-cha-xun-fu-jin-de-ren/';
+        var disqus_url = 'http://gonjay.github.io/blog/2015/05/15/postgis-cha-xun-fu-jin-de-ren/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+</body>
+</html>

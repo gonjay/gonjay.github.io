@@ -9,9 +9,7 @@
   <meta name="author" content="GonJay">
 
   
-  <meta name="description" content="生成1到10的数组 1
-array = (1..10).to_a 通过数组的each，直接调用对象的方法 1
-ActiveRecord::Base.subclasses.each(&amp;:delete_all) ">
+  <meta name="description" content="这两天重新写Rspec测试，参考了 ruby-china 的测试用例和配置方法。 在使用Rspec的过程中因为有使用 FactoryGirl ，发现在一些用例中使用user的时候会发生 Validation failed: Email has already been taken ( &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -78,6 +76,141 @@ ActiveRecord::Base.subclasses.each(&amp;:delete_all) ">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/09/19/rspeczhong-shi-yong-database-cleaner/">Rspec中使用database_cleaner</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2014-09-19T16:56:50+08:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>19</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>4:56 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>这两天重新写Rspec测试，参考了 ruby-china 的测试用例和配置方法。</p>
+
+<p>在使用Rspec的过程中因为有使用 FactoryGirl ，发现在一些用例中使用user的时候会发生</p>
+
+<pre><code>Validation failed: Email has already been taken (ActiveRecord::RecordInvalid)
+</code></pre>
+
+<p>因为在生成user的时候没有使用单例模式，所有每次向 FactoryGirl 要 user 的时候都会重新生成新的数据，所以就和之前发生冲突了。</p>
+
+<p>参考 ruby-china 的测试代码，发现是使用了 database_cleaner 使得每个测试用例之后清扫了测试数据库，就不会引发冲突了。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'>  <span class="n">config</span><span class="o">.</span><span class="n">before</span><span class="p">(</span><span class="ss">:each</span><span class="p">)</span> <span class="k">do</span>
+</span><span class='line'>    <span class="no">DatabaseCleaner</span><span class="o">.</span><span class="n">orm</span> <span class="o">=</span> <span class="ss">:mongoid</span>
+</span><span class='line'>    <span class="no">DatabaseCleaner</span><span class="o">.</span><span class="n">strategy</span> <span class="o">=</span> <span class="ss">:truncation</span>
+</span><span class='line'>    <span class="no">DatabaseCleaner</span><span class="o">.</span><span class="n">clean</span>
+</span><span class='line'>    <span class="no">Rails</span><span class="o">.</span><span class="n">cache</span><span class="o">.</span><span class="n">clear</span>
+</span><span class='line'>  <span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>但是当我把 database_cleaner 配置好并加到我项目 rspec 中的时候，却遇到了</p>
+
+<pre><code>/gems/database_cleaner-0.8.0/lib/database_cleaner/active_record/truncation.rb:62:in `&lt;module:ConnectionAdapters&gt;': superclass mismatch for class SQLite3Adapter (TypeError)
+</code></pre>
+
+<p>网上搜索一堆无效之后，转而使用另外一个解决方案</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'>  <span class="n">config</span><span class="o">.</span><span class="n">after</span><span class="p">(</span><span class="ss">:each</span><span class="p">)</span> <span class="k">do</span>
+</span><span class='line'>    <span class="ss">ActiveRecord</span><span class="p">:</span><span class="ss">:Base</span><span class="o">.</span><span class="n">subclasses</span><span class="o">.</span><span class="n">each</span><span class="p">(</span><span class="o">&amp;</span><span class="ss">:delete_all</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>也就是在跑完每个测试用例之后，删除掉数据库中所有的 Model 数据</p>
+
+<p>由于这样一段代码，接下来我遇到了一个更加头疼的问题。因为我使用 Devise 的 <code>sign_in user</code> 在每个测试用例中来模拟登陆后的用户，结果发现，前后两个测试用例，总是出现第一个用例能通过，第二个用例死活通过不了。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">TeamsController</span> <span class="o">&lt;</span> <span class="no">ApplicationController</span>
+</span><span class='line'>  <span class="n">before_action</span> <span class="ss">:authenticate_user!</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1"># 第一个 examples 能通过，第二个 examples 无法通过</span>
+</span><span class='line'><span class="n">describe</span> <span class="no">TeamsController</span><span class="p">,</span> <span class="ss">:type</span> <span class="o">=&gt;</span> <span class="ss">:controller</span> <span class="k">do</span>
+</span><span class='line'>  <span class="n">user</span> <span class="o">=</span> <span class="no">FactoryGirl</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="ss">:user</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">describe</span> <span class="s2">&quot;:index&quot;</span> <span class="k">do</span>
+</span><span class='line'>    <span class="n">it</span> <span class="s2">&quot;should show list of teams&quot;</span> <span class="k">do</span>
+</span><span class='line'>      <span class="n">sign_in</span> <span class="n">user</span>
+</span><span class='line'>      <span class="n">get</span> <span class="ss">:index</span>
+</span><span class='line'>      <span class="n">expect</span><span class="p">(</span><span class="n">response</span><span class="p">)</span><span class="o">.</span><span class="n">to</span> <span class="n">be_success</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">describe</span> <span class="s2">&quot;:new&quot;</span> <span class="k">do</span>
+</span><span class='line'>    <span class="n">it</span> <span class="s2">&quot;should allow access from authenticated user&quot;</span> <span class="k">do</span>
+</span><span class='line'>      <span class="n">sign_in</span> <span class="n">user</span>
+</span><span class='line'>      <span class="n">get</span> <span class="ss">:new</span>
+</span><span class='line'>      <span class="n">expect</span><span class="p">(</span><span class="n">response</span><span class="p">)</span><span class="o">.</span><span class="n">to</span> <span class="n">be_success</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>将第二个 examples 的 response.body 打印出来，发现</p>
+
+<pre><code>&lt;html&gt;&lt;body&gt;You are being &lt;a href="http://test.host/users/sign_in"&gt;redirected&lt;/a&gt;.&lt;/body&gt;&lt;/html&gt;
+</code></pre>
+
+<p>无解，然后分别打印两个用例的 controller.current_user，发现后一个是 nil</p>
+
+<p>最终我将 database_cleaner 升级到了 1.3.0 重新bundle了一下，解决了 <code>superclass mismatch for class SQLite3Adapter</code> 的问题，移除了那段删除所有 Model 数据的 trick 代码所有的问题全部解决了。</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -562,63 +695,6 @@ org.gradle.parallel=true
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/03/20/guan-yu-tiao-yue-shi-si-wei/">关于跳跃式思维</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2014-03-20T21:50:39+08:00'><span class='date'><span class='date-month'>Mar</span> <span class='date-day'>20</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>9:50 pm</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>我给堂姐大概提了下我被一家游戏公司录取实习后的待遇，显得非常吃惊，这个水平的报酬是她和姐夫在深圳打拼多少年后才有的，对我一番褒奖后又是感叹时代变化的剧烈。但是我也知道，如今再想达到他们在深圳现在的水平，真的是难上加难。</p>
-
-<p>他们本身也是供职一家上市公司，在这座城市里面过得还蛮体面的，不过却依然报名了一个英语补习班，利用晚饭后闲暇的时间给自己充电。晚上闲来无事，我便跟他们一起去上课了。</p>
-
-<p>讲台上的英文老师操着一口温文尔雅的英文口语，听着贼舒服。大多数情况下，我这个农村的孩子只能在电影里面才能听见这种口语，那种由胸腔发出的地道美式口语一直是我非常向往的能力。</p>
-
-<p>课不难，对我而言很是轻松，老师讲得仔细，恍惚之中我又回到了高中课堂，非常兴奋的听着老师的课，嘴巴跟着老师一句一句说着，试图模仿老师的发音，思维十分活跃。</p>
-
-<p>老师突然提了一个问题<code>Do you think cheap goods is bad in quality?Why?</code>。</p>
-
-<p>我立马说<code>Brand price!</code>,品牌溢价是立马想到的一个词，然后脑海里奔腾而过的是Apple、乔布斯、iPhone。。。。好吧，IT男的属性光环立马就出来了。</p>
-
-<p>老师听见安静的学员里面就我发出了声音，对我非常有兴趣，示意我大声说一遍，此时我的优越感立马暴涨，又大声重复了一遍，心里还为自己如此高端的答案自豪不已，然后。。然后老师失望的摇摇头，说<code>Because the origin price is wrong</code></p>
-
-<p>我了个擦擦擦。。。要不要问这种蛋疼的事情！！</p>
-
-<p>心里各种奔腾，但表面只好悻悻的笑了笑，坐了下来。我突然意识到这其实已经不是第一次了，早在小学、初中、高中，我就经常作出如此‘乌龙’的事情，班上思维最活跃的那个，最积极的那个，就是给不出老师一个满意的回答或者提问，那个时候因为这样的事情，每每对一门课堂感兴趣起来，用不了多久就会被老师失望的眼神变得对这门课程沉默、被动。就我个人而言，每当遇到一个问题，或者说无人解决的难题，我首先就会用各种非常规的思维方式去思考<code>或者说有点像在找bug，然后让这个问题出现栈溢出，再注入自己的思维方式去解决这个问题</code>。当然，实际效果而言，大多数中国老师都是不认同的，或者从另一个角度而言，他们意识不到原来解决一个问题还可以用这种方式？这种扩大问题的方式，最后难以把答案收缩到他们所理解的或者准备的那个狭小的区域，也就没有了标准答案，这个才是他们最害怕的。</p>
-
-<p>其实，这个也是正常人遇见一个陌生问题后非常平常的思维习惯，那种发散式的，漫无目的的思维本质上也是人类创造性思维的一部分，而很多学生时常因为发散性的思维而被老师冷眼对待而努力去压抑自己，慢慢的，面对陌生的问题，有的就只剩下沉默了。</p>
-
-<p>优秀的教育里面，应该是鼓励学生的这种思维方式的，但是从老师而言，这种思维方式会增加他们的授课成本，不利于整个教学进度。</p>
-
-<p>对于经济发达地区，因为家长愿意付出更多成本给老师，老师只用教授人数不多的学生，没有教学进度的压力，便能更好的应对学生的跳跃式思维，帮助学生去完善和引导学生的思维，并从这种跳跃式的、发散式的思维里面迸发出精彩的idea。最终，这些学生会非常富有创造力，长大后也更容易去从事高附加值和创造性的工作，不仅充满激情也能为社会创造巨大的价值。</p>
-
-<p>然后，问题又来了，那些穷人的孩子呢？为了实现更低成本的教学方式，他们不得不像工厂里的零件一样被批量的加工，从一个流水线送到另一个流水线上。。。</p>
-
-<p>随着富有创造力的那批人不断改进计算机、软件、算法、机器人进而取代那些重复性劳动，很多领域都会被计算机所替代，举些例子：<a href="http://www.fdrobot.com/news_show_28.aspx">富士康机器人上岗 生产线由30人减至5人</a>；高速路上的ETC通道几乎没什么车而人工收费的通道队排得老长；电召打车和移动终端上的打车软件；</p>
-
-<p>社会差距会不会因此变得越来越大？这是一个严肃的社会问题。。。</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/posts/3">&larr; Older</a>
@@ -636,6 +712,10 @@ org.gradle.parallel=true
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2015/05/15/postgis-cha-xun-fu-jin-de-ren/">PostGIS 查询附近的人</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2015/01/06/html5-yi-dong-duan-kuang-jia-hui-zong/">HTML5 移动端框架汇总</a>
       </li>
     
@@ -649,10 +729,6 @@ org.gradle.parallel=true
     
       <li class="post">
         <a href="/blog/2014/11/28/jie-shao-liang-kuan-mac-xia-de-yuan-xing-gong-ju/">介绍两款 Mac 下的原型工具</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/11/27/shi-yong-ffmpeg-mei-ge-1s-jie-qu-yi-zhang-tu-pian/">使用 Ffmpeg 每隔 1s 截取 1 张图片</a>
       </li>
     
   </ul>

@@ -9,9 +9,8 @@
   <meta name="author" content="GonJay">
 
   
-  <meta name="description" content="开源地址 https://github.com/gonjay/rubychina4android 下载 Google Play下载 开发版下载 1.0.5 发布版下载 1.0.5 特性： 整合Ruby-China的faye实现消息实时推送功能【新！！！】
-安卓原生的侧滑抽屉
-下拉刷新 &hellip;">
+  <meta name="description" content="像Gemfile一样使用gradle 随着项目越来越大，为了更多特性，我们不得不使用越来越多的开源库。按照Eclipse等传统的方式，我们一般会这样做： 下载jar包，并添加到项目的build path里面
+下载library，将整个文件夹导入到workspace里面，然后在自己的项目里面添加依赖 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -78,6 +77,84 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/02/19/android-sutio-shi-yong-zhi-nan/">Android Sutio 使用指南&#8211;像Gemfile一样使用gradle</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2014-02-19T00:04:26+08:00'><span class='date'><span class='date-month'>Feb</span> <span class='date-day'>19</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>12:04 am</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h1>像Gemfile一样使用gradle</h1>
+
+<p>随着项目越来越大，为了更多特性，我们不得不使用越来越多的开源库。按照Eclipse等传统的方式，我们一般会这样做：</p>
+
+<ol>
+<li>下载jar包，并添加到项目的build path里面</li>
+<li>下载library，将整个文件夹导入到workspace里面，然后在自己的项目里面添加依赖</li>
+</ol>
+
+
+<p>这种方式很有效，但你可以搜索一下Ruby的gem，node.js的npm，iOS的cocoapods，还有过去java项目中的maven依赖。</p>
+
+<p>对比你就发现了，原来这些包管理工具让使用者都不用自己从网上下载，Android依赖管理不是那么优秀，于是Google在最新的Android开发工具便使用gradle来管理项目。那么想比起传统的maven，gradle有哪些优势呢？</p>
+
+<h3>选择Gradle的五个优势</h3>
+
+<ol>
+<li>已经被证明能够处理大型的项目规模&ndash;LinkedIn, Netflix, Orbitz这些大公司都使用它来管理项目</li>
+<li>gradle提供了对于多语言、多平台最自然的处理方式&ndash;Scala, Groovy, C/C++这些项目都能用gradle来管理</li>
+<li>gradle专注build效率</li>
+<li>gradle的发布周期很短</li>
+<li>社区支持很棒</li>
+</ol>
+
+
+<p><a href="http://www.gradleware.com/resources/tech/java/maven">链接</a></p>
+
+<h3>如何引用Maven？</h3>
+
+<p>之前我们是这样引用</p>
+
+<pre><code>&lt;dependency&gt;
+    &lt;groupId&gt;com.nhaarman.listviewanimations&lt;/groupId&gt;
+    &lt;artifactId&gt;library&lt;/artifactId&gt;
+    &lt;version&gt;2.5.2&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre>
+
+<p>现在我们是这样</p>
+
+<pre><code>repositories {
+    mavenCentral()
+}
+
+dependencies{
+    compile 'com.nhaarman.listviewanimations:library:2.5.2'
+}
+</code></pre>
+
+<p>你看最新的依赖管理方式让你再也不用去github上面下载jar包了或者导入整个library</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -185,6 +262,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2015/05/15/postgis-cha-xun-fu-jin-de-ren/">PostGIS 查询附近的人</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2015/01/06/html5-yi-dong-duan-kuang-jia-hui-zong/">HTML5 移动端框架汇总</a>
       </li>
     
@@ -198,10 +279,6 @@
     
       <li class="post">
         <a href="/blog/2014/11/28/jie-shao-liang-kuan-mac-xia-de-yuan-xing-gong-ju/">介绍两款 Mac 下的原型工具</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/11/27/shi-yong-ffmpeg-mei-ge-1s-jie-qu-yi-zhang-tu-pian/">使用 Ffmpeg 每隔 1s 截取 1 张图片</a>
       </li>
     
   </ul>
