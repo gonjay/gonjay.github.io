@@ -4,7 +4,7 @@
   <title><![CDATA[博客]]></title>
   <link href="http://gonjay.github.io/atom.xml" rel="self"/>
   <link href="http://gonjay.github.io/"/>
-  <updated>2015-05-19T09:18:43+08:00</updated>
+  <updated>2015-05-19T09:20:20+08:00</updated>
   <id>http://gonjay.github.io/</id>
   <author>
     <name><![CDATA[GonJay]]></name>
@@ -21,6 +21,9 @@
     <content type="html"><![CDATA[<p>因为 Webrick 中的 FileHandler 对于中文编码不支持，在用 httpd host一个中文目录的时候会出现 500 错误，所以最近尝试用 Ruby socket 写一个简单的 HTTP 文件服务器，遇到中文的时候不至于崩溃，同时满足自己在局域网内更好的把文件分享给移动端的需求。</p>
 
 <p>!()[/images/ruby-divider.png]</p>
+
+<!--more-->
+
 
 <h3>将根据请求的资源路径转化为实际的目录</h3>
 

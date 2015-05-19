@@ -102,74 +102,12 @@
 
 <p>!()[/images/ruby-divider.png]</p>
 
-<h3>将根据请求的资源路径转化为实际的目录</h3>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">server</span>       <span class="o">=</span> <span class="no">TCPServer</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s1">&#39;0.0.0.0&#39;</span><span class="p">,</span> <span class="mi">2345</span><span class="p">)</span>
-</span><span class='line'><span class="n">socket</span>       <span class="o">=</span> <span class="n">server</span><span class="o">.</span><span class="n">accept</span>
-</span><span class='line'><span class="n">request_line</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">gets</span>
-</span><span class='line'><span class="n">path</span>        <span class="o">=</span> <span class="n">requested_file</span><span class="p">(</span><span class="n">request_line</span><span class="p">)</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">def</span> <span class="nf">requested_file</span><span class="p">(</span><span class="n">request_line</span><span class="p">)</span>
-</span><span class='line'>  <span class="n">request_uri</span>  <span class="o">=</span> <span class="n">request_line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">)</span><span class="o">[</span><span class="mi">1</span><span class="o">]</span>
-</span><span class='line'>  <span class="n">path</span>         <span class="o">=</span> <span class="no">URI</span><span class="o">.</span><span class="n">unescape</span><span class="p">(</span><span class="no">URI</span><span class="p">(</span><span class="n">request_uri</span><span class="p">)</span><span class="o">.</span><span class="n">path</span><span class="p">)</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="n">clean</span> <span class="o">=</span> <span class="o">[]</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="n">parts</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="n">parts</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">part</span><span class="o">|</span>
-</span><span class='line'>    <span class="k">next</span> <span class="k">if</span> <span class="n">part</span><span class="o">.</span><span class="n">empty?</span> <span class="o">||</span> <span class="n">part</span> <span class="o">==</span> <span class="s1">&#39;.&#39;</span>
-</span><span class='line'>    <span class="n">part</span> <span class="o">==</span> <span class="s1">&#39;..&#39;</span> <span class="p">?</span> <span class="n">clean</span><span class="o">.</span><span class="n">pop</span> <span class="p">:</span> <span class="n">clean</span> <span class="o">&lt;&lt;</span> <span class="n">part</span>
-</span><span class='line'>  <span class="k">end</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="no">File</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="no">WEB_ROOT</span><span class="p">,</span> <span class="o">*</span><span class="n">clean</span><span class="p">)</span>
-</span><span class='line'><span class="k">end</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>但是如果我们host的是中文目录，在运行的时候，会遇到这个问题：</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="no">Encoding</span><span class="o">::</span><span class="no">CompatibilityError</span> <span class="p">(</span><span class="n">incompatible</span> <span class="n">character</span> <span class="ss">encodings</span><span class="p">:</span> <span class="no">ASCII</span><span class="o">-</span><span class="mi">8</span><span class="no">BIT</span> <span class="ow">and</span> <span class="no">UTF</span><span class="o">-</span><span class="mi">8</span><span class="p">):</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>join的时候，遇到了问题，类似的事情也发生在 (Paperclip)[<a href="https://github.com/thoughtbot/paperclip/issues/301">https://github.com/thoughtbot/paperclip/issues/301</a>] 上面。最后通过 force_encoding 解决了这个问题。</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="no">File</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="no">WEB_ROOT</span><span class="p">,</span> <span class="o">*</span><span class="n">clean</span><span class="p">)</span><span class="o">.</span><span class="n">force_encoding</span><span class="p">(</span><span class="s1">&#39;UTF-8&#39;</span><span class="p">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>不要使用 size 或者 length 作为 Content-Length</h3>
-
-<p>在返回的 body 中，如果只有 ascii 字符，使用 size 或者 length 作为 Content-Length 是没有什么问题的。但是浏览器那边是根据字节流读取的，一旦流里面有了 unicode 字符，浏览器根据 Content-Length 截取的字节流长度就不准确了。</p>
-
-<p>所以正确的做法是要么不要摄者 Content-Length，要么用string的 bytesize 作为 Length。</p>
-
-<p>(Implementing an http file server)[<a href="https://practicingruby.com/articles/implementing-an-http-file-server">https://practicingruby.com/articles/implementing-an-http-file-server</a>]</p>
 </div>
   
+  
+    <footer>
+      <a rel="full-article" href="/blog/2015/05/19/http-content-length-should-be-string-dot-bytesize-not-string-dot-size/">Read on &rarr;</a>
+    </footer>
   
 
 
