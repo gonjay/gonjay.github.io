@@ -5,7 +5,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>博客</title>
+  <title>HTTP Content-Length 应该是 string.bytesize 而不是 string.size - 博客</title>
   <meta name="author" content="GonJay">
 
   
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://gonjay.github.io">
+  <link rel="canonical" href="http://gonjay.github.io/blog/2015/05/19/http-content-length-should-be-string-dot-bytesize-not-string-dot-size">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="博客" type="application/atom+xml">
@@ -74,15 +74,12 @@
 </nav>
   <div id="main">
     <div id="content">
-      <div class="blog-index">
+      <div>
+<article class="hentry" role="article">
   
-  
-  
-    <article>
-      
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2015/05/19/http-content-length-should-be-string-dot-bytesize-not-string-dot-size/">HTTP Content-Length 应该是 string.bytesize 而不是 string.size</a></h1>
+      <h1 class="entry-title">HTTP Content-Length 应该是 string.bytesize 而不是 string.size</h1>
     
     
       <p class="meta">
@@ -98,7 +95,7 @@
   </header>
 
 
-  <div class="entry-content"><p>因为 Webrick 中的 FileHandler 对于中文编码不支持，在用 httpd host一个中文目录的时候会出现 500 错误，所以最近尝试用 Ruby socket 写一个简单的 HTTP 文件服务器，遇到中文的时候不至于崩溃，同时满足自己在局域网内更好的把文件分享给移动端的需求。</p>
+<div class="entry-content"><p>因为 Webrick 中的 FileHandler 对于中文编码不支持，在用 httpd host一个中文目录的时候会出现 500 错误，所以最近尝试用 Ruby socket 写一个简单的 HTTP 文件服务器，遇到中文的时候不至于崩溃，同时满足自己在局域网内更好的把文件分享给移动端的需求。</p>
 
 <p>!()[/images/ruby-divider.png]</p>
 
@@ -169,343 +166,50 @@
 
 <p>(Implementing an http file server)[<a href="https://practicingruby.com/articles/implementing-an-http-file-server">https://practicingruby.com/articles/implementing-an-http-file-server</a>]</p>
 </div>
-  
-  
 
 
-    </article>
-  
-  
-    <article>
+  <footer>
+    <p class="meta">
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2015/05/15/postgis-cha-xun-fu-jin-de-ren/">PostGIS 查询附近的人</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2015-05-15T16:03:50+08:00'><span class='date'><span class='date-month'>May</span> <span class='date-day'>15</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>4:03 pm</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h1>关于 PostGIS</h1>
-
-<p><img src="http://postgis.net/images/postgis-logo.png" alt="" /></p>
-
-<p>PostGIS 是 PostGreSQL 关系型数据库中一个特别的数据库组件。增加了对地理位置对象的支持，并允许用 SQL 对位置信息的查询。</p>
-
-<p>笔者因为要开发一个约炮软件，遇到了这个需求，发现 MySQL 中巨坑爹的用矩形来把不同地理位置信息进行划分，不能忍就换了 PostGIS，蛮好的满足了我的约炮软件需求。</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2015/05/15/postgis-cha-xun-fu-jin-de-ren/">Read on &rarr;</a>
-    </footer>
   
 
+<span class="byline author vcard">Posted by <span class="fn">GonJay</span></span>
 
-    </article>
-  
-  
-    <article>
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2015/01/06/html5-yi-dong-duan-kuang-jia-hui-zong/">HTML5 移动端框架汇总</a></h1>
-    
-    
-      <p class="meta">
-        
 
 
 
 
-<time class='entry-date' datetime='2015-01-06T12:08:26+08:00'><span class='date'><span class='date-month'>Jan</span> <span class='date-day'>6</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>12:08 pm</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>开发过几年 Android， 玩过一段时间的 Rails，做过一些 Web App，最近因为一些低成本开发跨平台服务的需求，关注了一些 HTML5 的前端框架，有 Ionic 这样的纯技术向的优雅框架，也有国内比较接地气的 APICloud，下面以开发者视角介绍一些这些移动端框架。</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2015/01/06/html5-yi-dong-duan-kuang-jia-hui-zong/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
-  
-    <article>
+<time class='entry-date' datetime='2015-05-19T08:58:39+08:00'><span class='date'><span class='date-month'>May</span> <span class='date-day'>19</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>8:58 am</span></time>
       
-  <header>
+
+
+    </p>
     
-      <h1 class="entry-title"><a href="/blog/2015/01/03/leetcode-xiao-jie/">LeetCode 小结</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2015-01-03T15:21:50+08:00'><span class='date'><span class='date-month'>Jan</span> <span class='date-day'>3</span><span class='date-suffix'>rd</span>, <span class='date-year'>2015</span></span> <span class='time'>3:21 pm</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>LeetCode小结</p>
-
-<p>Longest Common Prefix 与 Longest Valid Parentheses</p>
-
+      <div class="sharing">
+  
+  
+  
 </div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2015/01/03/leetcode-xiao-jie/">Read on &rarr;</a>
-    </footer>
-  
 
-
-    </article>
-  
-  
-    <article>
+    
+    <p class="meta">
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/12/06/wen-dang-mu-lu/">文档目录</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2014-12-06T10:54:28+08:00'><span class='date'><span class='date-month'>Dec</span> <span class='date-day'>6</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>10:54 am</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>一些文档目录</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2014/12/06/wen-dang-mu-lu/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
-  
-    <article>
+        <a class="basic-alignment left" href="/blog/2015/05/15/postgis-cha-xun-fu-jin-de-ren/" title="Previous Post: PostGIS 查询附近的人">&laquo; PostGIS 查询附近的人</a>
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/11/28/jie-shao-liang-kuan-mac-xia-de-yuan-xing-gong-ju/">介绍两款 Mac 下的原型工具</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2014-11-28T19:58:16+08:00'><span class='date'><span class='date-month'>Nov</span> <span class='date-day'>28</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>7:58 pm</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>介绍两款 Mac 下非常酷的带交互设计功能的原型工具。一个叫 Framer，另一个叫 avocado。</p>
-
-<p><img src="/images/avocado/animations.gif" alt="" /></p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2014/11/28/jie-shao-liang-kuan-mac-xia-de-yuan-xing-gong-ju/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
-  
-    <article>
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/11/27/shi-yong-ffmpeg-mei-ge-1s-jie-qu-yi-zhang-tu-pian/">使用 Ffmpeg 每隔 1s 截取 1 张图片</a></h1>
-    
-    
-      <p class="meta">
-        
+    </p>
+  </footer>
+</article>
 
-
-
-
-<time class='entry-date' datetime='2014-11-27T19:11:15+08:00'><span class='date'><span class='date-month'>Nov</span> <span class='date-day'>27</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>7:11 pm</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>ffmpeg 是一很强大的软件，不过没有 GUI ，基本用法一旦掌握就能用来做很多事情了。</p>
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
 
 </div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2014/11/27/shi-yong-ffmpeg-mei-ge-1s-jie-qu-yi-zhang-tu-pian/">Read on &rarr;</a>
-    </footer>
-  
 
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/11/23/gitche-xiao-zui-jin-yi-ci-commit/">Git撤销最近一次Commit</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2014-11-23T00:32:05+08:00'><span class='date'><span class='date-month'>Nov</span> <span class='date-day'>23</span><span class='date-suffix'>rd</span>, <span class='date-year'>2014</span></span> <span class='time'>12:32 am</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>有时候会发现commit错了，需要重新commit，但是又不想为了一个小的修改多一次修复的commit。</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2014/11/23/gitche-xiao-zui-jin-yi-ci-commit/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/10/14/androidyu-cocos2d-xkai-fa-zhong-de-huan-cun-chi/">Android与Cocos2d-x开发中的缓存池</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2014-10-14T22:27:53+08:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>14</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>10:27 pm</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>缓存就像写作业前，把相关的资料和工具摆到桌面上一样，这样会比真正要用到的时候再去取要方便。生活中这样的例子挺多的，在软件领域，实现缓存机制的地方笔者接触到了两个非常类似的，一个是Android开发中，使用ListView的Adapter，渲染每个item时用到的ViewHoder，另外一个是Cocos2d-x开发游戏时，缓存的怪物对象。</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2014/10/14/androidyu-cocos2d-xkai-fa-zhong-de-huan-cun-chi/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/10/12/vimtutor/">Vimtutor 简体中文</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2014-10-12T16:41:44+08:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>12</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>4:41 pm</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h2>欢 迎 阅 读《VIM教程》── 版本 1.5</h2>
-
-<p>vim 是一个具有很多命令的功能非常强大的编辑器。限于篇幅，在本教程当中不就详细介绍了。本教程的设计目标是讲述一些必要的基本命令，而掌握好这些命令，您就能够很容易将vim当作一个通用的万能编辑器来使用了。</p>
-
-<p>完成本教程的内容大约需要25-30分鐘，取决于您训练的时间。</p>
-
-<p>（一张快捷键的图）
-<img src="/images/vim.png" alt="" /></p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2014/10/12/vimtutor/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
-  <div class="pagination">
-    
-      <a class="prev" href="/posts/2">&larr; Older</a>
-    
-    <a href="/blog/archives">Blog Archives</a>
-    
-  </div>
-</div>
 <aside class="sidebar">
   
     <section>
@@ -542,6 +246,7 @@
   
 </aside>
 
+
     </div>
   </div>
   <footer role="contentinfo"><p>
@@ -556,7 +261,10 @@
       var disqus_shortname = 'gonjay';
       
         
-        var disqus_script = 'count.js';
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://gonjay.github.io/blog/2015/05/19/http-content-length-should-be-string-dot-bytesize-not-string-dot-size/';
+        var disqus_url = 'http://gonjay.github.io/blog/2015/05/19/http-content-length-should-be-string-dot-bytesize-not-string-dot-size/';
+        var disqus_script = 'embed.js';
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;

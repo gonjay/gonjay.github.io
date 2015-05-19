@@ -4,7 +4,7 @@
   <title><![CDATA[博客]]></title>
   <link href="http://gonjay.github.io/atom.xml" rel="self"/>
   <link href="http://gonjay.github.io/"/>
-  <updated>2015-05-15T16:25:21+08:00</updated>
+  <updated>2015-05-19T09:18:43+08:00</updated>
   <id>http://gonjay.github.io/</id>
   <author>
     <name><![CDATA[GonJay]]></name>
@@ -12,6 +12,84 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[HTTP Content-Length 应该是 string.bytesize 而不是 string.size]]></title>
+    <link href="http://gonjay.github.io/blog/2015/05/19/http-content-length-should-be-string-dot-bytesize-not-string-dot-size/"/>
+    <updated>2015-05-19T08:58:39+08:00</updated>
+    <id>http://gonjay.github.io/blog/2015/05/19/http-content-length-should-be-string-dot-bytesize-not-string-dot-size</id>
+    <content type="html"><![CDATA[<p>因为 Webrick 中的 FileHandler 对于中文编码不支持，在用 httpd host一个中文目录的时候会出现 500 错误，所以最近尝试用 Ruby socket 写一个简单的 HTTP 文件服务器，遇到中文的时候不至于崩溃，同时满足自己在局域网内更好的把文件分享给移动端的需求。</p>
+
+<p>!()[/images/ruby-divider.png]</p>
+
+<h3>将根据请求的资源路径转化为实际的目录</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">server</span>       <span class="o">=</span> <span class="no">TCPServer</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s1">&#39;0.0.0.0&#39;</span><span class="p">,</span> <span class="mi">2345</span><span class="p">)</span>
+</span><span class='line'><span class="n">socket</span>       <span class="o">=</span> <span class="n">server</span><span class="o">.</span><span class="n">accept</span>
+</span><span class='line'><span class="n">request_line</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">gets</span>
+</span><span class='line'><span class="n">path</span>        <span class="o">=</span> <span class="n">requested_file</span><span class="p">(</span><span class="n">request_line</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="nf">requested_file</span><span class="p">(</span><span class="n">request_line</span><span class="p">)</span>
+</span><span class='line'>  <span class="n">request_uri</span>  <span class="o">=</span> <span class="n">request_line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">)</span><span class="o">[</span><span class="mi">1</span><span class="o">]</span>
+</span><span class='line'>  <span class="n">path</span>         <span class="o">=</span> <span class="no">URI</span><span class="o">.</span><span class="n">unescape</span><span class="p">(</span><span class="no">URI</span><span class="p">(</span><span class="n">request_uri</span><span class="p">)</span><span class="o">.</span><span class="n">path</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">clean</span> <span class="o">=</span> <span class="o">[]</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">parts</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">parts</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">part</span><span class="o">|</span>
+</span><span class='line'>    <span class="k">next</span> <span class="k">if</span> <span class="n">part</span><span class="o">.</span><span class="n">empty?</span> <span class="o">||</span> <span class="n">part</span> <span class="o">==</span> <span class="s1">&#39;.&#39;</span>
+</span><span class='line'>    <span class="n">part</span> <span class="o">==</span> <span class="s1">&#39;..&#39;</span> <span class="p">?</span> <span class="n">clean</span><span class="o">.</span><span class="n">pop</span> <span class="p">:</span> <span class="n">clean</span> <span class="o">&lt;&lt;</span> <span class="n">part</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="no">File</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="no">WEB_ROOT</span><span class="p">,</span> <span class="o">*</span><span class="n">clean</span><span class="p">)</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>但是如果我们host的是中文目录，在运行的时候，会遇到这个问题：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="no">Encoding</span><span class="o">::</span><span class="no">CompatibilityError</span> <span class="p">(</span><span class="n">incompatible</span> <span class="n">character</span> <span class="ss">encodings</span><span class="p">:</span> <span class="no">ASCII</span><span class="o">-</span><span class="mi">8</span><span class="no">BIT</span> <span class="ow">and</span> <span class="no">UTF</span><span class="o">-</span><span class="mi">8</span><span class="p">):</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>join的时候，遇到了问题，类似的事情也发生在 (Paperclip)[<a href="https://github.com/thoughtbot/paperclip/issues/301">https://github.com/thoughtbot/paperclip/issues/301</a>] 上面。最后通过 force_encoding 解决了这个问题。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="no">File</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="no">WEB_ROOT</span><span class="p">,</span> <span class="o">*</span><span class="n">clean</span><span class="p">)</span><span class="o">.</span><span class="n">force_encoding</span><span class="p">(</span><span class="s1">&#39;UTF-8&#39;</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>不要使用 size 或者 length 作为 Content-Length</h3>
+
+<p>在返回的 body 中，如果只有 ascii 字符，使用 size 或者 length 作为 Content-Length 是没有什么问题的。但是浏览器那边是根据字节流读取的，一旦流里面有了 unicode 字符，浏览器根据 Content-Length 截取的字节流长度就不准确了。</p>
+
+<p>所以正确的做法是要么不要摄者 Content-Length，要么用string的 bytesize 作为 Length。</p>
+
+<p>(Implementing an http file server)[<a href="https://practicingruby.com/articles/implementing-an-http-file-server">https://practicingruby.com/articles/implementing-an-http-file-server</a>]</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[PostGIS 查询附近的人]]></title>
@@ -1752,23 +1830,6 @@ org.gradle.parallel=true
 <p>Although you need migration files in rails,since Flask and SQLAlchemy just configure data structure within model.The benefit of migration files comes out when you want to change your data structure of model.And now I finally known why my teacher ask me to design data structure at first,because other web framework have no ideas about what if our data structure changed.</p>
 
 <p>With migration files in rails, you can change you data structure so easy that you can develop really really align.All details about the program becomes more and more clear after you start coding.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Start Cocos2d With Lua]]></title>
-    <link href="http://gonjay.github.io/blog/2014/03/25/start-cocos2d-with-lua/"/>
-    <updated>2014-03-25T15:02:55+08:00</updated>
-    <id>http://gonjay.github.io/blog/2014/03/25/start-cocos2d-with-lua</id>
-    <content type="html"><![CDATA[<h2>quick-cocos2d-x</h2>
-
-<h2>tip</h2>
-
-<p>cocos游戏开发的流程是先采用Lua或者JS，把整个游戏实现出来，然后利用相应的工具去打包成不同平台下的项目，比如打包Android平台或者iOS平台的项目，然后利用相应平台的工具编译成apk或者ipa文件。</p>
-
-<p>这也就意味着，对于一个利用cocos开发的游戏要接入我们的SDK，我们应该不会去开发针对Lua或者JS的单独SDK，而是给出一个指导，即当游戏开发商生成了一个Android项目或者iOS项目之后，应该怎样接入我们的平台。这就涉及到Lua调用Java，Java调用Lua，又或者Objective-C调用Lua或者Lua调用Objective-C了，剩下的事情，就是纯粹SDK的一些操作。</p>
-
-<p>接下来尝试，将一个html5的cocos打包生成一个Android项目，尝试用js去调用java以及java调用js</p>
 ]]></content>
   </entry>
   
